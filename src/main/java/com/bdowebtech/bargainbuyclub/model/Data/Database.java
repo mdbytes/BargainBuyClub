@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class Database {
     
     public ArrayList<Store> stores;
+    public ArrayList<Product> products;
     public ArrayList<User> users;
     public ArrayList<Alert> alerts;
     
@@ -27,6 +28,7 @@ public class Database {
         this.users = new ArrayList<User>();
         this.alerts = new ArrayList<Alert>();
         this.stores = new ArrayList<Store>();
+        this.products = new ArrayList<Product>();
     }
     
     public Store getStoreByProductUrl(String productUrl) {
@@ -77,14 +79,58 @@ public class Database {
         return this.alerts;
     }
     
+       
+    public boolean validateUser(String userName, String password) {
+        boolean isValid = false;
+        for(User user: this.users) System.out.println(user.toString());
+        for(User user: this.users) {
+            if(user.getEmailAddress().equals(userName)) {
+                if((password).equals(user.getPassword())) {
+                    isValid = true;
+                    break;
+                }
+            }
+        }
+        System.out.println("Valid :  " + isValid);
+        return isValid;
+    }
+    
+    public ArrayList<Alert> getUserAlerts(String userName) {
+        ArrayList<Alert> userAlerts = new ArrayList<Alert>();
+        
+        for(Alert alert: this.alerts) {
+            if(alert.getUser().getEmailAddress().equalsIgnoreCase(userName));
+            userAlerts.add(alert);
+        }
+        
+        return userAlerts;
+    }
+    
         
     public void setUpDatabase() {
         ArrayList<String[]> alertRequests = alertRequests();
         Store bestBuy = new Store("Best Buy","bestbuy.com","div.priceView-hero-price.priceView-customer-price","div.shop-product-title");
-        User user = new User("Martin","Dwyer","martin.dwyer@outlook.com","admin");
-        
+        this.stores.add(bestBuy);
+        User user = new User("Martin","Dwyer","martin.dwyer@outlook.com","1234");
+        this.users.add(user);
         for(String[] alertRequest: alertRequests) {
             Product product = new Product(alertRequest[0],bestBuy);
+            this.products.add(product);
+            Alert alert = new Alert(user,product,Double.parseDouble(alertRequest[1]));
+            this.alerts.add(alert);
+        }
+        
+    }
+    
+    public void setUpFrontPage() {
+        ArrayList<String[]> alertRequests = alertRequests();
+        Store bestBuy = new Store("Best Buy","bestbuy.com","div.priceView-hero-price.priceView-customer-price","div.shop-product-title");
+        this.stores.add(bestBuy);
+        User user = new User("Martin","Dwyer","martin.dwyer@outlook.com","1234");
+        this.users.add(user);
+        for(String[] alertRequest: alertRequests) {
+            Product product = new Product(alertRequest[0],bestBuy);
+            this.products.add(product);
             Alert alert = new Alert(user,product,Double.parseDouble(alertRequest[1]));
             this.alerts.add(alert);
         }

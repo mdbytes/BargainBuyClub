@@ -6,11 +6,32 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/includes/pageTop.html" />
+<%
+    String errorMessage;
+    if(request.getParameter("errorMessage") != null) {
+       errorMessage = request.getParameter("errorMessage").toString();
+    } else {
+       errorMessage = "";
+    }
+
+%>
+
     <body>
         <h1>BargainBuyClub.com</h1>
         <h3>Login</h3>
         
-        <a href="userMenu.jsp"><input type="submit" value="Login"></a>
+        <form action="Controller" method="get">
+            <label for="username">Username: </label>
+            <input type="text" name="username" placeholder="Enter username"><br/>
+            <label for="password">Password: </label>
+            <input type="password" name="password"><br/>
+            
+            <input type="text" value="login" name="action">
+            
+            <input type="submit" value="Login">
+        </form>
+    <span><%= errorMessage %></span>
+        
         
     </body>
 <jsp:include page="/includes/pageTop.html" />

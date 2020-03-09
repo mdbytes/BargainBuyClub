@@ -7,6 +7,12 @@ and open the template in the editor.
     Created on : Mar 1, 2020, 8:07:10 AM
     Author     : marti
 */
+
+.container-fluid {
+    height:100vh;
+    text-height: auto;
+}
+
 .logo-font {
     font-family: 'Fredoka One', cursive;
     color: #ff0202;

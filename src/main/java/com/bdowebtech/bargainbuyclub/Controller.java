@@ -5,15 +5,19 @@
  */
 package com.bdowebtech.bargainbuyclub;
 
+import com.bdowebtech.bargainbuyclub.model.Alert;
 import com.bdowebtech.bargainbuyclub.model.Data.Database;
 import com.bdowebtech.bargainbuyclub.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,7 +39,62 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
 //        response.setContentType("text/html;charset=UTF-8");
 //        
-            Database database = new Database();
+
+        
+            switch(request.getParameter("action")) {
+                case "login":
+                    Database database = new Database();
+                    database.setUpDatabase();
+                    String userName = request.getParameter("username");
+                    System.err.println("username is " + userName);
+                    String password = request.getParameter("password");
+                    System.err.println("password is " + password);
+                    if(database.validateUser(userName, password)) {
+                            ArrayList<Alert> userAlerts = database.getUserAlerts(userName);
+                            
+                            if(request.getSession() != null) request.getSession().invalidate();
+                            HttpSession newSession = request.getSession(true);
+                            newSession.setMaxInactiveInterval(300);
+                            newSession.setAttribute("username", userName);
+                            request.setAttribute("useralerts",userAlerts);
+                            request.setAttribute("session", newSession);
+                            System.out.println("Session Id:  " + newSession.getId());
+                            System.out.println("Session user: " + newSession.getAttribute("username").toString());
+                            System.out.println("Session Id:  " + request.getSession().getId());
+                            System.out.println("Session user: " + request.getSession().getAttribute("username").toString());
+                            request.getRequestDispatcher("/displayAlerts.jsp").forward(request, response);
+                        
+                    } else {
+                        request.setAttribute("errorMessage","Username or password invalid");
+                        request.getRequestDispatcher("/login.jsp").forward(request, response);
+                    }
+                    break;
+                case "register":
+                    // register new user
+                    // set session
+                    // display alerts page
+                    break;
+                case "newalert":
+                    // add new alert
+                    // display alerts page
+                    break;
+                case "editalert":
+                    // edit existing alert
+                    // display alerts page
+                    break;
+                case "displayusers":
+                    // display list of users
+                    break;
+                case "edituser":
+                    // edit user
+                    // display users
+                    // break
+                default:
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    
+                
+            }
+            
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
@@ -52,12 +111,7 @@ public class Controller extends HttpServlet {
 //            out.println("</html>");
 //        }
                 
-        // Store the NameModel object in the request
-        request.setAttribute("database", database);
-
-         // Redirect the request back to the JSP
-        request.getRequestDispatcher("/displayAlerts.jsp")
-                .forward(request, response);
+       
         
     }
 

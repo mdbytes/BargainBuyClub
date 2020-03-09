@@ -10,11 +10,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/includes/pageTop.html" />
 <%
-        Database db = new Database();
-        db.setUpDatabase();
+        Database frontPage = new Database();
+        frontPage.setUpFrontPage();
        
 %>
-<body>
+<body class="container-fluid">
     <div class="row">
         <div id="home_jumbo" class="col-lg jumbotron">
             <div id="home_jumbo_content">
@@ -44,8 +44,8 @@
                 <tr>
                     <th colspan="3">Featured Price Alerts</th>
                 </tr>
-                <%  if (db.alerts != null) {
-                        for (Alert alert : db.alerts) {
+                <%  if (frontPage.alerts != null) {
+                        for (Alert alert : frontPage.alerts) {
                             out.print("<tr><td colspan='3'><h6>" + alert.product.productName + "</h6></td></tr>");
                             out.print("<tr><td>Price today " + alert.product.productPrice + "<br></td><td>Alert price " + alert.alertPrice + "</td><td><a href=" + alert.product.productUrl + " target='_blank'>Buy Now</a></td></tr>");
 
