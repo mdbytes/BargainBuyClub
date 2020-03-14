@@ -8,30 +8,31 @@
 <jsp:include page="/includes/pageTop.html" />
 <%
     String errorMessage;
-    if(request.getParameter("errorMessage") != null) {
-       errorMessage = request.getParameter("errorMessage").toString();
+    if(request.getAttribute("errormessage") != null) {
+       errorMessage = request.getAttribute("errormessage").toString();
     } else {
        errorMessage = "";
     }
 
 %>
 
-    <body>
+<body>
+    <div class="container">
         <h1>BargainBuyClub.com</h1>
         <h3>Login</h3>
-        
+
         <form action="Controller" method="get">
             <label for="username">Username: </label>
             <input type="text" name="username" placeholder="Enter username"><br/>
             <label for="password">Password: </label>
             <input type="password" name="password"><br/>
-            
-            <input type="text" value="display-alerts" name="action">
-            
-            <input type="submit" value="Login">
+
+            <input class="hidden-element" type="text" value="display-alerts" name="action">
+
+            <input class="btn btn-primary btn-large btn-success" type="submit" value="Login">
         </form>
-    <span><%= errorMessage %></span>
-        
-        
-    </body>
+        <span class="error-message"><%= errorMessage %></span>
+
+    </div>
+</body>
 <jsp:include page="/includes/pageTop.html" />

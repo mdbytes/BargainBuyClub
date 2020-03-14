@@ -14,7 +14,8 @@
         frontPage.setUpFrontPage();
        
 %>
-<body class="container-fluid">
+<body>
+    <div class="container-fluid">
     <div class="row">
         <div id="home_jumbo" class="col-lg jumbotron">
             <div id="home_jumbo_content">
@@ -26,7 +27,7 @@
                 <p>You tell us the products you want to track, and the price you want to pay.</p>
                 <p>We scan online stores and alert you when the price drops below your target price.</p>
                 <p>For a limited time during beta testing, membership is free.</p>
-                <a class="btn btn-primary btn-large btn-success" href="#">Sign Up</a>
+                <a class="btn btn-primary btn-large btn-success" href="registerUser.jsp">Sign Up</a>
                 <br><br>
                 <p>Already a member? Sign in below.</p>
                 <a class="btn btn-primary btn-large btn-success" href="login.jsp">Sign In</a>
@@ -60,5 +61,6 @@
 
         </div>
     </div>
+            </div>
 </body>
 <jsp:include page="/includes/pageBottom.html" />

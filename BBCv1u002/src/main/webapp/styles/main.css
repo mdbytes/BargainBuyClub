@@ -19,8 +19,13 @@ and open the template in the editor.
 }
 
 .btn {
+    font-size: 75%;
+    width: 100px;
     background-color: #ff0202;
     border: 1px solid #ff0202;
+    display: inline-block;
+    margin-right: 15px;
+    float: left;
 
 }
 
@@ -129,6 +134,16 @@ header {
 #sign-out {
     display: inline;
     float: right;
+}
+
+.hidden-element {
+    display: none;
+}
+
+.error-message {
+    color: red;
+    font-style: italic;
+    font-size: 75%;
 }
 
 @media (min-width: 992px) {

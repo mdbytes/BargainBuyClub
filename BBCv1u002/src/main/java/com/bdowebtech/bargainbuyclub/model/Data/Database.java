@@ -17,7 +17,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.sql.DataSource;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -29,6 +28,14 @@ public class Database {
     private String dbUrl = "jdbc:mysql://localhost:3306/bargainbuyclub";
     private String username = "root";
     private String password = "Be225Again!";
+    
+    public static void main(String[] args) {
+        Database database = new Database();
+        System.out.println(database.validateUser("martin.dwyer@outlook.com","Be235Again!"));
+        System.out.println(database.validateUser("admin@bdo-tech.com","admin"));
+        System.out.println(database.validateUser("renew.strength@yahoo.com", "NowTime4u!"));
+        
+    }
     
     public User addUser(String firstName, String lastName, String emailAddress, String userPassword, boolean isAdmin) {
         if (getUserByEmailAddress(emailAddress).getUserID() == 0) {
@@ -137,7 +144,6 @@ public class Database {
     public boolean validateUser(String username, String userPassword) {
         boolean isValid = false;
         User user = getUserByEmailAddress(username);
-        System.out.println(user.toString());
         if (user.getPassword().equals(DigestUtils.sha256Hex(userPassword))) {
             isValid = true;
         }
