@@ -1,0 +1,77 @@
+@media (max-width: 575.98px) { 
+
+    #home-jumbo h1 {
+        display: none;
+
+    }
+    
+    .user-button {
+        clear:both;
+        width: 85px;
+        margin: 0 0 10px 0;
+    }
+
+ 
+}
+
+@media (max-width: 800px) { 
+
+    #home-left-column {
+        border: none;
+    }
+
+    #mobile-hr-addition {
+        display: inline-block;
+    }
+
+    #signin {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    #signup {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    #shopper-home img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #shopper-home h2 {
+        text-align: center;
+    }
+    
+       #display-alerts-table tr td:nth-child(1) {
+        width: auto;
+    }
+
+
+    #display-alerts-table tr td:nth-child(2) {
+        width: auto;
+    }
+
+
+    #display-alerts-table tr td:nth-child(3) {
+        width: auto;
+    }
+
+
+    #display-alerts-table tr td:nth-child(4) {
+        width: auto;
+    }
+
+    #display-alerts-table tr td:nth-child(5) {
+        width: auto;
+    }
+
+    
+
+
+}
+
+
+
+

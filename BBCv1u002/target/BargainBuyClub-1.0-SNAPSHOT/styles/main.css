@@ -8,10 +8,8 @@ and open the template in the editor.
     Author     : marti
 */
 
-.container-fluid {
-    height:100vh;
-    text-height: auto;
-}
+@import url("the-big-picture.css");
+
 
 .logo-font {
     font-family: 'Fredoka One', cursive;
@@ -33,22 +31,8 @@ and open the template in the editor.
     clear: both;
 }
 
-.jumbotron {
-    background-color: #f8f9fa;
-}
 
-#home_jumbo {
-    margin: 10px 10px 10px 15px;
 
-}
-
-#home_jumbo_content > h1 {
-    width: 80%;
-}
-
-#home_jumbo_content > img {
-    height: 100px;
-}
 
 #home_alerts {
     margin: 10px 10px 10px 10px;
@@ -144,6 +128,10 @@ header {
     color: red;
     font-style: italic;
     font-size: 75%;
+}
+
+#alerts-table th {
+    vertical-align: bottom;
 }
 
 @media (min-width: 992px) {

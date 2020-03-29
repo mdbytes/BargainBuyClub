@@ -1,0 +1,117 @@
+
+
+/* Styles for left half of full screen */
+#home-left-column {
+    padding: 0px 20px;
+    border-right: 1px solid #e6e6e6;
+}
+
+
+#home-left-column > h3 {
+    text-align: center;
+}
+
+
+.jumbotron {
+    background-color: #FFFFFF;
+    padding: 0px 15px;
+}
+
+#home-jumbo img {
+    
+}
+
+#home-cart-image {
+    width: 60%;
+    height: auto;
+    margin: auto 26.5% auto 13.5%;
+}
+
+#get-started {
+    width: 125px;
+    margin: 2rem auto;
+    
+}
+
+#get-started a {
+    height: auto;
+    width: 125px;
+    padding: .75rem 0rem;
+    font-size: 110%;
+    margin: 2rem auto;
+}
+
+#mobile-hr-addition {
+    clear: both;
+    display: none;
+}
+
+
+#home_alerts {
+    margin-top: 15px;
+    border: 1px solid black;
+}
+
+#home_alerts tr {
+    
+}
+
+#home_alerts tr th {
+    
+}
+
+#home_alerts tr td {
+    
+}
+
+#home_alerts tr:nth-child(odd) {
+    padding-bottom: .15rem;
+}
+
+#home_alerts tr:nth-child(even) > td {
+    padding-top: .15rem;
+    border-bottom: 1px solid black;
+    
+}
+
+
+#home_alerts tr:nth-child(even) > td:nth-child(1) {
+    width: 33%;
+
+}
+
+#home_alerts tr:nth-child(even) > td:nth-child(2) {
+    width: 33%;
+}
+
+#home_alerts tr:nth-child(even) > td:nth-child(3) {
+    width: 33%;
+    
+}
+
+#home_alert_images > img
+{
+    float:left;
+    max-height: 100%;
+    max-width: 33%;
+
+}
+
+#home_alerts > p:nth-child(3) > a > img {
+    height: 40px;
+    width: auto;
+}
+
+#alerts-table th {
+    vertical-align: bottom;
+}
+
+
+
+
+/*  Styles for right half of full screen */
+#home-right-column {
+    padding: 0 15px;
+    margin-bottom: 150px;
+}
+

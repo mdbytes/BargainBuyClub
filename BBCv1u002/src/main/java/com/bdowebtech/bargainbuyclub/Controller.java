@@ -7,6 +7,8 @@ package com.bdowebtech.bargainbuyclub;
 
 import com.bdowebtech.bargainbuyclub.model.Alert;
 import com.bdowebtech.bargainbuyclub.model.Data.Database;
+import com.bdowebtech.bargainbuyclub.model.Product;
+import com.bdowebtech.bargainbuyclub.model.Store;
 import com.bdowebtech.bargainbuyclub.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -51,73 +53,109 @@ public class Controller extends HttpServlet {
         String password = "";
         String firstName = "";
         String lastName = "";
+        String sessionID = "";
+        int alertID = 0;
         switch (request.getParameter("action")) {
             case "home":
+                request.getSession().invalidate();
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
-                
-            case "display-alerts":
+
+            case "login-user":
                 userName = request.getParameter("username");
-                password = request.getParameter("password");                
-                if ((database.getUserByEmailAddress(userName).getUserID() != 0) && database.validateUser(userName, password)) {
+                password = request.getParameter("password");
+                if (database.validateUser(userName, password)) {
                     HttpSession newSession = request.getSession(true);
                     newSession.setMaxInactiveInterval(300);
                     newSession.setAttribute("username", userName);
-                    ArrayList<Alert> userAlerts = new ArrayList<Alert>();
-                    userAlerts = database.getUserAlerts(userName);
-                    request.setAttribute("useralerts", userAlerts);
-                    request.setAttribute("session",newSession);
+                    newSession.setAttribute("database", database);
+                    newSession.setAttribute("session", newSession);
+                    newSession.setAttribute("useralerts", database.getUserAlerts(userName));
                     request.getRequestDispatcher("displayAlerts.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("errormessage","Username or password incorrect");
-                    System.out.println(request.getAttribute("errormessage").toString());
-                    
+                    request.setAttribute("sign-in-error-message", "Username or password incorrect");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                }
+                break;
+                
+            case "logout":
+                request.getSession().invalidate();
+                response.sendRedirect(request.getContextPath() + "/Controller?action=home");
+                break;
+
+            case "display-alerts":
+                if (request.getSession() != null) {
+                    userName = request.getSession().getAttribute("username").toString();
+                    password = request.getSession().getAttribute("password").toString();
+                    request.getRequestDispatcher("displayAlerts.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("errormessage", "Username or password incorrect");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
                 break;
 
-            case "logout":
-        	request.getSession().invalidate();		
-		response.sendRedirect(request.getContextPath()+"/Controller?action=home");                
-                break;
-                
             case "register-user":
                 userName = request.getParameter("username");
-                password = request.getParameter("password");                
-                firstName = request.getParameter("first-name");                
-                lastName = request.getParameter("last-name");                
+                password = request.getParameter("password");
+                firstName = request.getParameter("first-name");
+                lastName = request.getParameter("last-name");
                 System.out.println(database.getUserByEmailAddress(userName).getUserID());
-                if(database.getUserByEmailAddress(lastName).getUserID() == 0) {
+                if (database.getUserByEmailAddress(lastName).getUserID() == 0) {
                     User user = new User();
-                    user = database.addUser(firstName, lastName, userName, password, false);                    
+                    user = database.addUser(firstName, lastName, userName, password, false);
                     HttpSession newSession = request.getSession(true);
-                    newSession.setMaxInactiveInterval(300);
                     newSession.setAttribute("username", userName);
                     ArrayList<Alert> userAlerts = new ArrayList<Alert>();
                     userAlerts = database.getUserAlerts(userName);
                     request.setAttribute("useralerts", userAlerts);
-                    request.setAttribute("session",newSession);
+                    request.setAttribute("session", newSession);
                     request.getRequestDispatcher("displayAlerts.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("errormessage","Email address already exists in database");
-                    System.out.println(request.getAttribute("errormessage").toString());
+                    request.setAttribute("errormessage", "Email address already exists in database");
+                    System.out.println(request.getAttribute("sign-up-error-message").toString());
                     request.getRequestDispatcher("registerUser.jsp").forward(request, response);
                 }
                 break;
-            case "editUser":
-                // edit user
-                // display users
+            case "add-alert-page":
+                HttpSession thisSession = (HttpSession) request.getSession();
+                if (thisSession != null) {
+                    request.getRequestDispatcher("addAlert.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("errormessage", "Must be logged in to add alerts.");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                }
                 break;
-            case "addAlert":
-                // add new alert
-                // display alerts page
+
+            case "add-alert":
+                userName = request.getSession().getAttribute("username").toString();
+                int storeID = Integer.parseInt(request.getParameter("store"));
+                double alertPrice = Double.parseDouble(request.getParameter("alert-price"));
+                String productUrl = request.getParameter("product_url");
+                Product product = database.addProduct(storeID, productUrl);
+                Alert alert = database.addAlert(product.getProductID(), database.getUserByEmailAddress(userName).getUserID(), alertPrice);
+                request.getSession().setAttribute("useralerts", database.getUserAlerts(userName));
+                request.getRequestDispatcher("displayAlerts.jsp").forward(request, response);
                 break;
-            case "editAlert":
-                // edit existing alert
-                // display alerts page
+
+            case "edit-alert":
+                userName = request.getSession().getAttribute("username").toString();
+                alertID = Integer.parseInt(request.getParameter("alert-id"));
+                alertPrice = Double.parseDouble(request.getParameter("alert-price"));
+                database.updateAlertPrice(alertID, alertPrice);
+                request.getSession().setAttribute("useralerts", database.getUserAlerts(userName));
+                request.getRequestDispatcher("displayAlerts.jsp").forward(request, response);
+                break;
+
+            case "delete-alert":
+                userName = request.getSession().getAttribute("username").toString();
+                alertID = Integer.parseInt(request.getParameter("alert-id"));
+                database.deleteAlert(alertID);
+                request.getSession().setAttribute("useralerts", database.getUserAlerts(userName));
+                request.getRequestDispatcher("displayAlerts.jsp").forward(request, response);
                 break;
 
             default:
+                request.getSession().invalidate();
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
 
         }

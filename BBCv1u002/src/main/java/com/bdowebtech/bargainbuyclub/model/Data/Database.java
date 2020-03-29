@@ -66,8 +66,7 @@ public class Database {
     public ArrayList<Alert> getUserAlerts(String emailAddress) {
         User user = getUserByEmailAddress(emailAddress);
         int userID = user.getUserID();
-                ArrayList<Alert> userAlerts = new ArrayList<Alert>();
-        Alert alert = new Alert();
+        ArrayList<Alert> userAlerts = new ArrayList<Alert>();
         String query = "SELECT * FROM alerts "
                 + "WHERE user_id = '" + userID + "';";
         try {
@@ -76,10 +75,12 @@ public class Database {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
-                alert.setAlertID((int) rs.getObject("alert_id"));
-                alert.setProduct(getProductByID((int) rs.getObject("alert_id")));
-                alert.setUser(getUserByID((int) rs.getObject("user_id")));
-                alert.setAlertPrice((double)rs.getObject("alert_price"));
+                Alert alert = new Alert(
+                                    (int) rs.getObject("alert_id"),
+                                    getUserByID((int) rs.getObject("user_id")),
+                                    getProductByID((int) rs.getObject("product_id")),
+                                    (double)rs.getObject("alert_price")
+                                    );
                 userAlerts.add(alert);
             }
         } catch (SQLException e) {
@@ -349,7 +350,36 @@ public class Database {
         return alert;
     }
     
-    
+    public void updateAlertPrice(int alertID, double alertPrice) {
+        String query = "UPDATE alerts "
+                + "SET alert_price = " + alertPrice + ""
+                + "WHERE alert_id = " + alertID + ";";
+        try {
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            Connection connection = DriverManager.getConnection(dbUrl, username, password);
+            Statement statement = connection.createStatement();
+            int count = statement.executeUpdate(query);
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+
+    public void deleteAlert(int alertID) {
+        String query = "DELETE FROM alerts "
+                + "WHERE alert_id = " + alertID + ";";
+        try {
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            Connection connection = DriverManager.getConnection(dbUrl, username, password);
+            Statement statement = connection.createStatement();
+            int count = statement.executeUpdate(query);
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }    
     
     
     
