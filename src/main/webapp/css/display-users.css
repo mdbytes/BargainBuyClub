@@ -1,0 +1,101 @@
+#display-users-page {
+    margin-bottom: 300px;
+    height: auto;
+}
+
+#edit-user-button-div
+{
+    margin-top: 15px;
+    clear: both;
+    float: left;
+    display: none;
+}
+
+#edit-user-button-div label {
+    margin-bottom: 15px;
+    width: 165px;
+    
+}
+
+#edit-user-button-div select {
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 100px;
+}
+
+#edit-user-form {
+    width: 405px;
+}
+
+#edit-user-form label {
+    width: 150px;
+}
+
+#edit-user-form input {
+    width: 250px;
+}
+
+
+#sign-up-password {
+    width: 250px;
+    float: right;
+    
+}
+#edit-user-button {
+    margin-bottom: 300px;
+}
+
+#delete-user-button-div
+{
+    
+    clear: both;
+    float: left;
+    margin-top: 15px;
+    display: none;
+}
+
+#delete-user-button-div label {
+    display: inline-block;
+    clear: both;
+    margin-left: 25px;
+    margin-bottom: 15px;
+}
+
+#delete-user-button-div select {
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 100px;
+    float: left;
+}
+
+#delete-user-button {
+    margin-bottom: 300px;
+}
+
+#admin-user-button-div
+{
+    
+    clear: both;
+    float: left;
+    margin-top: 15px;
+    display: none;
+}
+
+#admin-user-button-div label {
+    display: inline-block;
+    clear: both;
+    margin-left: 25px;
+    margin-bottom: 15px;
+}
+
+#admin-user-button-div select {
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 100px;
+    float: left;
+}
+
+#admin-user-button {
+    margin-bottom: 300px;
+}
+

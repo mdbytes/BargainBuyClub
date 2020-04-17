@@ -1,0 +1,126 @@
+@font-face {
+  font-family: 'Mountains of Christmas';
+  src: url('fonts/MountainsofChristmas-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Sen';
+  src: url('fonts/Sen-Regular.ttf');
+}
+
+body {
+    font-family: 'Sen';
+ 
+   
+}
+
+h1, h2, h3 {
+    font-family: 'Mountains of Christmas';
+     color: #ff0202;
+}
+
+.navbar-brand {
+    font-family: 'Mountains of Christmas';
+    color: #ffffff;
+}
+
+
+#block_content {
+    height: 80vh;
+}
+
+#bottom_nav {
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
+    width:100%;
+
+}
+
+header {
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+#page-title {
+    width: auto;
+    display: inline;
+    font-size: 200%;
+    font-weight: bolder;
+    margin-left: 25px;
+}
+
+.hidden-element {
+    display: none;
+}
+
+.error-message {
+    color: red;
+    font-style: italic;
+    font-size: 75%;
+}
+
+.btn {
+    font-size: 75%;
+    width: 100px;
+    background-color: #ff0202;
+    border: 1px solid #ff0202;
+    display: inline-block;
+    margin-right: 15px;
+    float: left;
+
+}
+
+.clear-float {
+    clear: both;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+nav {
+    margin-bottom: 25px;
+}
+
+.inline-text-image {
+    height: 20px;
+    width: auto;
+}
+
+.row {
+    margin: 0 0 0 0;
+}
+
+
+/* Footer */
+.card-body > footer {
+    padding: 0px 0px 20px 0px;
+    text-align: center;
+}
+
+
+.buy-now {
+    text-decoration: none;
+    font-family: 'Mountains of Christmas';
+    color: #ff0202;
+}
+
+.buy-now:hover {
+    text-decoration: none;
+    font-family: 'Mountains of Christmas';
+    color: #009933;
+    
+}
+
+#timeout {
+    display: none;
+}
+
+
+
+
+

@@ -1,0 +1,29 @@
+
+button.ui-dialog-titlebar-close {
+    display: none;
+}
+
+#ui-id-1 {
+    text-align: center;
+    font-family: 'Mountains of Christmas';
+    color: #ff0202;
+    font-size: 140%;
+    font-weight: bold;
+}
+
+div.ui-dialog-buttonset > button {
+    color: #FFFFFF;
+    font-family: 'Mountains of Christmas';
+    font-size: 110%;
+    font-weight: bold;
+    background-color: #ff0202;
+    border: 2px solid #ff0202;
+    width: 150px;
+    height: auto;
+    
+}
+
+#timeout {
+    font-family: 'Sen';
+}
+
