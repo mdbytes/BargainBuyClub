@@ -1,22 +1,22 @@
 <%-- 
     Document   : index
     Created on : Feb 28, 2020, 2:46:04 PM
-    Author     : marti
+    Author     : Martin Dwyer
 --%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.text.NumberFormat"%>
-<%@page import="com.bdowebtech.bargainbuyclub.model.Data.HomePageData" %>
-<%@page import="com.bdowebtech.bargainbuyclub.model.Alert" %>
-
+<%@page import="java.util.ArrayList,
+                java.text.NumberFormat,
+                com.bdowebtech.bargainbuyclub.model.Alert,
+                com.bdowebtech.bargainbuyclub.EventHandler"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="/includes/homeTop.html" />
-<%
-    String signUpErrorMessage = "";
-    String signInErrorMessage = "";
-    NumberFormat cf = NumberFormat.getCurrencyInstance();
-    HomePageData frontPage = new HomePageData();
-    frontPage.setUpFrontPage();
 
+<%-- include navbar and page sources, styles and scripts --%>
+<jsp:include page="/includes/homeTop.html" />
+
+<%-- loading home page alerts --%>
+<%
+    EventHandler lexi = new EventHandler();
+    ArrayList<Alert> alerts = lexi.loadHome();
+    NumberFormat cf = NumberFormat.getCurrencyInstance();   
 %>
 
 
@@ -53,9 +53,9 @@
                 </p>
                 <h3>Featured Price Alerts</h3>
                 <table class="table" id="home_alerts">
-                    <%  if (frontPage.alerts != null) {
+                    <%  if (alerts != null) {
 
-                            for (Alert alert : frontPage.alerts) {
+                            for (Alert alert : alerts) {
                                 String productName = alert.getProduct().getProductName();
                                 if (productName.length() > 75) {
                                     productName = productName.substring(0, 75) + "...";

@@ -1,10 +1,10 @@
 /*
- * Author:      Martin Dwyer
- * Date:        April 17, 2020
+ * File:        Controller.java
  * Description: This file is part of the BargainBuyClub application.
  * License:     The application is provide herein under the GNU General Public 
  *              License, a free copyleft license for software.  A copy of this 
  *              license has been provided in the root folder of this application.
+ * Date:        April 20, 2020
  */
 package com.bdowebtech.bargainbuyclub;
 
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author marti
+ * @author Martin Dwyer
  */
 @WebServlet(name = "Controller", urlPatterns = {"/Controller"})
 public class Controller extends HttpServlet {

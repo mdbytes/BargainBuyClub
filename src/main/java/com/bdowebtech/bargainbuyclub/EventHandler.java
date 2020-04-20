@@ -1,19 +1,21 @@
 /*
- * Author:      Martin Dwyer
- * Date:        April 17, 2020
+ * File:        EventHandler.java
  * Description: This file is part of the BargainBuyClub application.
  * License:     The application is provide herein under the GNU General Public 
  *              License, a free copyleft license for software.  A copy of this 
  *              license has been provided in the root folder of this application.
+ * Date:        April 20, 2020
  */
 package com.bdowebtech.bargainbuyclub;
 
 import com.bdowebtech.bargainbuyclub.model.User;
 import com.bdowebtech.bargainbuyclub.model.Product;
 import com.bdowebtech.bargainbuyclub.model.Alert;
+import com.bdowebtech.bargainbuyclub.model.Data.HomePage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
- * @author marti
+ * EventHandler Class.  Objects handle user interactions.  There are two EventHandler
+ * objects used in the application: gunther and lexi.  Controller utilizes gunther
+ * and lexi is used to set up home page data in index.jsp
+ * 
+ * @author Martin Dwyer
  */
 public class EventHandler {
 
@@ -59,6 +64,11 @@ public class EventHandler {
         this.productUrl = "";
         this.alertPrice = 0.0;
         this.sessionID = "";
+    }
+    
+    public ArrayList<Alert> loadHome() {
+        HomePage frontPage = new HomePage();   
+        return frontPage.getAlerts();
     }
 
     public void goHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
