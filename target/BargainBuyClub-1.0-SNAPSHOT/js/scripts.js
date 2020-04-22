@@ -1,11 +1,21 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/*
+ * File:        scripts.js
+ * Author:      Martin Dwyer
+ * Date:        April 17, 2020
+ * Description: This file is part of the BargainBuyClub application.
+ * License:     The application is provide herein under the GNU General Public 
+ *              License, a free copyleft license for software.  A copy of this 
+ *              license has been provided in the root folder of this application.
  */
 $(document).ready(function () {
     console.log("Javascript loaded");
 
+    /*
+     * checkAdmin() verifies whether or not user is administrator and then sets
+     * HTML element #admin-options accordingly.  This setting determines whether or 
+     * not HTML elements for admins are displayed. 
+     * 
+     */
     function checkAdmin() {
         var admin = document.getElementById('is-admin').innerHTML;
 
@@ -17,11 +27,18 @@ $(document).ready(function () {
             console.log("not admin");
         }
     }
-
+    
+    // checkAdmin() is prompted by the id 'display-alerts-page' 
     if (document.getElementById('display-alerts-page') != null) {
         checkAdmin();
     }
 
+    /*
+     * For presentation, the options to edit and delete alerts are not displayed
+     * until the user clicks on the respective option.  The following algorithms 
+     * toggle the appearance of these supplemental operation forms.  
+     * 
+     */
     var editDisplayed = false;
     var deleteDisplayed = false;
 
@@ -57,6 +74,12 @@ $(document).ready(function () {
     }
     );
 
+    /*
+     * Similar to alert operations forms, user operation forms are not displayed
+     * until chosen by the admin user.  The following algorithms control which form
+     * appears in accordance with the user's selection. 
+     * 
+     */
     var deleteDisplayUser = false;
     var editDisplayUser = false;
     var adminDisplayUser = false;
@@ -120,6 +143,50 @@ $(document).ready(function () {
 
     }
     );
+    
+     /*
+     * idleLogout() establishes a timer object and conditions for resetting the
+     * timer object to zero.  User is notified at 8 minutes, and logged off at 
+     * 10 minutes.  
+     * 
+     */
+    function idleLogout() {
+        var t;
+        window.onload = resetTimer;
+        window.onmousemove = resetTimer;
+        window.onmousedown = resetTimer;  // catches touchscreen presses as well      
+        window.ontouchstart = resetTimer; // catches touchscreen swipes as well 
+        window.onclick = resetTimer;      // catches touchpad clicks as well
+        window.onkeypress = resetTimer;   
+        window.addEventListener('scroll', resetTimer, true); // improved; see comments
+
+        function warning() {
+            console.log("warning called at " + t);
+            $("#timeout").dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: {
+                    "Stay logged in": function () {
+                        $(this).dialog("close");
+                        resetTimer();
+                    }
+                }
+            });
+        }
+    
+        function logoff() {
+            $("#sign-out-button").click();
+        }
+
+        function resetTimer() {
+            clearTimeout(t);
+            t = setTimeout(warning, 480000);  // time is in milliseconds
+            t = setTimeout(logoff, 600000); 
+        }
+    }
+    idleLogout();
 
 })
 

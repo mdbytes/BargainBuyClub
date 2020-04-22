@@ -13,8 +13,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
- * @author marti
+ * Product class defines product structure and methods to retrieve product price
+ * from the product page website. 
+ * 
+ * @author Martin Dwyer
  */
 public class Product {
     
@@ -23,9 +25,11 @@ public class Product {
     private Store store;
     private String productName;
     private double productPrice;
+    private static Database db = new Database();
     
-    public static Database db = new Database();
-    
+    /**
+     * Default constructor creates a null object.
+     */
     public Product() {
         this.productID = 0;
         this.productName= null;
@@ -34,6 +38,13 @@ public class Product {
         this.productPrice= 0.0;
     }
 
+    /**
+     * Constructor to create product from the product page URL address and the
+     * store which the product came from. 
+     * 
+     * @param productUrl the URL address where the product page is located
+     * @param store a Store object representing where the product seller
+     */
     public Product(String productUrl, Store store) {
         this.productID = 0;
         this.productUrl = productUrl;
@@ -52,43 +63,68 @@ public class Product {
         }
     }
 
+    /**
+     * Method to retrieve unique ID given to product object.  
+     * 
+     * @return ID, an integer
+     */
     public int getProductID() {
         return productID;
     }
 
+    /**
+     * Method retrieves the URL address associated with existing product object. 
+     * 
+     * @return URL address, a String
+     */
     public String getProductUrl() {
         return productUrl;
     }
 
+    /**
+     * Method to retrieve store associated with product object.
+     * 
+     * @return store, a Store object
+     */
     public Store getStore() {
         return store;
     }
 
+    /**
+     * Method to retrieve name of product object. 
+     * 
+     * @return product name, a String
+     */
     public String getProductName() {
         return productName;
     }
 
+    /**
+     * Method to retrieve existing price for product object.
+     * 
+     * @return product price, a double
+     */
     public double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductID(int productID) {
+    private void setProductID(int productID) {
         this.productID = productID;
     }
 
-    public void setProductUrl(String productUrl) {
+    private void setProductUrl(String productUrl) {
         this.productUrl = productUrl;
     }
 
-    public void setStore(Store store) {
+    private void setStore(Store store) {
         this.store = store;
     }
 
-    public void setProductName(String productName) {
+    private void setProductName(String productName) {
         this.productName = productName;
     }
 
-    public void setProductPrice(double productPrice) {
+    private void setProductPrice(double productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -97,6 +133,14 @@ public class Product {
         return "Product{" + "productID=" + productID + ", productUrl=" + productUrl + ", store=" + store + ", productName=" + productName + ", productPrice=" + productPrice + '}';
     }
     
+    /**
+     * Method adds a product object to the database. 
+     * 
+     * @param storeID a unique identifier for each store, an integer
+     * @param productURL the URL address where the product page is located
+     * 
+     * @return product, a Product object
+     */
     public static Product addProduct(int storeID, String productURL) {
         if (getProductByURL(productURL).getProductID() == 0) {
             Store store = Store.getStoreByID(storeID);
@@ -112,6 +156,13 @@ public class Product {
         }
     }
     
+    /**
+     * Method retrieves product object from the database given the product ID
+     * 
+     * @param productID a unique identifier for the product, an integer
+     * 
+     * @return product, a Product object
+     */
     public static Product getProductByID(int productID) {
         Product product = new Product();
         String query = "SELECT * FROM products "
@@ -137,6 +188,13 @@ public class Product {
         return product;
     }
     
+    /**
+     * Method retrieves product object from database give the product URL address
+     * 
+     * @param productURL the URL address where the product page is located
+     * 
+     * @return product, a Product object
+     */
     public static Product getProductByURL(String productURL) {
         Product product = new Product();
         String query = "SELECT * FROM products "

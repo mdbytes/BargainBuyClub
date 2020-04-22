@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.bdowebtech.bargainbuyclub"},{"l":"com.bdowebtech.bargainbuyclub.model"},{"l":"com.bdowebtech.bargainbuyclub.model.Data"}]

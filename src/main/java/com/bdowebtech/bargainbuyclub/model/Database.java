@@ -8,17 +8,17 @@
  */
 package com.bdowebtech.bargainbuyclub.model;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 /**
- *
- * @author marti
+ * Database class contains database credentials, connection, and methods to
+ * add, edit, and delete records in the application database. 
+ * 
+ * @author Martin Dwyer
  */
 public class Database {
     
@@ -26,10 +26,19 @@ public class Database {
     private String username = "root";
     private String password = "Be225Again!";
     
+    /**
+     *  Default constructor activates JDBC connection and defines credentials.
+     * 
+     */
     public Database() {
         
     }
     
+    /**
+     * Method executes updates to records in the database, including deletion.
+     * 
+     * @param query an SQL query beginning with UPDATE or DELETE
+     */
     public void executeUpdate(String query) {
         try {
                 Connection connection = DriverManager.getConnection(dbUrl, username, password);
@@ -41,6 +50,13 @@ public class Database {
             }
     }
     
+    /**
+     * Method retrieves records from the database based on selection critea. 
+     * 
+     * @param query and SQL query beginning with SELECT 
+     * 
+     * @return results, a ResultSet object
+     */
     public ResultSet getResultSet(String query) {
         ResultSet rs = null;
         try {

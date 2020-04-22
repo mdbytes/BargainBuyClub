@@ -1,7 +1,10 @@
 /*
- * Author: Martin Dwyer
- * Date: April 17, 2020
- * Description: This file is part of the BargainBuyClub application written by developer Martin Dwyer.
+ * Author:      Martin Dwyer
+ * Date:        April 17, 2020
+ * Description: This file is part of the BargainBuyClub application.
+ * License:     The application is provide herein under the GNU General Public 
+ *              License, a free copyleft license for software.  A copy of this 
+ *              license has been provided in the root folder of this application.
  */
 package com.bdowebtech.bargainbuyclub.model.Data;
 
@@ -14,8 +17,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
- * @author marti
+ * HomePage provides site-level access to data to be used as sample alerts on the home page. 
+ * 
+ * @author Martin Dwyer
  */
 public class HomePage {
     
@@ -24,7 +28,9 @@ public class HomePage {
     private ArrayList<String[]> alertData;
     private ArrayList<Alert> alerts;
     
-
+    /**
+     * Constructor populates an ArrayList of alerts.  
+     */
     public HomePage() {
         this.user = setUpUser();
         this.store = setUpStore();
@@ -69,13 +75,14 @@ public class HomePage {
         return frontPageAlerts;
     }
 
+    /**
+     * Method to retrieve home page alerts.
+     * 
+     * @return alerts, an ArrayList of Alert objects
+     */
     public ArrayList<Alert> getAlerts() {
         return alerts;
     }
-    
-    
-    
-    
     
     
 }

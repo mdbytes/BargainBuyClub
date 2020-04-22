@@ -8,12 +8,15 @@
  */
 package com.bdowebtech.bargainbuyclub.model;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.UUID;
 
+/**
+ * Alert class provides the basic structure for product alerts.
+ * 
+ * @author Martin Dwyer
+ */
 public class Alert {
 
     private int alertID;
@@ -22,6 +25,9 @@ public class Alert {
     private User user;
     private static Database db = new Database();
     
+    /**
+     *  Default constructor creates null object.
+     */
     public Alert() {
         this.alertID = 0;
         this.product = null;
@@ -29,6 +35,14 @@ public class Alert {
         this.user = null;
     }
 
+    /**
+     * Constructor for alert objects.
+     * 
+     * @param alertID a unique integer
+     * @param user a User object
+     * @param product a Product object
+     * @param alertPrice the product alert price, a double
+     */
     public Alert(int alertID, User user, Product product, double alertPrice) {
         this.alertID = alertID;
         this.product = product;
@@ -36,35 +50,55 @@ public class Alert {
         this.user = user;
     }
 
-    public int getAlertID() {
-        return alertID;
-    }
-
-    public void setAlertID(int alertID) {
-        this.alertID = alertID;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public double getAlertPrice() {
-        return alertPrice;
-    }
-
-    public void setAlertPrice(double alertPrice) {
-        this.alertPrice = alertPrice;
-    }
-
+    /**
+     * Method to retrieve the user associated with an alert object.
+     * 
+     * @return user, a User object
+     */
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    /**
+     * Method to return unique ID for alert object.
+     * 
+     * @return alert ID, an integer
+     */
+    public int getAlertID() {
+        return alertID;
+    }
+
+    /**
+     * Method to retrieve product associated with an alert object.
+     * 
+     * @return product, a Product
+     */
+    public Product getProduct() {
+        return product;
+    }
+
+    /**
+     * Method retrieves the alert price for an alert object.
+     * 
+     * @return alert price, a double
+     */
+    public double getAlertPrice() {
+        return alertPrice;
+    }
+
+    private void setAlertID(int alertID) {
+        this.alertID = alertID;
+    }
+
+    private void setProduct(Product product) {
+        this.product = product;
+    }
+
+    private void setAlertPrice(double alertPrice) {
+        this.alertPrice = alertPrice;
+    }
+
+    private void setUser(User user) {
         this.user = user;
     }
 
@@ -73,6 +107,15 @@ public class Alert {
         return "Alert{" + "alertID=" + alertID + "\n" + ", product=" + product + "\n" +  ", alertPrice=" + alertPrice + "\n" + ", user=" + user + "\n" + '}';
     }
     
+    /**
+     * Method to add alerts into application database. 
+     * 
+     * @param productID the product ID for the alert Product object
+     * @param userID the user ID for the alert User object
+     * @param alertPrice the alert price, a double
+     * 
+     * @return alert, an Alert object
+     */
     public static Alert addAlert(int productID, int userID, double alertPrice) {
         if (getAlertByAttributes(productID, userID, alertPrice).getAlertID() == 0) {
             Alert alert = new Alert();
@@ -87,6 +130,15 @@ public class Alert {
         }
     }
     
+    /**
+     * Method to retrieve alert object from database based on attributes. 
+     * 
+     * @param productID the product ID for the alert Product object
+     * @param userID the user ID for the alert User object
+     * @param alertPrice the alert price, a double
+     * 
+     * @return alert, an Alert object
+     */
     public static Alert getAlertByAttributes(int productID, int userID, double alertPrice) {
         Alert alert = new Alert();
         String query = "SELECT * FROM alerts "
@@ -109,6 +161,13 @@ public class Alert {
         return alert;
     }
     
+    /**
+     * Method to retrieve alert from database with the unique alert ID.
+     * 
+     * @param alertID the unique identifier for the alert object, an integer
+     * 
+     * @return alert, an Alert object
+     */
     public static Alert getAlertByID(int alertID) {
         Alert alert = new Alert();
         String query = "SELECT * FROM alerts "
@@ -129,6 +188,11 @@ public class Alert {
         return alert;
     }
     
+    /**
+     * Method to retrieve all alerts in the application database. 
+     * 
+     * @return alerts, a list of Alert objects
+     */
     public static ArrayList<Alert> getAllAlerts() {
         Alert alert = new Alert();
         ArrayList<Alert> alerts = new ArrayList<Alert>();
@@ -148,6 +212,12 @@ public class Alert {
         return alerts;
     }
     
+    /**
+     * Method to update the alert price for an existing alert. 
+     * 
+     * @param alertID the unique identifier for an alert, an integer
+     * @param alertPrice the alert price for the alert, a double
+     */
     public static void updateAlertPrice(int alertID, double alertPrice) {
         String query = "UPDATE alerts "
                 + "SET alert_price = " + alertPrice + ""
@@ -156,6 +226,11 @@ public class Alert {
         
     }
 
+    /**
+     * Method to delete an alert from the application database. 
+     * 
+     * @param alertID the unique identifier for an alert, an integer
+     */
     public static void deleteAlert(int alertID) {
         String query = "DELETE FROM alerts "
                 + "WHERE alert_id = " + alertID + ";";

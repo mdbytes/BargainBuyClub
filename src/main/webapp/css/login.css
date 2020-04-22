@@ -1,4 +1,14 @@
+/* 
+ * File:        login.css
+ * Author:      Martin Dwyer
+ * Date:        March 1, 2020
+ * Description: This file is part of the BargainBuyClub application.
+ * License:     The application is provide herein under the GNU General Public 
+ *              License, a free copyleft license for software.  A copy of this 
+ *              license has been provided in the root folder of this application.
+ */
 
+/* Styles for elements on login.jsp */
 
 #login-page {
     max-width: 650px;

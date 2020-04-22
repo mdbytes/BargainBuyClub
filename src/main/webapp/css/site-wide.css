@@ -1,3 +1,16 @@
+/* 
+ * File:        site-wide.css
+ * Author:      Martin Dwyer
+ * Date:        March 1, 2020
+ * Description: This file is part of the BargainBuyClub application.
+ * License:     The application is provide herein under the GNU General Public 
+ *              License, a free copyleft license for software.  A copy of this 
+ *              license has been provided in the root folder of this application.
+ */
+
+/* Styles for elements appearing throughout the website */
+
+
 @font-face {
   font-family: 'Mountains of Christmas';
   src: url('fonts/MountainsofChristmas-Bold.ttf');
@@ -10,13 +23,25 @@
 
 body {
     font-family: 'Sen';
- 
-   
 }
 
 h1, h2, h3 {
     font-family: 'Mountains of Christmas';
      color: #ff0202;
+}
+
+#navbar {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 1030;
+}
+
+main {
+    padding: 75px;
+    margin-top: 0px;
 }
 
 .navbar-brand {
@@ -97,8 +122,12 @@ nav {
 
 
 /* Footer */
+body > div.card.fixed-bottom {
+    height: 50px;
+}
+
 .card-body > footer {
-    padding: 0px 0px 20px 0px;
+    padding: 0px 0px 0px 0px;
     text-align: center;
 }
 
@@ -116,11 +145,36 @@ nav {
     
 }
 
-#timeout {
+/* Styles related to auto logoff jQuery dialog box */
+
+button.ui-dialog-titlebar-close {
     display: none;
 }
 
+#ui-id-1 {
+    text-align: center;
+    font-family: 'Mountains of Christmas';
+    color: #ff0202;
+    font-size: 140%;
+    font-weight: bold;
+}
 
+div.ui-dialog-buttonset > button {
+    color: #FFFFFF;
+    font-family: 'Mountains of Christmas';
+    font-size: 110%;
+    font-weight: bold;
+    background-color: #ff0202;
+    border: 2px solid #ff0202;
+    width: 150px;
+    height: auto;
+    
+}
 
+#timeout {
+    font-family: 'Sen';
+}
 
-
+#timeout {
+    display: none;
+}
