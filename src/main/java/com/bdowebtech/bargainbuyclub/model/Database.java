@@ -20,18 +20,21 @@ import java.sql.Statement;
  * 
  * @author Martin Dwyer
  */
-public class Database {
+public class Database extends Environment {
     
-    private String dbUrl = "jdbc:mysql://localhost:3306/bargainbuyclub";
-    private String username = "root";
-    private String password = "Be225Again!";
+    private String dbUrl;
+    private String username;
+    private String password;
     
     /**
      *  Default constructor activates JDBC connection and defines credentials.
      * 
      */
     public Database() {
-        
+        super();
+        dbUrl = this.DBURL;
+        username = this.USERNAME;
+        password = this.PASSWORD;
     }
     
     /**

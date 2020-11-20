@@ -1,2 +1,11 @@
-/BBC20200312/target/
-/BBCv1u001/target/
+target/
+/src/main/java/com/bdowebtech/bargainbuyclub/model/Environment.java
+target/BargainBuyClub-1.0-SNAPSHOT/addAlert.jsp
+target/BargainBuyClub-1.0-SNAPSHOT/index.jsp
+target/BargainBuyClub-1.0-SNAPSHOT/Tomcat.dpf
+target/BargainBuyClub-1.0-SNAPSHOT/WEB-INF/classes/com/bdowebtech/bargainbuyclub/model/Data/HomePage.class
+target/BargainBuyClub-1.0-SNAPSHOT/WEB-INF/classes/com/bdowebtech/bargainbuyclub/model/Database.class
+target/BargainBuyClub-1.0-SNAPSHOT/WEB-INF/classes/com/bdowebtech/bargainbuyclub/model/Store.class
+target/classes/com/bdowebtech/bargainbuyclub/model/Data/HomePage.class
+target/classes/com/bdowebtech/bargainbuyclub/model/Database.class
+target/classes/com/bdowebtech/bargainbuyclub/model/Store.class

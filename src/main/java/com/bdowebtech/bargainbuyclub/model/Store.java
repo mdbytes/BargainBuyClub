@@ -83,6 +83,7 @@ public class Store {
         while (findingPrice.find()) {
             stringPrice = findingPrice.group(1);
         }
+        
         try {
             price = Double.parseDouble(stringPrice.replace(",", ""));
         } catch (NumberFormatException e) {

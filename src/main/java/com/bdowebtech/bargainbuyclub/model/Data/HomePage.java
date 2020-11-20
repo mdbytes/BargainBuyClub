@@ -46,20 +46,23 @@ public class HomePage {
     }
     
     private Store setUpStore() {
-        Store bestBuy = new Store(0,"Best Buy","bestbuy.com","div.priceView-hero-price.priceView-customer-price","div.shop-product-title");
+        Store bestBuy = new Store(0,"Disney","shopdisney.com","span.sales span.value","h1.product-name");
         return bestBuy;
         
     }
 
     private ArrayList<String[]> getAlertData() {
         
+        
         ArrayList<String[]> testAlerts = new ArrayList<>();
-        String[] productOne = new String[]{"https://www.bestbuy.com/site/westinghouse-49-class-led-1080p-hdtv/6295040.p?skuId=6295040","100.00"};
+        String[] productOne = new String[]{"https://www.shopdisney.com/minnie-mouse-long-sleeve-baseball-t-shirt-for-girls-5626047577216M.html?isProductSearch=0&plpPosition=1&guestFacing=Sale-Clothing-T_Shirts%2520%2526%2520Tops","10.00"};
         testAlerts.add(productOne);
-        String[] productTwo = new String[]{"https://www.bestbuy.com/site/hp-omen-gaming-intel-core-i7-9700-16gb-memory-nvidia-geforce-gtx-1660-ti-1tb-hard-drive-256gb-ssd-shadow-black-front-bezel-dark-chrome-logo/6349466.p?skuId=6349466","1000.00"};
+        String[] productTwo = new String[]{"https://www.shopdisney.com/minnie-mouse-zip-hoodie-for-girls-5626057397226M.html?isProductSearch=0&plpPosition=2","15.00"};
         testAlerts.add(productTwo);
-        String[] productThree = new String[]{"https://www.bestbuy.com/site/ibuypower-gaming-desktop-intel-core-i7-9700f-16gb-memory-nvidia-geforce-rtx-2070-super-1tb-hdd-480gb-solid-state-drive-black/6362981.p?skuId=6362981", "1000.00"};
+        String[] productThree = new String[]{"https://www.shopdisney.com/mickey-mouse-zip-hoodie-for-boys-5626057397229M.html?isProductSearch=0&plpPosition=1","10.00"};
         testAlerts.add(productThree);
+        String[] productFour = new String[]{"https://www.shopdisney.com/lightning-mcqueen-zip-hoodie-for-boys-cars-5626057817230M.html?isProductSearch=0&plpPosition=3","18.00"};
+        testAlerts.add(productFour);
 
         return testAlerts;
     }
@@ -84,5 +87,17 @@ public class HomePage {
         return alerts;
     }
     
-    
+//    public static void main(String[] args) {
+//        HomePage front = new HomePage();
+//        ArrayList<Alert> alerts = front.getAlerts();
+//        
+//        for (Alert alert: alerts) {
+//            System.out.println(alert.getProduct().getProductPrice());
+//            System.out.println(alert.getAlertPrice());
+//            
+//            System.out.println(alert.getProduct().getProductName());
+////        }
+////        
+//        
+//    }
 }

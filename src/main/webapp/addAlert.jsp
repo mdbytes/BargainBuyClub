@@ -52,7 +52,7 @@
             <label for="store">Store:</label>
             <select name="store" class="form-control" id="store-input">
                 <optgroup label="Select Store">
-                <option value="1">Best Buy</option>
+                <option value="1">Disney Store</option>
                 </optgroup>
             </select> 
         </div>
