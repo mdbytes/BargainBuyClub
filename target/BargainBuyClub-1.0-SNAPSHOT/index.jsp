@@ -56,7 +56,7 @@
                 <h5>We let you know when the price is right!</h5>
             </div>
             <p>Tell us the product and the price you want to pay. You can come back to the site to check your alerts. As an example, here are some items we are tracking from 
-                <a href="https://www.bestbuy.com"><img src="images/220px-Best_Buy_Logo.svg.png" alt="Best Buy" class="inline-text-image"></a> online.
+                shop Disney online.
             </p>
             <h3>Featured Price Alerts</h3>
             
