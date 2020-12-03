@@ -20,7 +20,7 @@ import java.sql.Statement;
  * 
  * @author Martin Dwyer
  */
-public class Database extends Environment {
+public class Database {
     
     private String dbUrl;
     private String username;
