@@ -31,10 +31,10 @@ public class Database extends Environment {
      * 
      */
     public Database() {
-        super();
-        dbUrl = this.DBURL;
-        username = this.USERNAME;
-        password = this.PASSWORD;
+        //super();
+        dbUrl = System.getenv("DBURL");
+        username = System.getenv("USERNAME");
+        password = System.getenv("PASSWORD");
     }
     
     /**
