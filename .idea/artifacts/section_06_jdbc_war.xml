@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="section-06-jdbc:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>section-06-jdbc</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="section-06-jdbc-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="section-06-jdbc:war exploded" />
+    </root>
+  </artifact>
+</component>
