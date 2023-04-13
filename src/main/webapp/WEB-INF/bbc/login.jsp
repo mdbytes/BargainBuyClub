@@ -20,6 +20,7 @@
     if (request.getAttribute("sign-up-error-message") != null) {
         signUpErrorMessage = request.getAttribute("sign-up-error-message").toString();
     }
+    out.println(signUpErrorMessage);
 %>
 
 <!-- main page HTML content begins here -->

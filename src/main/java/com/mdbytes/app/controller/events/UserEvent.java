@@ -34,26 +34,30 @@ public class UserEvent extends Event {
         firstName = request.getParameter("first-name");
         lastName = request.getParameter("last-name");
 
-        if (userDao.getUserByEmailAddress(userName).getUserID() == 0) {
-            User user = new User();
-            System.out.println(firstName + "," + lastName + "," + userName + "," + password);
-            String[] args = {firstName, lastName, userName, password, String.valueOf(false)};
-            user = userDao.add(firstName, lastName, userName, password, String.valueOf(false));
-            HttpSession newSession = request.getSession(true);
-            newSession.setMaxInactiveInterval(300);
-            newSession.setAttribute("admin", userDao.getUserByEmailAddress(userName).isIsAdmin());
-            newSession.setAttribute("username", userName);
-            request.setAttribute("session", newSession);
-            newSession.setAttribute("useralerts", userDao.getUserAlerts(userID));
-            newSession.setAttribute("admin-view", "false");
-            request.setAttribute("page", "alerts");
-            request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
-        } else {
-            request.setAttribute("errormessage", "Email address already exists in database");
-            System.out.println(request.getAttribute("sign-up-error-message").toString());
-            request.setAttribute("page", "login");
-            request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
-        }
+//        if (userDao.getUserByEmailAddress(userName).getUserID() == 0) {
+//            User user = new User();
+//            System.out.println(firstName + "," + lastName + "," + userName + "," + password);
+//            String[] args = {firstName, lastName, userName, password, String.valueOf(false)};
+//            user = userDao.add(firstName, lastName, userName, password, String.valueOf(false));
+//            HttpSession newSession = request.getSession(true);
+//            newSession.setMaxInactiveInterval(300);
+//            newSession.setAttribute("admin", userDao.getUserByEmailAddress(userName).isIsAdmin());
+//            newSession.setAttribute("username", userName);
+//            request.setAttribute("session", newSession);
+//            newSession.setAttribute("useralerts", userDao.getUserAlerts(userID));
+//            newSession.setAttribute("admin-view", "false");
+//            request.setAttribute("page", "alerts");
+//            request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
+//        } else {
+//            request.setAttribute("errormessage", "Email address already exists in database");
+//            System.out.println(request.getAttribute("sign-up-error-message").toString());
+//            request.setAttribute("page", "login");
+//            request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
+//        }
+        request.setAttribute("errormessage", "Registration disabled during beta development phase.");
+        request.setAttribute("sign-up-error-message", "Registration disabled during this development phase.");
+        request.setAttribute("page", "login");
+        request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
     }
 
     /**
