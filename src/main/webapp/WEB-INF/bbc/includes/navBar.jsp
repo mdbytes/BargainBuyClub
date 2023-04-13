@@ -51,7 +51,7 @@
         <div class="collapse navbar-collapse" id="navbarNav" style="display:flex; justify-content: end;">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="<%= homeClass %>" href="">Home</a>
+                    <a class="<%= homeClass %>" href="<%=request.getContextPath()%>/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="<%= aboutClass  %>" href="about">About</a>
