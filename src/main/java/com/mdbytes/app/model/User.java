@@ -2,20 +2,20 @@
  * Author:      Martin Dwyer
  * Date:        April 17, 2020
  * Description: This file is part of the BargainBuyClub application.
- * License:     The application is provide herein under the GNU General Public 
- *              License, a free copyleft license for software.  A copy of this 
+ * License:     The application is provide herein under the GNU General Public
+ *              License, a free copyleft license for software.  A copy of this
  *              license has been provided in the root folder of this application.
  */
-package app.model;
+package com.mdbytes.app.model;
 
 /**
- * User class provides the structure for users of the system. 
- * 
+ * User class provides the structure for users of the system.
+ *
  * @author Martin Dwyer
  */
 public class User {
 
-    private int userID;
+    private final int userID;
     private String firstName;
     private String lastName;
     private String emailAddress;
@@ -23,7 +23,7 @@ public class User {
     private boolean isAdmin;
 
     /**
-     *  Default constructor creates a null object.
+     * Default constructor creates a null object.
      */
     public User() {
         this.userID = 0;
@@ -35,14 +35,14 @@ public class User {
     }
 
     /**
-     * Complete constructor specifies every attribute of User objects. 
-     * 
-     * @param userID a unique identifier, an integer
-     * @param firstName the user's first name, a String
-     * @param lastName the user's last name, a String
+     * Complete constructor specifies every attribute of User objects.
+     *
+     * @param userID       a unique identifier, an integer
+     * @param firstName    the user's first name, a String
+     * @param lastName     the user's last name, a String
      * @param emailAddress the user's email address, a String
-     * @param password the user's entered password, a String
-     * @param isAdmin true is user is administrator, false otherwise
+     * @param password     the user's entered password, a String
+     * @param isAdmin      true is user is administrator, false otherwise
      */
     public User(int userID, String firstName, String lastName, String emailAddress, String password, boolean isAdmin) {
         this.userID = userID;
@@ -54,8 +54,8 @@ public class User {
     }
 
     /**
-     * Method returns User object first name. 
-     * 
+     * Method returns User object first name.
+     *
      * @return first name, a String
      */
     public String getFirstName() {
@@ -67,8 +67,8 @@ public class User {
     }
 
     /**
-     * Method returns User object last name. 
-     * 
+     * Method returns User object last name.
+     *
      * @return last name, a String
      */
     public String getLastName() {
@@ -80,8 +80,8 @@ public class User {
     }
 
     /**
-     * Method returns User object email address. 
-     * 
+     * Method returns User object email address.
+     *
      * @return email address, a String
      */
     public String getEmailAddress() {
@@ -93,21 +93,12 @@ public class User {
     }
 
     /**
-     * Method returns password stored in memory for User object during registration. 
-     * 
+     * Method returns password stored in memory for User object during registration.
+     *
      * @return password, a String
      */
     public String getPassword() {
         return password;
-    }
-
-    /**
-     * Method returns the User object's unique ID.
-     * 
-     * @return ID, an integer
-     */
-    public int getUserID() {
-        return userID;
     }
 
     private void setPassword(String password) {
@@ -115,8 +106,17 @@ public class User {
     }
 
     /**
-     * Method returns the administrative status of User objects.  
-     * 
+     * Method returns the User object's unique ID.
+     *
+     * @return ID, an integer
+     */
+    public int getUserID() {
+        return userID;
+    }
+
+    /**
+     * Method returns the administrative status of User objects.
+     *
      * @return true if administrator, false otherwise
      */
     public boolean isIsAdmin() {

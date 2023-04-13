@@ -1,13 +1,14 @@
-package app.controller;
+package com.mdbytes.app.controller;
 
-import app.dao.AlertDAO_MySQL;
-import app.dao.ProductDAO_MySQL;
-import app.dao.StoreDAO_MySQL;
-import app.dao.UserDAO_MySQL;
-import app.model.Alert;
-import app.model.Product;
-import app.model.User;
-import jakarta.servlet.http.HttpSession;
+import com.mdbytes.app.dao.AlertDAO_MySQL;
+import com.mdbytes.app.dao.ProductDAO_MySQL;
+import com.mdbytes.app.dao.StoreDAO_MySQL;
+import com.mdbytes.app.dao.UserDAO_MySQL;
+import com.mdbytes.app.model.Alert;
+import com.mdbytes.app.model.Product;
+import com.mdbytes.app.model.User;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Provides the framework for the application environment when a user session is underway. Initiates upon

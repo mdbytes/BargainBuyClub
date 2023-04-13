@@ -8,7 +8,7 @@
 
 <%-- importing necessary Java resources --%>
 <%@page import="java.util.ArrayList" %>
-<%@ page import="app.model.Alert" %>
+<%@ page import="com.mdbytes.app.model.Alert" %>
 
 <%-- including page header including meta data and styles --%>
 <jsp:include page="/WEB-INF/bbc/includes/pageTop.jsp"/>
@@ -45,7 +45,7 @@
     <!-- Page consists of a single form to collect alert information -->
     <h1>Add Alert</h1>
     <h4>Enter the required information below:</h4>
-    <form id="add-alert-form" action="Controller" method="get">
+    <form id="add-alert-form" action="main" method="get">
 
         <!-- User must select store, which is limited to those in option group -->
         <div class="form-group">

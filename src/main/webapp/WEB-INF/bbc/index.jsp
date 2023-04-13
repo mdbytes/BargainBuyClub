@@ -5,8 +5,8 @@
     License    : GNU public license in application root folder
 --%>
 <%@page import="java.util.ArrayList,java.text.NumberFormat" %>
-<%@ page import="app.model.Alert" %>
-<%@ page import="app.controller.events.HomeEvent" %>
+<%@ page import="com.mdbytes.app.model.Alert" %>
+<%@ page import="com.mdbytes.app.controller.events.HomeEvent" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <%-- include navbar and meta data, page sources and styles --%>
@@ -37,7 +37,7 @@
 
             <!-- A forward to user entry portal when user chooses 'Get Started' -->
             <div class="center" id="get-started">
-                <a href="Controller?action=login-user" class="btn btn-large btn-success">Get Started</a>
+                <a href="main?action=login-user" class="btn btn-large btn-success">Get Started</a>
             </div>
 
             <div id="mobile-hr-addition">

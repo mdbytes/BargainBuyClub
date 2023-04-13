@@ -10,12 +10,13 @@
 
 /* Styles are kept separately as follows */
 
-@import url("site-wide.css");           /* Styles used on multiple pages            */
-@import url("index.css");               /* Styles for index.jsp                     */
-@import url("login.css");               /* Styles for login.jsp                     */
-@import url("add-alert.css");           /* Styles for addAlert.jsp                  */
-@import url("display-alerts.css");      /* Styles for displayAlerts.jsp             */      
-@import url("display-users.css");       /* Styles for displayUsers.jsp              */
-@import url("media-queries.css");       /* Styles for media-queries                 */
+@import url("site-wide.css");
+@import url("index.css");
+@import url("about.css");
+@import url("login.css");
+@import url("add-alert.css");
+@import url("display-alerts.css");
+@import url("display-users.css");
+@import url("media-queries.css");
 
 

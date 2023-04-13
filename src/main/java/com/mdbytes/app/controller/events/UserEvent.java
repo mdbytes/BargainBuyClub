@@ -1,12 +1,12 @@
-package app.controller.events;
+package com.mdbytes.app.controller.events;
 
-import app.controller.Event;
-import app.model.User;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import com.mdbytes.app.controller.Event;
+import com.mdbytes.app.model.User;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -157,7 +157,7 @@ public class UserEvent extends Event {
      */
     public void logoutUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.getSession().invalidate();
-        response.sendRedirect(request.getContextPath() + "/Controller?action=home");
+        response.sendRedirect(request.getContextPath() + "/main?action=home");
     }
 
     /**

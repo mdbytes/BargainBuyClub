@@ -1,8 +1,8 @@
-package app.dao;
+package com.mdbytes.app.dao;
 
-import app.model.Alert;
-import app.model.Product;
-import app.model.User;
+import com.mdbytes.app.model.Alert;
+import com.mdbytes.app.model.Product;
+import com.mdbytes.app.model.User;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.*;

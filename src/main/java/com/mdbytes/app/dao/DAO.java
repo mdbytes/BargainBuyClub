@@ -1,4 +1,4 @@
-package app.dao;
+package com.mdbytes.app.dao;
 
 import java.util.List;
 

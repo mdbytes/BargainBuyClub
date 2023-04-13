@@ -10,7 +10,7 @@
 <%@page import="java.util.Collections,
                 java.util.ArrayList,
                 java.text.NumberFormat" %>
-<%@ page import="app.model.Alert" %>
+<%@ page import="com.mdbytes.app.model.Alert" %>
 
 <%-- including page header including meta data and styles --%>
 <jsp:include page="/WEB-INF/bbc/includes/pageTop.jsp"/>
@@ -90,7 +90,7 @@
             <!-- actions for users triggered by the following buttons -->
             <!-- button for adding alerts for this user -->
             <div class="user-button">
-                <form class="button-form" id="add-alert-" action="Controller" method="get">
+                <form class="button-form" id="add-alert-" action="main" method="get">
                     <input class="hidden-element " type="text" value="add-alert-page" name="action">
                     <input id="add-alert-button" type="submit" value="   Add Alert  "
                            class="btn btn-primary btn-large btn-success user-button">
@@ -120,7 +120,7 @@
 
                 <!-- displays alerts for all users in system for admin users -->
                 <div class="user-button">
-                    <form class="button-form" id="admin-display-alerts" action="Controller" method="get">
+                    <form class="button-form" id="admin-display-alerts" action="main" method="get">
                         <input class="hidden-element " type="text" value="admin-display-alerts" name="action">
                         <input id="admin-display-alerts-button" type="submit" value="Display All"
                                class="btn btn-primary btn-large btn-success user-button">
@@ -129,7 +129,7 @@
 
                 <!-- forwards admin user to a page displaying all system users -->
                 <div class="user-button">
-                    <form class="button-form" id="admin-display-users" action="Controller" method="get">
+                    <form class="button-form" id="admin-display-users" action="main" method="get">
                         <input class="hidden-element " type="text" value="admin-display-users" name="action">
                         <input id="admin-display-users-button" type="submit" value="Display Users"
                                class="btn btn-primary btn-large btn-success user-button">
@@ -139,7 +139,7 @@
 
             <!-- sign out user ending session and returning to home page -->
             <div class="user-button">
-                <form class="button-form" id="sign-out" action="Controller" method="get">
+                <form class="button-form" id="sign-out" action="main" method="get">
                     <input class="hidden-element " type="text" value="logout" name="action">
                     <input id="sign-out-button" type="submit" value="   Sign Out   "
                            class="btn btn-primary btn-large btn-success user-button">
@@ -148,7 +148,7 @@
 
             <!-- displays when edit alert button clicked -->
             <div id="edit-alert-button-div">
-                <form class="button-form" id="edit-alert-form" action="Controller" method="get">
+                <form class="button-form" id="edit-alert-form" action="main" method="get">
                     <input class="hidden-element " type="text" value="edit-alert" name="action">
                     <label for="alert-id-input">Alert ID for editing:</label>
                     <select name="alert-id" class="form-control" id="alert-id-input">
@@ -175,7 +175,7 @@
 
             <!-- displays when delete alert button clicked -->
             <div id="delete-alert-button-div">
-                <form class="button-form" id="delete-alert-form" action="Controller" method="get">
+                <form class="button-form" id="delete-alert-form" action="main" method="get">
                     <input class="hidden-element " type="text" value="delete-alert" name="action">
                     <label for="alert-id-input">Alert ID to be deleted:</label>
                     <select name="alert-id" class="form-control" id="alert-id-input">

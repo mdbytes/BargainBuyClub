@@ -34,7 +34,7 @@
         </div>
 
         <!-- HTML validations are used extensively in both sign in and sign up processes -->
-        <form method="post" action="Controller" id="signin" style="float:left;">
+        <form method="post" action="main" id="signin" style="float:left;">
             <div class="form-group">
                 <h3>Sign In</h3>
             </div>
@@ -64,7 +64,7 @@
 
     <!-- The second row allows new users to sign up -->
     <div class="row">
-        <form method="get" action="Controller" id="signup">
+        <form method="get" action="main" id="signup">
             <div class="form-group">
                 <h3>Or Sign Up</h3>
             </div>

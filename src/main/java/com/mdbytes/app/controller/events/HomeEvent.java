@@ -1,11 +1,11 @@
-package app.controller.events;
+package com.mdbytes.app.controller.events;
 
-import app.controller.Event;
-import app.model.Alert;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.mdbytes.app.controller.Event;
+import com.mdbytes.app.model.Alert;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

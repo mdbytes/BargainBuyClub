@@ -10,7 +10,7 @@
 <%@page import="java.util.Collections,
                 java.util.ArrayList,
                 java.text.NumberFormat" %>
-<%@ page import="app.model.User" %>
+<%@ page import="com.mdbytes.app.model.User" %>
 
 <%-- including page header including meta data and styles --%>
 <jsp:include page="/WEB-INF/bbc/includes/pageTop.jsp"/>
@@ -114,7 +114,7 @@
 
             <!-- button to sign out admin -->
             <div class="user-button">
-                <form class="button-form" id="sign-out" action="Controller" method="get">
+                <form class="button-form" id="sign-out" action="main" method="get">
                     <input class="hidden-element " type="text" value="logout" name="action">
                     <input id="sign-out-button" type="submit" value="   Sign Out   "
                            class="btn btn-primary btn-large btn-success user-button">
@@ -124,7 +124,7 @@
 
             <!-- form for editing user -->
             <div id="edit-user-button-div">
-                <form class="button-form" id="edit-user-form" action="Controller" method="get">
+                <form class="button-form" id="edit-user-form" action="main" method="get">
                     <input class="hidden-element " type="text" value="edit-user" name="action">
                     <label for="user-id-input">User ID for editing:</label>
                     <select name="user-id" id="user-id-input" class="form-control">
@@ -162,7 +162,7 @@
 
             <!-- form for deleting user -->
             <div id="delete-user-button-div">
-                <form class="button-form" id="delete-user-form" action="Controller" method="get">
+                <form class="button-form" id="delete-user-form" action="main" method="get">
                     <input class="hidden-element " type="text" value="delete-user" name="action">
                     <label for="user-id">User ID to be deleted:</label>
                     <select name="user-id" id="user-id" class="form-control">
@@ -187,7 +187,7 @@
 
             <!-- form for making user admin -->
             <div id="admin-user-button-div">
-                <form class="button-form" id="admin-user-form" action="Controller" method="get">
+                <form class="button-form" id="admin-user-form" action="main" method="get">
                     <input class="hidden-element " type="text" value="admin-user" name="action">
                     <label for="user-id">User ID to be System Administrator:</label>
                     <select name="user-id" class="form-control">

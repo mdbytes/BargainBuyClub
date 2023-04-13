@@ -1,14 +1,14 @@
-package app.controller;
+package com.mdbytes.app.controller;
 
-import app.controller.events.AlertEvent;
-import app.controller.events.HomeEvent;
-import app.controller.events.UserEvent;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.mdbytes.app.controller.events.AlertEvent;
+import com.mdbytes.app.controller.events.HomeEvent;
+import com.mdbytes.app.controller.events.UserEvent;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * Servlet handles all flow for the application requiring any business logic for users.
  * Discerns need through request parameters and forwards to the appropriate event handlers.
  */
-@WebServlet(name = "BargainControllerServlet", value = "/Controller")
+@WebServlet(name = "BargainControllerServlet", value = "/main")
 public class ControllerServlet extends HttpServlet {
     private final HomeEvent homeEvent = new HomeEvent();
     private final UserEvent userEvent = new UserEvent();
