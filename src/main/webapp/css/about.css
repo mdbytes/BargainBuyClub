@@ -22,3 +22,35 @@
     position: absolute;
     right: 0;
 }
+
+.about .carousel-caption {
+    color: black;
+
+}
+
+.carousel {
+    overflow: hidden;
+    padding-bottom: 4rem;
+}
+
+.carousel-caption {
+    top: 100%;
+}
+
+.carousel-inner {
+    overflow: visible;
+    padding-bottom: 4rem;
+}
+
+.carousel-control-next, .carousel-control-prev {
+    bottom: 4rem;
+}
+
+.carousel-indicators {
+    bottom: 1rem;
+
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #333333;
+}

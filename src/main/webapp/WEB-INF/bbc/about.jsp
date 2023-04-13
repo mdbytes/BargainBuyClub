@@ -48,28 +48,28 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="images/screenshots/01-home-page.png" class="d-block w-100" alt="home page">
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption d-md-block">
                     <h5>From here...</h5>
                     <p>Just click the <i>Get Started</i> button.</p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="images/screenshots/02-login-register.png" class="d-block w-100" alt="login or register">
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption d-md-block">
                     <h5>Getting started...</h5>
                     <p>Choose to login or register.</p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="images/screenshots/04-add-alert.png" class="d-block w-100" alt="add alert">
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption d-md-block">
                     <h5>Add alerts...</h5>
                     <p>Add a product url from our list of supported online stores.</p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="images/screenshots/05-revised-alerts.png" class="d-block w-100" alt="add alert">
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption d-md-block">
                     <h5>Track your alerts...</h5>
                     <p>Visit as often as you like to add, edit, or delete alerts.</p>
                 </div>
