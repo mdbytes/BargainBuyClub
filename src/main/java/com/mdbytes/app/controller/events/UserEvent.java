@@ -46,10 +46,12 @@ public class UserEvent extends Event {
             request.setAttribute("session", newSession);
             newSession.setAttribute("useralerts", userDao.getUserAlerts(userID));
             newSession.setAttribute("admin-view", "false");
+            request.setAttribute("page", "alerts");
             request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
         } else {
             request.setAttribute("errormessage", "Email address already exists in database");
             System.out.println(request.getAttribute("sign-up-error-message").toString());
+            request.setAttribute("page", "login");
             request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
         }
     }
@@ -73,6 +75,7 @@ public class UserEvent extends Event {
             userDao.updateUserPassword(userID, newPassword);
         }
         request.getSession().setAttribute("users", userDao.getAll());
+        request.setAttribute("page", "admin");
         request.getRequestDispatcher("WEB-INF/bbc/displayUsers.jsp").forward(request, response);
     }
 
@@ -89,6 +92,7 @@ public class UserEvent extends Event {
         userID = Integer.parseInt(request.getParameter("user-id"));
         userDao.delete(userID);
         request.getSession().setAttribute("users", userDao.getAll());
+        request.setAttribute("page", "admin");
         request.getRequestDispatcher("WEB-INF/bbc/displayUsers.jsp").forward(request, response);
     }
 
@@ -105,6 +109,7 @@ public class UserEvent extends Event {
         userID = Integer.parseInt(request.getParameter("user-id"));
         userDao.makeUserAdmin(userID);
         request.getSession().setAttribute("users", userDao.getAll());
+        request.setAttribute("page", "admin");
         request.getRequestDispatcher("WEB-INF/bbc/displayUsers.jsp").forward(request, response);
     }
 
@@ -138,12 +143,15 @@ public class UserEvent extends Event {
                     newSession.setAttribute("admin-view", "false");
                 }
                 request.setAttribute("session", newSession);
+                request.setAttribute("page", "alerts");
                 request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
             } else {
                 request.setAttribute("sign-in-error-message", "Username or password incorrect");
+                request.setAttribute("page", "login");
                 request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
             }
         } else {
+            request.setAttribute("page", "login");
             request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
         }
     }
@@ -157,6 +165,7 @@ public class UserEvent extends Event {
      */
     public void logoutUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.getSession().invalidate();
+        request.setAttribute("page", "home");
         response.sendRedirect(request.getContextPath() + "/main?action=home");
     }
 
@@ -170,6 +179,7 @@ public class UserEvent extends Event {
      */
     public void displayUsersForAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("users", userDao.getAll());
+        request.setAttribute("page", "admin");
         request.getRequestDispatcher("WEB-INF/bbc/displayUsers.jsp").forward(request, response);
     }
 

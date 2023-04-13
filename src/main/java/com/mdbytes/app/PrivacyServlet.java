@@ -23,6 +23,7 @@ public class PrivacyServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("page", "privacy");
         request.getRequestDispatcher("WEB-INF/bbc/privacy.jsp").forward(request, response);
     }
 }

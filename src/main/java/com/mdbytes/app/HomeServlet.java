@@ -30,6 +30,7 @@ public class HomeServlet extends HttpServlet {
         HomeEvent homeEvent = new HomeEvent();
         List<Alert> homeAlerts = homeEvent.loadHome();
         request.setAttribute("homeAlerts", homeAlerts);
+        request.setAttribute("page", "home");
         request.getRequestDispatcher("WEB-INF/bbc/index.jsp").forward(request, response);
     }
 }

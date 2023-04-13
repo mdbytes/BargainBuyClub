@@ -23,6 +23,7 @@ public class AboutServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("page", "about");
         request.getRequestDispatcher("WEB-INF/bbc/about.jsp").forward(request, response);
     }
 }

@@ -27,8 +27,10 @@ public class AlertEvent extends Event {
     public void displayNewAlertPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         HttpSession thisSession = request.getSession();
         if (thisSession != null) {
+            request.setAttribute("page", "alerts");
             request.getRequestDispatcher("WEB-INF/bbc/addAlert.jsp").forward(request, response);
         } else {
+            request.setAttribute("page", "login");
             request.setAttribute("errormessage", "Must be logged in to add alerts.");
             request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
         }
@@ -53,6 +55,7 @@ public class AlertEvent extends Event {
         alert = alertDao.addAlert(product.getProductID(), userDao.getUserByEmailAddress(userName).getUserID(), alertPrice);
         request.getSession().setAttribute("useralerts", userDao.getUserAlerts((int) request.getSession().getAttribute("user-id")));
         request.getSession().setAttribute("system-alerts", alertDao.getAll());
+        request.setAttribute("page", "alerts");
         request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
     }
 
@@ -74,6 +77,7 @@ public class AlertEvent extends Event {
         alertDao.updateAlertPrice(alertID, alertPrice);
         request.getSession().setAttribute("useralerts", userDao.getUserAlerts((int) request.getSession().getAttribute("user-id")));
         request.getSession().setAttribute("system-alerts", alertDao.getAll());
+        request.setAttribute("page", "alerts");
         request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
     }
 
@@ -94,6 +98,7 @@ public class AlertEvent extends Event {
         alertDao.delete(alertID);
         request.getSession().setAttribute("useralerts", userDao.getUserAlerts(userID));
         request.getSession().setAttribute("system-alerts", alertDao.getAll());
+        request.setAttribute("page", "alerts");
         request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
     }
 
@@ -111,9 +116,11 @@ public class AlertEvent extends Event {
             userID = (int) request.getSession().getAttribute("user-id");
             request.setAttribute("useralerts", userDao.getUserAlerts(userID));
             request.getSession().setAttribute("admin-page", "false");
+            request.setAttribute("page", "alerts");
             request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
         } else {
             request.setAttribute("errormessage", "Username or password incorrect");
+            request.setAttribute("page", "login");
             request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
         }
     }
@@ -130,9 +137,11 @@ public class AlertEvent extends Event {
         if (request.getSession() != null && request.getSession().getAttribute("admin-view") == "true") {
             request.getSession().setAttribute("admin-page", "true");
             request.getSession().setAttribute("system-alerts", alertDao.getAll());
+            request.setAttribute("page", "admin");
             request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
         } else {
             request.setAttribute("errormessage", "Must be logged in as admin to view.");
+            request.setAttribute("page", "login");
             request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
         }
     }

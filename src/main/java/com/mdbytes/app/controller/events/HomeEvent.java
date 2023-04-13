@@ -38,6 +38,7 @@ public class HomeEvent extends Event {
     public void goHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Alert> homeAlerts = loadHome();
         request.setAttribute("homeAlerts", homeAlerts);
+        request.setAttribute("page", "home");
         request.getRequestDispatcher("WEB-INF/bbc/index.jsp").forward(request, response);
     }
 }

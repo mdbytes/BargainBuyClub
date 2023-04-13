@@ -23,7 +23,7 @@ public class ContactServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.setAttribute("page", "contact");
         request.getRequestDispatcher("WEB-INF/bbc/contact.jsp").forward(request, response);
     }
 }
