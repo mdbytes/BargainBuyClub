@@ -31,3 +31,7 @@ Current development is focused on:
 <li style="margin-bottom: 8px">Deployment using docker container and NGINX proxy server for security.</li>
 </ol>
 
+One of my favorite features of Java, the Javadocs, for this project can be reviewed at the following address:
+
+https://bargain-buy-club.herokuapp.com/javadoc/
+
