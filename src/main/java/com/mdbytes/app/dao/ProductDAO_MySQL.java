@@ -62,8 +62,20 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
     }
 
     @Override
-    public Product update(Product product) {
-        return null;
+    public Product update(Product product) throws SQLException, IOException {
+        Product savedProduct = new Product();
+        Date today = Date.valueOf(LocalDate.now());
+        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        CallableStatement callableStatement = connection.prepareCall("CALL update_product(?,?,?,?,?,?)");
+        callableStatement.setInt(1, product.getProductID());
+        callableStatement.setInt(2, product.getStore().getStoreID());
+        callableStatement.setString(3, product.getProductUrl());
+        callableStatement.setString(4, product.getProductName());
+        callableStatement.setDouble(5, product.getProductPrice());
+        callableStatement.setDate(6, today);
+        int count = callableStatement.executeUpdate();
+        savedProduct = getProductByURL(product.getProductUrl());
+        return savedProduct;
     }
 
     @Override

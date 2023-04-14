@@ -77,7 +77,7 @@
                     <ul class="dropdown-menu bg-dark">
                         <li><a class="nav-link active" href="main?action=admin-display-alerts">Alerts</a></li>
                         <li><a class="nav-link active" href="main?action=admin-display-users">Users</a></li>
-
+                        <li><a class="nav-link active" href="main?action=update-system-prices">Update Prices</a></li>
                     </ul>
                 </li>
                 <%}%>

@@ -33,7 +33,7 @@ public interface DAO<T> {
      * @param t an object of class T.
      * @return the updated object from the database.
      */
-    T update(T t);
+    T update(T t) throws SQLException, IOException;
 
     /**
      * Deletes an object of class T.
