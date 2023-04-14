@@ -1,5 +1,7 @@
 package com.mdbytes.app.dao;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ public interface DAO<T> {
      * @param args a String array of object attributes.
      * @return an object of class T.
      */
-    T add(String[] args);
+    T add(String[] args) throws SQLException, IOException;
 
     /**
      * Retrieves an object of class T from the database given a unique identifier.
@@ -23,7 +25,7 @@ public interface DAO<T> {
      * @param id a unique identifier, an integer.
      * @return an object of class T.
      */
-    T get(int id);
+    T get(int id) throws SQLException, IOException;
 
     /**
      * Updates the database for an object of class T.
@@ -38,14 +40,14 @@ public interface DAO<T> {
      *
      * @param id a unique identifier, an integer.
      */
-    void delete(int id);
+    void delete(int id) throws SQLException;
 
     /**
      * Retrieves all objects of class T from the database.
      *
      * @return a list of objects of class T.
      */
-    List<T> getAll();
+    List<T> getAll() throws SQLException, IOException;
 
 
 }

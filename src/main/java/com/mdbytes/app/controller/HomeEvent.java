@@ -1,12 +1,11 @@
-package com.mdbytes.app.controller.events;
+package com.mdbytes.app.controller;
 
-import com.mdbytes.app.controller.Event;
 import com.mdbytes.app.model.Alert;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class HomeEvent extends Event {
      *
      * @return alerts
      */
-    public ArrayList<Alert> loadHome() {
+    public ArrayList<Alert> loadHome() throws SQLException, IOException {
         ArrayList<Alert> alerts = (ArrayList<Alert>) userDao.getUserAlerts(1);
         return alerts;
     }
@@ -32,13 +31,14 @@ public class HomeEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
-     * @throws ServletException if servlet specific error occurs
-     * @throws IOException      if I/O error occurs
      */
-    public void goHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public boolean goHome(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         List<Alert> homeAlerts = loadHome();
         request.setAttribute("homeAlerts", homeAlerts);
         request.setAttribute("page", "home");
-        request.getRequestDispatcher("WEB-INF/bbc/index.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath());
+        return true;
+
+
     }
 }

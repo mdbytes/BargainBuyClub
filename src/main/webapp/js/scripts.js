@@ -27,7 +27,7 @@ $(document).ready(function () {
             console.log("not admin");
         }
     }
-    
+
     // checkAdmin() is prompted by the id 'display-alerts-page' 
     if (document.getElementById('display-alerts-page') != null) {
         checkAdmin();
@@ -43,35 +43,35 @@ $(document).ready(function () {
     var deleteDisplayed = false;
 
     $('#display-edit-alert').click(function () {
-        if (editDisplayed === false) {
-            if (deleteDisplayed == true) {
-                $('#delete-alert-button-div').css("display", "none");
-                deleteDisplayed = false;
-            }
-            $('#edit-alert-button-div').css("display", "inline-block");
-            editDisplayed = true;
-        } else {
-            $('#edit-alert-button-div').css("display", "none");
-            editDisplayed = false;
-        }
-
-    }
-    );
-
-    $('#display-delete-alert').click(function () {
-        if (deleteDisplayed === false) {
-            if (editDisplayed == true) {
+            if (editDisplayed === false) {
+                if (deleteDisplayed == true) {
+                    $('#delete-alert-button-div').css("display", "none");
+                    deleteDisplayed = false;
+                }
+                $('#edit-alert-button-div').css("display", "inline-block");
+                editDisplayed = true;
+            } else {
                 $('#edit-alert-button-div').css("display", "none");
                 editDisplayed = false;
             }
-            $('#delete-alert-button-div').css("display", "inline-block");
-            deleteDisplayed = true;
-        } else {
-            $('#delete-alert-button-div').css("display", "none");
-            deleteDisplayed = false;
-        }
 
-    }
+        }
+    );
+
+    $('#display-delete-alert').click(function () {
+            if (deleteDisplayed === false) {
+                if (editDisplayed == true) {
+                    $('#edit-alert-button-div').css("display", "none");
+                    editDisplayed = false;
+                }
+                $('#delete-alert-button-div').css("display", "inline-block");
+                deleteDisplayed = true;
+            } else {
+                $('#delete-alert-button-div').css("display", "none");
+                deleteDisplayed = false;
+            }
+
+        }
     );
 
     /*
@@ -85,71 +85,71 @@ $(document).ready(function () {
     var adminDisplayUser = false;
 
     $('#display-edit-user').click(function () {
-        if (editDisplayUser === false) {
-            if (deleteDisplayUser == true) {
-                $('#delete-user-button-div').css("display", "none");
-                deleteDisplayUser = false;
+            if (editDisplayUser === false) {
+                if (deleteDisplayUser == true) {
+                    $('#delete-user-button-div').css("display", "none");
+                    deleteDisplayUser = false;
+                }
+                if (adminDisplayUser == true) {
+                    $('#admin-user-button-div').css("display", "none");
+                    adminDisplayUser = false;
+                }
+                $('#edit-user-button-div').css("display", "inline-block");
+                editDisplayUser = true;
+            } else {
+                $('#edit-user-button-div').css("display", "none");
+                editDisplayUser = false;
             }
-            if (adminDisplayUser == true) {
-                $('#admin-user-button-div').css("display", "none");
-                adminDisplayUser = false;
-            }
-            $('#edit-user-button-div').css("display", "inline-block");
-            editDisplayUser = true;
-        } else {
-            $('#edit-user-button-div').css("display", "none");
-            editDisplayUser = false;
-        }
 
-    }
+        }
     );
 
     $('#display-delete-user').click(function () {
-        if (deleteDisplayUser === false) {
-            if (editDisplayUser == true) {
-                $('#edit-user-button-div').css("display", "none");
-                editDisplayUser = false;
-            }
-            if (adminDisplayUser == true) {
-                $('#admin-user-button-div').css("display", "none");
-                adminDisplayUser = false;
-            }
-            $('#delete-user-button-div').css("display", "inline-block");
-            deleteDisplayUser = true;
-        } else {
-            $('#delete-user-button-div').css("display", "none");
-            deleteDisplayUser = false;
-        }
-
-    }
-    );
-
-    $('#display-admin-user').click(function () {
-        if (adminDisplayUser === false) {
-            if (editDisplayUser == true) {
-                $('#edit-user-button-div').css("display", "none");
-                editDisplayUser = false;
-            }
-            if (deleteDisplayUser == true) {
+            if (deleteDisplayUser === false) {
+                if (editDisplayUser == true) {
+                    $('#edit-user-button-div').css("display", "none");
+                    editDisplayUser = false;
+                }
+                if (adminDisplayUser == true) {
+                    $('#admin-user-button-div').css("display", "none");
+                    adminDisplayUser = false;
+                }
+                $('#delete-user-button-div').css("display", "inline-block");
+                deleteDisplayUser = true;
+            } else {
                 $('#delete-user-button-div').css("display", "none");
                 deleteDisplayUser = false;
             }
-            $('#admin-user-button-div').css("display", "inline-block");
-            adminDisplayUser = true;
-        } else {
-            $('#admin-user-button-div').css("display", "none");
-            adminDisplayUser = false;
-        }
 
-    }
+        }
     );
-    
-     /*
-     * idleLogout() establishes a timer object and conditions for resetting the
-     * timer object to zero.  User is notified at 8 minutes, and logged off at 
-     * 10 minutes.  
-     * 
-     */
+
+    $('#display-admin-user').click(function () {
+            if (adminDisplayUser === false) {
+                if (editDisplayUser == true) {
+                    $('#edit-user-button-div').css("display", "none");
+                    editDisplayUser = false;
+                }
+                if (deleteDisplayUser == true) {
+                    $('#delete-user-button-div').css("display", "none");
+                    deleteDisplayUser = false;
+                }
+                $('#admin-user-button-div').css("display", "inline-block");
+                adminDisplayUser = true;
+            } else {
+                $('#admin-user-button-div').css("display", "none");
+                adminDisplayUser = false;
+            }
+
+        }
+    );
+
+    /*
+    * idleLogout() establishes a timer object and conditions for resetting the
+    * timer object to zero.  User is notified at 8 minutes, and logged off at
+    * 10 minutes.
+    *
+    */
     function idleLogout() {
         var t;
         window.onload = resetTimer;
@@ -157,7 +157,7 @@ $(document).ready(function () {
         window.onmousedown = resetTimer;  // catches touchscreen presses as well      
         window.ontouchstart = resetTimer; // catches touchscreen swipes as well 
         window.onclick = resetTimer;      // catches touchpad clicks as well
-        window.onkeypress = resetTimer;   
+        window.onkeypress = resetTimer;
         window.addEventListener('scroll', resetTimer, true); // improved; see comments
 
         function warning() {
@@ -175,7 +175,7 @@ $(document).ready(function () {
                 }
             });
         }
-    
+
         function logoff() {
             $("#sign-out-button").click();
         }
@@ -183,10 +183,12 @@ $(document).ready(function () {
         function resetTimer() {
             clearTimeout(t);
             t = setTimeout(warning, 480000);  // time is in milliseconds
-            t = setTimeout(logoff, 600000); 
+            t = setTimeout(logoff, 600000);
         }
     }
+
     idleLogout();
+
 
 })
 

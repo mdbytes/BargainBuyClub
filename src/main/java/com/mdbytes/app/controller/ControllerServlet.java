@@ -1,9 +1,5 @@
 package com.mdbytes.app.controller;
 
-import com.mdbytes.app.controller.events.AlertEvent;
-import com.mdbytes.app.controller.events.HomeEvent;
-import com.mdbytes.app.controller.events.UserEvent;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Servlet handles all flow for the application requiring any business logic for users.
@@ -33,12 +27,10 @@ public class ControllerServlet extends HttpServlet {
      *
      * @param request  servlet request
      * @param response servlet response
-     * @throws ServletException      if a servlet-specific error occurs
-     * @throws IOException           if an I/O error occurs
-     * @throws java.sql.SQLException if database exception occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+
+        boolean success = false;
 
         switch (request.getParameter("action")) {
             case "home":
@@ -62,9 +54,9 @@ public class ControllerServlet extends HttpServlet {
                 break;
 
             case "register-user":
-                userEvent.registerUser(request, response);
-
+                userEvent.registerUserBeta(request, response);
                 break;
+
             case "add-alert-page":
                 alertEvent.displayNewAlertPage(request, response);
                 break;
@@ -78,7 +70,6 @@ public class ControllerServlet extends HttpServlet {
                 break;
 
             case "delete-alert":
-                alertEvent.deleteAlert(request, response);
                 break;
 
             case "admin-display-users":
@@ -99,12 +90,12 @@ public class ControllerServlet extends HttpServlet {
 
             default:
                 request.getSession().invalidate();
-                request.getRequestDispatcher("bargain.jsp").forward(request, response);
-
+                success = homeEvent.goHome(request, response);
+                if (!success) {
+                    response.sendRedirect(request.getContextPath());
+                }
         }
-
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
@@ -140,9 +131,10 @@ public class ControllerServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+
     }
 
 }

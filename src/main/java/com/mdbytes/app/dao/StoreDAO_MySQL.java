@@ -8,7 +8,7 @@ import java.util.List;
 public class StoreDAO_MySQL extends DAO_MySQL implements DAO<Store> {
 
     @Override
-    public Store add(String[] args) {
+    public Store add(String[] args) throws SQLException {
         String storeName = args[0];
         String storeUrl = args[1];
         String priceQuery = args[2];
@@ -18,14 +18,12 @@ public class StoreDAO_MySQL extends DAO_MySQL implements DAO<Store> {
             String query = "INSERT INTO stores "
                     + "(store_name,store_url,price_query,product_name_query) "
                     + "VALUES ('" + storeName + "','" + storeUrl + "','" + priceQuery + "','" + productNameQuery + "')";
-            try {
-                Connection connection = DriverManager.getConnection(dbUrl, username, password);
-                Statement statement = connection.createStatement();
-                int count = statement.executeUpdate(query);
 
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            Connection connection = DriverManager.getConnection(dbUrl, username, password);
+            Statement statement = connection.createStatement();
+            int count = statement.executeUpdate(query);
+
+
             store = getStoreByName(storeName);
             return store;
         } else {
@@ -34,23 +32,20 @@ public class StoreDAO_MySQL extends DAO_MySQL implements DAO<Store> {
     }
 
     @Override
-    public Store get(int id) {
+    public Store get(int id) throws SQLException {
         Store store = new Store();
         String query = "SELECT * FROM stores "
                 + "WHERE store_id = " + id + ";";
         ResultSet rs = this.getResultSet(query);
-        try {
-            while (rs.next()) {
-                store.setStoreID(id);
-                store.setStoreName(rs.getString("store_name"));
-                store.setStoreRootUrl(rs.getString("store_url"));
-                store.setPriceQuery(rs.getString("price_query"));
-                store.setProductNameQuery(rs.getString("product_name_query"));
-                break;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        while (rs.next()) {
+            store.setStoreID(id);
+            store.setStoreName(rs.getString("store_name"));
+            store.setStoreRootUrl(rs.getString("store_url"));
+            store.setPriceQuery(rs.getString("price_query"));
+            store.setProductNameQuery(rs.getString("product_name_query"));
+            break;
         }
+
         return store;
     }
 
@@ -69,7 +64,7 @@ public class StoreDAO_MySQL extends DAO_MySQL implements DAO<Store> {
         return null;
     }
 
-    public Store getStoreByName(String storeName) {
+    public Store getStoreByName(String storeName) throws SQLException {
         String dbUrl = "jdbc:mysql://localhost:3306/bargainbuyclub";
         String username = "root";
         String password = "Be225Again!";
@@ -77,15 +72,12 @@ public class StoreDAO_MySQL extends DAO_MySQL implements DAO<Store> {
         String query = "SELECT * FROM stores "
                 + "WHERE store_name = '" + storeName + "';";
         ResultSet rs = null;
-        try {
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            Connection connection = DriverManager.getConnection(this.dbUrl, this.username, this.password);
-            Statement statement = connection.createStatement();
-            rs = statement.executeQuery(query);
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+        Connection connection = DriverManager.getConnection(this.dbUrl, this.username, this.password);
+        Statement statement = connection.createStatement();
+        rs = statement.executeQuery(query);
+
         try {
             while (rs.next()) {
                 store.setStoreName(storeName);
@@ -101,28 +93,23 @@ public class StoreDAO_MySQL extends DAO_MySQL implements DAO<Store> {
         return store;
     }
 
-    public void executeUpdate(String query) {
-        try {
-            Connection connection = DriverManager.getConnection(dbUrl, username, password);
-            Statement statement = connection.createStatement();
-            int count = statement.executeUpdate(query);
+    public void executeUpdate(String query) throws SQLException {
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Statement statement = connection.createStatement();
+        int count = statement.executeUpdate(query);
+
+
     }
 
-    public ResultSet getResultSet(String query) {
+    public ResultSet getResultSet(String query) throws SQLException {
         ResultSet rs = null;
-        try {
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            Connection connection = DriverManager.getConnection(dbUrl, username, password);
-            Statement statement = connection.createStatement();
-            rs = statement.executeQuery(query);
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Statement statement = connection.createStatement();
+        rs = statement.executeQuery(query);
+
         return rs;
     }
 }

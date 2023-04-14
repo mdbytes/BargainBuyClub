@@ -14,7 +14,7 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
     }
 
     @Override
-    public Product add(String[] args) {
+    public Product add(String[] args) throws SQLException, IOException {
         DAO storeDao = new StoreDAO_MySQL();
 
         int storeId = Integer.parseInt(args[0]);
@@ -26,14 +26,11 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
             String query = "INSERT INTO products "
                     + "(store_id,product_url) "
                     + "VALUES (" + storeId + ",'" + productUrl + "');";
-            try {
-                Connection connection = DriverManager.getConnection(dbUrl, username, password);
-                Statement statement = connection.createStatement();
-                int count = statement.executeUpdate(query);
+            Connection connection = DriverManager.getConnection(dbUrl, username, password);
+            Statement statement = connection.createStatement();
+            int count = statement.executeUpdate(query);
 
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+
             product = getProductByURL(productUrl);
             return product;
         } else {
@@ -43,43 +40,37 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
     }
 
     @Override
-    public Product get(int id) {
+    public Product get(int id) throws SQLException, IOException {
         Product product = new Product();
         DAO storeDao = new StoreDAO_MySQL();
 
         String query = "SELECT * FROM products "
                 + "WHERE product_id = " + id + ";";
-        try {
-            ResultSet rs = null;
-            try {
-                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-                Connection connection = DriverManager.getConnection(dbUrl, username, password);
-                Statement statement = connection.createStatement();
-                rs = statement.executeQuery(query);
 
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-            while (rs.next()) {
-                product.setProductID(id);
-                Store store = (Store) storeDao.get((int) rs.getObject("store_id"));
-                product.setStore(store);
-                product.setProductUrl(rs.getString("product_url"));
-                try {
-                    product.setProductName(store.getProductName(rs.getString("product_url")));
-                    product.setProductPrice(store.getProductPrice(rs.getString("product_url")));
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        ResultSet rs = null;
+
+        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Statement statement = connection.createStatement();
+        rs = statement.executeQuery(query);
+
+
+        while (rs.next()) {
+            product.setProductID(id);
+            Store store = (Store) storeDao.get((int) rs.getObject("store_id"));
+            product.setStore(store);
+            product.setProductUrl(rs.getString("product_url"));
+
+            product.setProductName(store.getProductName(rs.getString("product_url")));
+            product.setProductPrice(store.getProductPrice(rs.getString("product_url")));
+
+            break;
         }
+
         return product;
     }
 
-    public Product addProduct(int storeId, String productUrl) {
+    public Product addProduct(int storeId, String productUrl) throws SQLException, IOException {
         String[] args = {Integer.toString(storeId), productUrl};
         return add(args);
 
@@ -100,39 +91,34 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
         return null;
     }
 
-    public Product getProductByURL(String productURL) {
+    public Product getProductByURL(String productURL) throws SQLException, IOException {
         Product product = new Product();
         DAO storeDao = new StoreDAO_MySQL();
 
         String query = "SELECT * FROM products "
                 + "WHERE product_url = '" + productURL + "';";
-        try {
-            ResultSet rs = null;
-            try {
-                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-                Connection connection = DriverManager.getConnection(dbUrl, username, password);
-                Statement statement = connection.createStatement();
-                rs = statement.executeQuery(query);
+        ResultSet rs = null;
 
-            } catch (SQLException e) {
+        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Statement statement = connection.createStatement();
+        rs = statement.executeQuery(query);
+
+
+        while (rs.next()) {
+            product.setProductID((int) rs.getObject("product_id"));
+            Store store = (Store) storeDao.get((int) rs.getObject("store_id"));
+            product.setStore(store);
+            product.setProductUrl(productURL);
+            try {
+                product.setProductName(store.getProductName(rs.getString("product_url")));
+                product.setProductPrice(store.getProductPrice(rs.getString("product_url")));
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-            while (rs.next()) {
-                product.setProductID((int) rs.getObject("product_id"));
-                Store store = (Store) storeDao.get((int) rs.getObject("store_id"));
-                product.setStore(store);
-                product.setProductUrl(productURL);
-                try {
-                    product.setProductName(store.getProductName(rs.getString("product_url")));
-                    product.setProductPrice(store.getProductPrice(rs.getString("product_url")));
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            break;
         }
+
         return product;
     }
 }
