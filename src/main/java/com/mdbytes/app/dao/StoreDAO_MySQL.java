@@ -8,13 +8,13 @@ import java.util.List;
 public class StoreDAO_MySQL extends DAO_MySQL implements DAO<Store> {
 
     @Override
-    public Store add(String[] args) throws SQLException {
-        String storeName = args[0];
-        String storeUrl = args[1];
-        String priceQuery = args[2];
-        String productNameQuery = args[3];
+    public Store add(Store store) throws SQLException {
+        String storeName = store.getStoreName();
+        String storeUrl = store.getStoreRootUrl();
+        String priceQuery = store.getPriceQuery();
+        String productNameQuery = store.getProductNameQuery();
         if (getStoreByName(storeName).getStoreID() == 0) {
-            Store store = new Store();
+            Store savedStore = new Store();
             String query = "INSERT INTO stores "
                     + "(store_name,store_url,price_query,product_name_query) "
                     + "VALUES ('" + storeName + "','" + storeUrl + "','" + priceQuery + "','" + productNameQuery + "')";

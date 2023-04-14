@@ -1,17 +1,17 @@
 package com.mdbytes.app.controller;
 
-import com.mdbytes.app.model.Alert;
-import com.mdbytes.app.model.Product;
-import com.mdbytes.app.model.User;
+import com.mdbytes.app.model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class AlertEvent extends Event {
 
-    public AlertEvent() {
-        super();
+    public AlertEvent(HttpServletRequest request, HttpServletResponse response) {
+        super(request, response);
     }
 
     /**
@@ -50,11 +50,16 @@ public class AlertEvent extends Event {
     public boolean addAlert(HttpServletRequest request, HttpServletResponse response) {
         try {
             User user = (User) request.getSession().getAttribute("user");
-            int storeID = Integer.parseInt(request.getParameter("store"));
+            Store store = storeDao.get(Integer.parseInt(request.getParameter("store")));
             double alertPrice = Double.parseDouble(request.getParameter("alert-price"));
             String productUrl = request.getParameter("product_url");
-            Product product = productDao.addProduct(storeID, productUrl);
-            Alert alert = alertDao.addAlert(product.getProductID(), userDao.getUserByEmailAddress(user.getEmailAddress()).getUserID(), alertPrice);
+            ProductScraper scraper = new ProductScraper(productUrl, store.getPriceQuery(), store.getProductNameQuery());
+            String productName = scraper.getProductName(productUrl);
+            Double productPrice = scraper.getProductPrice(productUrl);
+            Date date = Date.valueOf(LocalDate.now());
+            Product product = new Product(productUrl, store, productName, productPrice, date);
+            Product savedProduct = productDao.add(product);
+            Alert alert = alertDao.addAlert(savedProduct.getProductID(), userDao.getUserByEmailAddress(user.getEmailAddress()).getUserID(), alertPrice);
             request.getSession().setAttribute("useralerts", userDao.getUserAlerts(user.getUserID()));
             request.getSession().setAttribute("system-alerts", alertDao.getAll());
             request.setAttribute("page", "alerts");
@@ -150,30 +155,5 @@ public class AlertEvent extends Event {
 
     }
 
-    /**
-     * Method retrieves all system alerts for admin users as requested.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     */
-    public boolean adminDisplayAlerts(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            if (request.getSession() != null && request.getSession().getAttribute("admin-view") == "true") {
-                request.getSession().setAttribute("admin-page", "true");
-                request.getSession().setAttribute("system-alerts", alertDao.getAll());
-                request.setAttribute("page", "admin");
-                request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
-            } else {
-                request.setAttribute("errormessage", "Must be logged in as admin to view.");
-                request.setAttribute("page", "login");
-                request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("There is a problem displaying admin alerts");
-            handleException(request, response, "Oops!  That was bad!  Check it out!");
-            return false;
-        }
-    }
+
 }

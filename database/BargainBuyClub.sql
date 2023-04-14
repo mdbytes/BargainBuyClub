@@ -13,6 +13,19 @@ CREATE SCHEMA IF NOT EXISTS `bargain_buy_club` DEFAULT CHARACTER SET utf8 ;
 USE `bargain_buy_club` ;
 
 -- -----------------------------------------------------
+-- Table `bargain_buy_club`.`system_updates`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bargain_buy_club`.`system_updates` ;
+
+CREATE TABLE IF NOT EXISTS `bargain_buy_club`.`system_updates` (
+  `update_id` INT NOT NULL AUTO_INCREMENT,
+  `update_date` DATE,
+  `update_description` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`update_id`))
+ENGINE = InnoDB
+COMMENT = '	';
+
+-- -----------------------------------------------------
 -- Table `bargain_buy_club`.`users`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bargain_buy_club`.`users` ;
@@ -53,6 +66,9 @@ CREATE TABLE IF NOT EXISTS `bargain_buy_club`.`products` (
   `product_id` INT NOT NULL AUTO_INCREMENT,
   `store_id` INT NOT NULL,
   `product_url` VARCHAR(1024) NOT NULL,
+  `product_name` VARCHAR(256) NOT NULL,
+  `recent_price` DOUBLE,
+  `last_updated` DATE,
   PRIMARY KEY (`product_id`),
   CONSTRAINT `Store`
     FOREIGN KEY (`store_id`)
@@ -60,7 +76,6 @@ CREATE TABLE IF NOT EXISTS `bargain_buy_club`.`products` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `bargain_buy_club`.`alerts`
@@ -94,6 +109,10 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Insert seed data into tables
 -- -----------------------------------------------------
 
+-- System updates
+
+insert into system_updates (update_date, update_description) VALUES ('2023-04-01','Database initiation');
+
 -- Users
 
 insert into users (first_name, last_name, email_address, password, is_admin) values ('Martin', 'Dwyer', 'martin@mdbytes.com', '2d41206bee3804f8d36e82d892b58e37710edafdd3d281c7ae20344f56897f8d', 'true');
@@ -103,11 +122,11 @@ insert into stores (store_name, store_url, price_query, product_name_query) valu
 
 -- products
 
-insert into products (store_id, product_url) values (1, 'https://webscraper.io/test-sites/e-commerce/allinone/product/566');
-insert into products (store_id, product_url) values (1, 'https://webscraper.io/test-sites/e-commerce/allinone/product/508');
-insert into products (store_id, product_url) values (1, 'https://webscraper.io/test-sites/e-commerce/allinone/product/579');
-insert into products (store_id, product_url) values (1, 'https://webscraper.io/test-sites/e-commerce/allinone/product/544');
-insert into products (store_id, product_url) values (1, 'https://webscraper.io/test-sites/e-commerce/allinone/product/545');
+insert into products (store_id, product_url,  product_name, recent_price,last_updated) values (1, 'https://webscraper.io/test-sites/e-commerce/allinone/product/566','Acer Aspire ES1-572 Black, 15.6" HD, Core i5-7200U, 4GB, 500GB, Linux',0.0,'2023-04-13');
+insert into products (store_id, product_url, product_name,  recent_price,last_updated) values (1, 'https://webscraper.io/test-sites/e-commerce/allinone/product/508','IPS, Dual-Core 1.2GHz, 8GB, Android 4.3',0.0,'2023-04-13');
+insert into products (store_id, product_url, product_name,  recent_price,last_updated) values (1, 'https://webscraper.io/test-sites/e-commerce/allinone/product/579','Lenovo ThinkPad L460, 14" FHD IPS, Core i7-6600U, 8GB, 256GB SSD, Windows 10 Pro',0.0,'2023-04-13');
+insert into products (store_id, product_url, product_name,  recent_price,last_updated) values (1, 'https://webscraper.io/test-sites/e-commerce/allinone/product/544','Asus ROG Strix SCAR Edition GL503VM-ED115T, 15.6" FHD 120Hz, Core i7-7700HQ, 16GB, 256GB',0.0,'2023-04-13');
+insert into products (store_id, product_url, product_name, recent_price,last_updated) values (1, 'https://webscraper.io/test-sites/e-commerce/allinone/product/545','Asus VivoBook X441NA-GA190 Chocolate Black, 14", Celeron N3450, 4GB, 128GB SSD, Endless OS, ENG kbd',0.0,'2023-04-13');
 
 -- alerts
 
@@ -121,9 +140,21 @@ insert into alerts (product_id, user_id, alert_price) values (5, 1, 200.0);
 -- Stored Procedures
 -- ---------------------------------------------------------------------
 
--- users
+-- most recent update 
 
-DROP PROCEDURE IF EXISTS get_users
+DROP PROCEDURE IF EXISTS get_last_update_date;
+
+DELIMITER $$
+CREATE PROCEDURE get_last_update_date()
+BEGIN 
+	SELECT MAX(update_date) FROM system_updates;
+
+END $$
+DELIMITER ;
+
+
+-- users
+DROP PROCEDURE IF EXISTS get_users;
 
 DELIMITER $$
 CREATE PROCEDURE get_users()
@@ -252,10 +283,7 @@ CREATE PROCEDURE delete_user_by_id
 	`user_id_param` INT
 )
 BEGIN
-
-
     DELETE FROM users WHERE `user_id` = `user_id_param`;
-
 END $$
 DELIMITER ;
 
@@ -269,7 +297,6 @@ CREATE PROCEDURE get_user_alerts
 	`user_id_param` INT
 )
 BEGIN
-
     SELECT * FROM alerts WHERE `user_id` = `user_id_param`;
 END $$
 DELIMITER ;
@@ -373,14 +400,17 @@ DELIMITER $$
 CREATE PROCEDURE add_product
 (
 	`store_id_param` INT,
-	`product_url_param` VARCHAR(1024)
+	`product_url_param` VARCHAR(1024),
+    `product_name_param` VARCHAR(256),
+    `recent_price_param` DOUBLE,
+    `last_updated_param` DATE
 )
 BEGIN
 
     INSERT INTO products
-		(`store_id`, `product_url`)
+		(`store_id`, `product_url`,`product_name`,`recent_price`,`last_updated`)
 	VALUES
-		(`store_id_param`, `product_url_param`);
+		(`store_id_param`, `product_url_param`,`product_name_param`,`recent_price_param`,`last_updated_param`);
 
 END $$
 DELIMITER ;
@@ -403,15 +433,21 @@ CREATE PROCEDURE update_product
 (
 	`product_id_param` INT,
 	`store_id_param` INT,
-	`product_url_param` VARCHAR(1024)
+	`product_url_param` VARCHAR(1024),
+    `product_name_param` VARCHAR(256),
+    `recent_price_param` DOUBLE,
+    `last_updated_param` DATE
 )
 BEGIN
 
     UPDATE products
 
     SET store_id = store_id_param,
-		product_url = product_url_param
-
+		product_url = product_url_param,
+        product_name = product_name_param,
+        recent_price = recent_price_param,
+        last_updated = last_updated_param
+    
 	WHERE product_id = product_id_param;
 
 END $$
@@ -508,7 +544,3 @@ BEGIN
 
 END $$
 DELIMITER ;
-
-
-
-

@@ -8,7 +8,9 @@
  */
 package com.mdbytes.app.model;
 
-import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+
 
 /**
  * Product class defines product structure and methods to retrieve product price
@@ -23,6 +25,7 @@ public class Product {
     private Store store;
     private String productName;
     private double productPrice;
+    private Date lastUpdated;
 
     /**
      * Default constructor creates a null object.
@@ -33,6 +36,7 @@ public class Product {
         this.productUrl = null;
         this.store = null;
         this.productPrice = 0.0;
+        this.lastUpdated = Date.valueOf(LocalDate.now());
     }
 
     /**
@@ -42,22 +46,13 @@ public class Product {
      * @param productUrl the URL address where the product page is located
      * @param store      a Store object representing where the product seller
      */
-    public Product(String productUrl, Store store) {
+    public Product(String productUrl, Store store, String productName, double productPrice, Date lastUpdated) {
         this.productID = 0;
         this.productUrl = productUrl;
         this.store = store;
-        try {
-            this.productName = this.store.getProductName(productUrl);
-        } catch (IOException e) {
-            System.err.println("Cannot retrieve data from url.  Application terminating");
-            System.exit(0);
-        }
-        try {
-            this.productPrice = this.store.getProductPrice(productUrl);
-        } catch (IOException e) {
-            System.err.println("Cannot retrieve data from url.  Application terminating");
-            System.exit(0);
-        }
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.lastUpdated = lastUpdated;
     }
 
     /**
@@ -130,4 +125,11 @@ public class Product {
         return "Product{" + "productID=" + productID + ", productUrl=" + productUrl + ", store=" + store + ", productName=" + productName + ", productPrice=" + productPrice + '}';
     }
 
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 }

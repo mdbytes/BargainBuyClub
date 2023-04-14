@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
  */
 public class UserEvent extends Event {
 
-    public UserEvent() {
-        super();
+    public UserEvent(HttpServletRequest request, HttpServletResponse response) {
+        super(request, response);
     }
 
     /**
@@ -133,28 +133,6 @@ public class UserEvent extends Event {
     }
 
     /**
-     * Method gives users administrator privileges as requested by validated administrators.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     */
-    public boolean makeUserAdmin(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            User user = (User) request.getAttribute("user");
-            userDao.makeUserAdmin(user.getUserID());
-            request.getSession().setAttribute("users", userDao.getAll());
-            request.setAttribute("page", "admin");
-            request.getRequestDispatcher("WEB-INF/bbc/displayUsers.jsp").forward(request, response);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Problem making user admin.");
-            handleException(request, response, "Oops!  That was bad!  Check it out!");
-            return false;
-        }
-    }
-
-    /**
      * Method processes login username and password request and forwards users to
      * their individual alerts page after user validation.
      *
@@ -223,27 +201,6 @@ public class UserEvent extends Event {
             handleException(request, response, "Oops!  That was bad!  Check it out!");
             return false;
         }
-    }
-
-    /**
-     * Method prepares and presents all users when selected by validated administrators.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     */
-    public boolean displayUsersForAdmin(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            request.getSession().setAttribute("users", userDao.getAll());
-            request.setAttribute("page", "admin");
-            request.getRequestDispatcher("WEB-INF/bbc/displayUsers.jsp").forward(request, response);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Problem with user display for admins.");
-            handleException(request, response, "Oops!  That was bad!  Check it out!");
-            return false;
-        }
-
     }
 
 

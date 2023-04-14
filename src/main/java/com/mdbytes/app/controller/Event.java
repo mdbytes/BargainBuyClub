@@ -34,15 +34,25 @@ public class Event {
      */
     protected AlertDAO_MySQL alertDao;
 
+    protected HttpServletRequest request;
+
+    protected HttpServletResponse response;
+
     /**
      * Default constructor creates null objects along with new data access objects which
      * can be used on event handlers as needed
      */
-    public Event() {
-        userDao = new UserDAO_MySQL();
-        storeDao = new StoreDAO_MySQL();
-        productDao = new ProductDAO_MySQL();
-        alertDao = new AlertDAO_MySQL();
+    public Event(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            this.request = request;
+            this.response = response;
+            this.userDao = new UserDAO_MySQL();
+            this.storeDao = new StoreDAO_MySQL();
+            this.productDao = new ProductDAO_MySQL();
+            this.alertDao = new AlertDAO_MySQL();
+        } catch (Exception e) {
+            handleException(request, response, "Cannot access database at this time.");
+        }
     }
 
     protected void handleException(HttpServletRequest request, HttpServletResponse response, String errorMessage) {

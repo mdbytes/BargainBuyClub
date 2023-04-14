@@ -17,7 +17,7 @@ public interface DAO<T> {
      * @param args a String array of object attributes.
      * @return an object of class T.
      */
-    T add(String[] args) throws SQLException, IOException;
+    T add(T t) throws SQLException, IOException;
 
     /**
      * Retrieves an object of class T from the database given a unique identifier.

@@ -14,10 +14,6 @@ import java.sql.SQLException;
  */
 @WebServlet(name = "BargainControllerServlet", value = "/main")
 public class ControllerServlet extends HttpServlet {
-    private final HomeEvent homeEvent = new HomeEvent();
-    private final UserEvent userEvent = new UserEvent();
-    private final AlertEvent alertEvent = new AlertEvent();
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,6 +27,11 @@ public class ControllerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 
         boolean success = false;
+
+        HomeEvent homeEvent = new HomeEvent(request, response);
+        UserEvent userEvent = new UserEvent(request, response);
+        AlertEvent alertEvent = new AlertEvent(request, response);
+        AdminEvent adminEvent = new AdminEvent(request, response);
 
         switch (request.getParameter("action")) {
             case "home":
@@ -50,7 +51,7 @@ public class ControllerServlet extends HttpServlet {
                 break;
 
             case "admin-display-alerts":
-                alertEvent.adminDisplayAlerts(request, response);
+                adminEvent.adminDisplayAlerts(request, response);
                 break;
 
             case "register-user":
@@ -70,10 +71,11 @@ public class ControllerServlet extends HttpServlet {
                 break;
 
             case "delete-alert":
+                alertEvent.deleteAlert(request, response);
                 break;
 
             case "admin-display-users":
-                userEvent.displayUsersForAdmin(request, response);
+                adminEvent.displayUsersForAdmin(request, response);
                 break;
 
             case "edit-user":
@@ -85,8 +87,13 @@ public class ControllerServlet extends HttpServlet {
                 break;
 
             case "admin-user":
-                userEvent.makeUserAdmin(request, response);
+                adminEvent.makeUserAdmin(request, response);
                 break;
+
+            case "update-system-prices":
+                adminEvent.updateSystemPrices(request, response);
+                break;
+
 
             default:
                 request.getSession().invalidate();

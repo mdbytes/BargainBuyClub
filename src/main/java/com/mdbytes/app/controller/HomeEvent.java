@@ -12,8 +12,8 @@ import java.util.List;
 public class HomeEvent extends Event {
 
 
-    public HomeEvent() {
-        super();
+    public HomeEvent(HttpServletRequest request, HttpServletResponse response) {
+        super(request, response);
     }
 
     /**

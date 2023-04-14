@@ -28,7 +28,7 @@ public class HomeServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HomeEvent homeEvent = new HomeEvent();
+        HomeEvent homeEvent = new HomeEvent(request, response);
         List<Alert> homeAlerts = null;
         try {
             homeAlerts = homeEvent.loadHome();

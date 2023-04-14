@@ -16,8 +16,8 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
     }
 
     @Override
-    public Alert add(String[] args) throws SQLException, IOException {
-        return addAlert(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Double.parseDouble(args[2]));
+    public Alert add(Alert alert) throws SQLException, IOException {
+        return addAlert(alert.getProduct().getProductID(), alert.getUser().getUserID(), alert.getAlertPrice());
     }
 
     /**

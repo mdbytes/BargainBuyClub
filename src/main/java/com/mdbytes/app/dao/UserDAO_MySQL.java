@@ -16,12 +16,12 @@ public class UserDAO_MySQL extends DAO_MySQL implements DAO<User> {
      * Method to add user which takes a single param, args, a string array
      * in form of [firstName,lastName,emailAddress,password,isAdmin]
      *
-     * @param args a String array with field data
+     * @param user a User object
      * @return User
      */
     @Override
-    public User add(String[] args) throws SQLException {
-        return add(args[0], args[1], args[2], args[3], args[4]);
+    public User add(User user) throws SQLException {
+        return add(user.getFirstName(), user.getLastName(), user.getEmailAddress(), user.getPassword(), String.valueOf(user.isIsAdmin()));
     }
 
     /**
