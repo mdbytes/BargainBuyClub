@@ -14,8 +14,10 @@ public interface DAO<T> {
     /**
      * Adds object of class T to database.
      *
-     * @param args a String array of object attributes.
-     * @return an object of class T.
+     * @param t an object of class T
+     * @return a T class object
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
      */
     T add(T t) throws SQLException, IOException;
 
@@ -24,6 +26,8 @@ public interface DAO<T> {
      *
      * @param id a unique identifier, an integer.
      * @return an object of class T.
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
      */
     T get(int id) throws SQLException, IOException;
 
@@ -32,6 +36,8 @@ public interface DAO<T> {
      *
      * @param t an object of class T.
      * @return the updated object from the database.
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
      */
     T update(T t) throws SQLException, IOException;
 
@@ -39,6 +45,7 @@ public interface DAO<T> {
      * Deletes an object of class T.
      *
      * @param id a unique identifier, an integer.
+     * @throws SQLException if one occurs
      */
     void delete(int id) throws SQLException;
 
@@ -46,8 +53,9 @@ public interface DAO<T> {
      * Retrieves all objects of class T from the database.
      *
      * @return a list of objects of class T.
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
      */
     List<T> getAll() throws SQLException, IOException;
-
 
 }

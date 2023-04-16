@@ -48,8 +48,10 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
     /**
      * Method retrieves alert with given id
      *
-     * @param id an integer.
-     * @return Alert object with alert_id matching id
+     * @param id a unique identifier, an integer.
+     * @return an Alert object
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
      */
     @Override
     public Alert get(int id) throws SQLException, IOException {
@@ -78,7 +80,9 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
      * @param productID  the product ID for the alert Product object
      * @param userID     the user ID for the alert User object
      * @param alertPrice the alert price, a double
-     * @return Alert object.
+     * @return an Alert object
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
      */
     public Alert get(int productID, int userID, double alertPrice) throws SQLException, IOException {
         Alert alert = new Alert();
@@ -101,6 +105,13 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
         return alert;
     }
 
+    /***
+     * Updates alert object in database
+     *
+     * @param alert an object of class Alert.
+     * @return a saved Alert object
+     * @throws SQLException if one occurs
+     */
     @Override
     public Alert update(Alert alert) throws SQLException {
         Connection connection = makeConnection();
@@ -118,7 +129,8 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
     /**
      * Method to retrieve alert from database with the unique alert ID.
      *
-     * @param id the unique identifier for the alert object, an integer
+     * @param id a unique identifier, an integer.
+     * @throws SQLException if one occurs
      */
     @Override
     public void delete(int id) throws SQLException {
@@ -133,6 +145,8 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
      * Method to retrieve all alerts in the application database.
      *
      * @return alerts, a list of Alert objects
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
      */
     @Override
     public List<Alert> getAll() throws SQLException, IOException {
@@ -168,5 +182,4 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
         int count = callableStatement.executeUpdate();
         closeConnections(connection, callableStatement, null);
     }
-
 }
