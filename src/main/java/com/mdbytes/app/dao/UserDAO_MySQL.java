@@ -1,12 +1,12 @@
 package com.mdbytes.app.dao;
 
-import com.mdbytes.app.model.Alert;
-import com.mdbytes.app.model.Product;
 import com.mdbytes.app.model.User;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.io.IOException;
-import java.sql.*;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,61 +16,40 @@ public class UserDAO_MySQL extends DAO_MySQL implements DAO<User> {
      * Method to add user which takes a single param, args, a string array
      * in form of [firstName,lastName,emailAddress,password,isAdmin]
      *
-     * @param user a User object
-     * @return User
+     * @param user a User object.
+     * @return User object.
+     * @throws SQLException if one occurs.
      */
     @Override
     public User add(User user) throws SQLException {
-        return add(user.getFirstName(), user.getLastName(), user.getEmailAddress(), user.getPassword(), String.valueOf(user.isIsAdmin()));
-    }
-
-    /**
-     * Method adds a user to the database with appropriate user information, returns a User object.
-     *
-     * @param firstName a String
-     * @param lastName  a String
-     * @param userName  a String
-     * @param password  a String
-     * @param isAdmin   a String
-     * @return User object.
-     */
-    public User add(String firstName, String lastName, String userName, String password, String isAdmin) throws SQLException {
-        if (getUserByEmailAddress(userName).getUserID() == 0) {
-
-            System.out.println("trying to make new user ...  ");
-            Connection conn = DriverManager.getConnection(this.dbUrl, this.username, this.password);
-            CallableStatement stmt = conn.prepareCall("{call add_user(?,?,?,?,?)}");
-            stmt.setString(1, firstName);
-            stmt.setString(2, lastName);
-            stmt.setString(3, userName);
-            stmt.setString(4, DigestUtils.sha256Hex(password));
-            stmt.setString(5, isAdmin);
-            System.out.println(stmt);
-            int count = stmt.executeUpdate();
-            System.out.println(count);
-            conn.close();
-            stmt.close();
-            System.out.println("insertion complete");
-
-            User user = getUserByEmailAddress(userName);
-            return user;
+        if (get(user.getEmailAddress()).getUserID() == 0) {
+            Connection connection = makeConnection();
+            CallableStatement callableStatement = connection.prepareCall("{call add_user(?,?,?,?,?)}");
+            callableStatement.setString(1, user.getFirstName());
+            callableStatement.setString(2, user.getLastName());
+            callableStatement.setString(3, user.getEmailAddress());
+            callableStatement.setString(4, DigestUtils.sha256Hex(user.getPassword()));
+            callableStatement.setString(5, String.valueOf(user.isIsAdmin()));
+            int count = callableStatement.executeUpdate();
+            User savedUser = get(user.getEmailAddress());
+            closeConnections(connection, callableStatement, null);
+            return savedUser;
         } else {
-            return getUserByEmailAddress(userName);
+            return get(user.getEmailAddress());
         }
     }
 
     /**
      * Retrieves user object from database
      *
-     * @param id an integer
+     * @param id an integer.
      * @return User object.
+     * @throws SQLException if one occurs.
      */
     @Override
     public User get(int id) throws SQLException {
         User user = new User();
-
-        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Connection connection = makeConnection();
         CallableStatement statement = connection.prepareCall("{call get_user_by_id(?)}");
         statement.setInt(1, id);
         ResultSet rs = statement.executeQuery();
@@ -83,63 +62,8 @@ public class UserDAO_MySQL extends DAO_MySQL implements DAO<User> {
             user = new User(id, firstName, lastName, userName, passWord, isAdmin);
             break;
         }
-        connection.close();
-        statement.close();
-        rs.close();
-
+        closeConnections(connection, statement, rs);
         return user;
-    }
-
-    @Override
-    public User update(User user) {
-
-        return user;
-    }
-
-    /**
-     * Deletes user from database
-     *
-     * @param id an integer
-     */
-    @Override
-    public void delete(int id) throws SQLException {
-
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
-        CallableStatement statement = connection.prepareCall("{call delete_user_by_id(?)}");
-        statement.setInt(1, id);
-        int count = statement.executeUpdate();
-        connection.close();
-        statement.close();
-
-    }
-
-    /**
-     * Gets all users from the database
-     *
-     * @return a list of user objects.
-     */
-    @Override
-    public List<User> getAll() throws SQLException {
-        ArrayList<User> users = new ArrayList();
-
-        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
-        CallableStatement statement = connection.prepareCall("{CALL get_users()}");
-        ResultSet rs = statement.executeQuery();
-        while (rs.next()) {
-            int userID = (int) rs.getObject("user_id");
-            String firstName = rs.getString("first_name");
-            String lastName = rs.getString("last_name");
-            String userName = rs.getString("email_address");
-            String passWord = rs.getString("password");
-            boolean isAdmin = Boolean.valueOf(rs.getString("is_admin"));
-            users.add(new User(userID, firstName, lastName, userName, passWord, isAdmin));
-        }
-        connection.close();
-        statement.close();
-        rs.close();
-
-        return users;
     }
 
     /**
@@ -147,12 +71,11 @@ public class UserDAO_MySQL extends DAO_MySQL implements DAO<User> {
      *
      * @param emailAddress a String
      * @return User object.
+     * @throws SQLException if one occurs.
      */
-    public User getUserByEmailAddress(String emailAddress) throws SQLException {
+    public User get(String emailAddress) throws SQLException {
         User user = new User();
-
-        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Connection connection = makeConnection();
         CallableStatement statement = connection.prepareCall("{CALL get_user_by_email(?)}");
         statement.setString(1, emailAddress);
         ResultSet rs = statement.executeQuery();
@@ -166,59 +89,71 @@ public class UserDAO_MySQL extends DAO_MySQL implements DAO<User> {
             user = new User(userID, firstName, lastName, userName, passWord, isAdmin);
             break;
         }
-        connection.close();
-        statement.close();
-        rs.close();
-
+        closeConnections(connection, statement, rs);
         return user;
     }
 
     /**
-     * Retrieves user alerts from the database
+     * Updates user object on database.
      *
-     * @param userId an integer
-     * @return a list of alert objects.
+     * @param user an object of class T.
+     * @return the updated and saved User object.
+     * @throws SQLException if one occurs.
      */
-    public List<Alert> getUserAlerts(int userId) throws SQLException, IOException {
-        List<Alert> userAlerts = new ArrayList<Alert>();
-        DAO productDao = new ProductDAO_MySQL();
-
-        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
-        CallableStatement statement = connection.prepareCall("{call get_user_alerts(?)}");
-        statement.setInt(1, userId);
-        ResultSet rs = statement.executeQuery();
-        Alert alert = null;
-        while (rs.next()) {
-            alert = new Alert(
-                    (int) rs.getObject("alert_id"),
-                    get((int) rs.getObject("user_id")),
-                    (Product) productDao.get((int) rs.getObject("product_id")),
-                    (double) rs.getObject("alert_price")
-            );
-            userAlerts.add(alert);
-        }
-        connection.close();
-        statement.close();
-        rs.close();
-
-        return userAlerts;
+    @Override
+    public User update(User user) throws SQLException {
+        Connection connection = makeConnection();
+        CallableStatement callableStatement = connection.prepareCall("{call update_user(?,?,?,?,?,?)}");
+        callableStatement.setInt(1, user.getUserID());
+        callableStatement.setString(2, user.getFirstName());
+        callableStatement.setString(3, user.getLastName());
+        callableStatement.setString(4, user.getEmailAddress());
+        callableStatement.setString(5, DigestUtils.sha256Hex(user.getPassword()));
+        callableStatement.setString(6, String.valueOf(user.isIsAdmin()));
+        int count = callableStatement.executeUpdate();
+        User savedUser = get(user.getEmailAddress());
+        closeConnections(connection, callableStatement, null);
+        return savedUser;
     }
 
     /**
-     * Method to make an existing user an administrator.
+     * Deletes user from database
      *
-     * @param userID a unique identifier for each user, an integer
+     * @param id a unique identifier, an integer.
+     * @throws SQLException if one occurs.
      */
-    public void makeUserAdmin(int userID) throws SQLException {
-
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
-        CallableStatement statement = connection.prepareCall("{call make_user_admin(?)}");
-        statement.setInt(1, userID);
+    @Override
+    public void delete(int id) throws SQLException {
+        Connection connection = makeConnection();
+        CallableStatement statement = connection.prepareCall("{call delete_user_by_id(?)}");
+        statement.setInt(1, id);
         int count = statement.executeUpdate();
-        connection.close();
-        statement.close();
+        closeConnections(connection, statement, null);
+    }
 
+    /**
+     * Gets all users from the database
+     *
+     * @return a list of user objects.
+     * @throws SQLException if one occurs.
+     */
+    @Override
+    public List<User> getAll() throws SQLException {
+        ArrayList<User> users = new ArrayList();
+        Connection connection = makeConnection();
+        CallableStatement statement = connection.prepareCall("{CALL get_users()}");
+        ResultSet rs = statement.executeQuery();
+        while (rs.next()) {
+            int userID = (int) rs.getObject("user_id");
+            String firstName = rs.getString("first_name");
+            String lastName = rs.getString("last_name");
+            String userName = rs.getString("email_address");
+            String passWord = rs.getString("password");
+            boolean isAdmin = Boolean.valueOf(rs.getString("is_admin"));
+            users.add(new User(userID, firstName, lastName, userName, passWord, isAdmin));
+        }
+        closeConnections(connection, statement, rs);
+        return users;
     }
 
     /**
@@ -227,50 +162,15 @@ public class UserDAO_MySQL extends DAO_MySQL implements DAO<User> {
      * @param username     the user's email address
      * @param userPassword the user's entered password
      * @return a boolean, true or false.
+     * @throws SQLException if one occurs.
      */
     public boolean validateUser(String username, String userPassword) throws SQLException {
         boolean isValid = false;
-        User user = getUserByEmailAddress(username);
+        User user = get(username);
         if (user.getPassword().equals(DigestUtils.sha256Hex(userPassword))) {
             isValid = true;
         }
         return isValid;
     }
 
-    /**
-     * Method for updating existing user's email address.
-     *
-     * @param userID          a unique identifier for each user, an integer
-     * @param newEmailAddress a valid email address
-     */
-    public void updateUserEmailAddress(int userID, String newEmailAddress) throws SQLException {
-        int count = 0;
-
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
-        CallableStatement statement = connection.prepareCall("{call update_user_email(?,?)}");
-        statement.setInt(1, userID);
-        statement.setString(2, newEmailAddress);
-        count = statement.executeUpdate();
-        connection.close();
-        statement.close();
-
-    }
-
-    /**
-     * Method for updating existing user's password.
-     *
-     * @param userID      a unique identifier for each user, an integer
-     * @param newPassword a valid password
-     */
-    public void updateUserPassword(int userID, String newPassword) throws SQLException {
-
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
-        CallableStatement statement = connection.prepareCall("{call update_user_password(?,?)}");
-        statement.setInt(1, userID);
-        statement.setString(2, DigestUtils.sha256Hex(newPassword));
-        int count = statement.executeUpdate();
-        connection.close();
-        statement.close();
-
-    }
 }

@@ -22,7 +22,7 @@ public class HomeEvent extends Event {
      * @return alerts
      */
     public ArrayList<Alert> loadHome() throws SQLException, IOException {
-        ArrayList<Alert> alerts = (ArrayList<Alert>) userDao.getUserAlerts(1);
+        ArrayList<Alert> alerts = (ArrayList<Alert>) alertDao.getAll(1);
         return alerts;
     }
 

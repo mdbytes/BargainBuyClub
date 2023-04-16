@@ -168,6 +168,39 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
     }
 
     /**
+     * Retrieves user alerts from the database
+     *
+     * @param userId an integer
+     * @return a list of alert objects.
+     */
+    public List<Alert> getAll(int userId) throws SQLException, IOException {
+        List<Alert> userAlerts = new ArrayList<Alert>();
+        DAO productDao = new ProductDAO_MySQL();
+        DAO userDao = new UserDAO_MySQL();
+
+        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        CallableStatement statement = connection.prepareCall("{call get_user_alerts(?)}");
+        statement.setInt(1, userId);
+        ResultSet rs = statement.executeQuery();
+        Alert alert = null;
+        while (rs.next()) {
+            alert = new Alert(
+                    (int) rs.getObject("alert_id"),
+                    (User) userDao.get((int) rs.getObject("user_id")),
+                    (Product) productDao.get((int) rs.getObject("product_id")),
+                    (double) rs.getObject("alert_price")
+            );
+            userAlerts.add(alert);
+        }
+        connection.close();
+        statement.close();
+        rs.close();
+
+        return userAlerts;
+    }
+
+    /**
      * Method to update the alert price for an existing alert.
      *
      * @param alertID    the unique identifier for an alert, an integer

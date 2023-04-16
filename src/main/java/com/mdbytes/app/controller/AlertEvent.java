@@ -60,11 +60,11 @@ public class AlertEvent extends Event {
             Product product = new Product(productUrl, store, productName, productPrice, date);
             Product savedProduct = productDao.add(product);
             Alert alert = new Alert();
-            alert.setUser(userDao.getUserByEmailAddress(user.getEmailAddress()));
+            alert.setUser(userDao.get(user.getEmailAddress()));
             alert.setAlertPrice(alertPrice);
             alert.setProduct(savedProduct);
             Alert savedAlert = alertDao.add(alert);
-            request.getSession().setAttribute("useralerts", userDao.getUserAlerts(user.getUserID()));
+            request.getSession().setAttribute("useralerts", alertDao.getAll(user.getUserID()));
             request.getSession().setAttribute("system-alerts", alertDao.getAll());
             request.setAttribute("page", "alerts");
             request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
@@ -91,7 +91,7 @@ public class AlertEvent extends Event {
             double alertPrice = Double.parseDouble(request.getParameter("alert-price"));
             System.out.println(request.getSession().getAttribute("user-id"));
             alertDao.update(alertID, alertPrice);
-            request.getSession().setAttribute("useralerts", userDao.getUserAlerts(user.getUserID()));
+            request.getSession().setAttribute("useralerts", alertDao.getAll(user.getUserID()));
             request.getSession().setAttribute("system-alerts", alertDao.getAll());
             request.setAttribute("page", "alerts");
             request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
@@ -115,7 +115,7 @@ public class AlertEvent extends Event {
             User user = (User) request.getSession().getAttribute("user");
             int alertID = Integer.parseInt(request.getParameter("alert-id"));
             alertDao.delete(alertID);
-            request.getSession().setAttribute("useralerts", userDao.getUserAlerts(user.getUserID()));
+            request.getSession().setAttribute("useralerts", alertDao.getAll(user.getUserID()));
             request.getSession().setAttribute("system-alerts", alertDao.getAll());
             request.setAttribute("page", "alerts");
             request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
@@ -139,7 +139,7 @@ public class AlertEvent extends Event {
         try {
             if (request.getSession() != null) {
                 User user = (User) request.getSession().getAttribute("user");
-                request.setAttribute("useralerts", userDao.getUserAlerts(user.getUserID()));
+                request.setAttribute("useralerts", alertDao.getAll(user.getUserID()));
                 request.getSession().setAttribute("admin-page", "false");
                 request.setAttribute("page", "alerts");
                 request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);

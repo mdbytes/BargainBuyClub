@@ -53,7 +53,8 @@ public class AdminEvent extends Event {
     public boolean makeUserAdmin(HttpServletRequest request, HttpServletResponse response) {
         try {
             User user = (User) request.getAttribute("user");
-            userDao.makeUserAdmin(user.getUserID());
+            user.setIsAdmin(true);
+            userDao.update(user);
             request.getSession().setAttribute("users", userDao.getAll());
             request.setAttribute("page", "admin");
             request.getRequestDispatcher("WEB-INF/bbc/displayUsers.jsp").forward(request, response);

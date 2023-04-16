@@ -53,16 +53,22 @@ public class UserEvent extends Event {
             String firstName = request.getParameter("first-name");
             String lastName = request.getParameter("last-name");
 
-            if (userDao.getUserByEmailAddress(userName).getUserID() == 0) {
+            if (userDao.get(userName).getUserID() == 0) {
                 System.out.println(firstName + "," + lastName + "," + userName + "," + password);
                 String[] args = {firstName, lastName, userName, password, String.valueOf(false)};
-                User user = userDao.add(firstName, lastName, userName, password, String.valueOf(false));
+                User newUser = new User();
+                newUser.setFirstName(firstName);
+                newUser.setLastName(lastName);
+                newUser.setEmailAddress(userName);
+                newUser.setIsAdmin(false);
+                newUser.setPassword(password);
+                User user = userDao.add(newUser);
                 HttpSession newSession = request.getSession(true);
                 newSession.setMaxInactiveInterval(300);
-                newSession.setAttribute("admin", userDao.getUserByEmailAddress(userName).isIsAdmin());
+                newSession.setAttribute("admin", userDao.get(userName).isIsAdmin());
                 newSession.setAttribute("username", userName);
                 request.setAttribute("session", newSession);
-                newSession.setAttribute("useralerts", userDao.getUserAlerts(user.getUserID()));
+                newSession.setAttribute("useralerts", alertDao.getAll(user.getUserID()));
                 newSession.setAttribute("admin-view", "false");
                 request.setAttribute("page", "alerts");
                 request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
@@ -94,10 +100,12 @@ public class UserEvent extends Event {
             String newEmailAddress = request.getParameter("new-email-address");
             String newPassword = request.getParameter("new-password");
             if (!newEmailAddress.equals("")) {
-                userDao.updateUserEmailAddress(user.getUserID(), newEmailAddress);
+                user.setEmailAddress(newEmailAddress);
+                userDao.update(user);
             }
             if (!newPassword.equals("")) {
-                userDao.updateUserPassword(user.getUserID(), newPassword);
+                user.setPassword(newPassword);
+                userDao.update(user);
             }
             request.getSession().setAttribute("users", userDao.getAll());
             request.setAttribute("page", "admin");
@@ -148,15 +156,15 @@ public class UserEvent extends Event {
                 String password = request.getParameter("password");
                 System.out.println(userName + " , " + password);
                 if (userDao.validateUser(userName, password)) {
-                    User currentUser = userDao.getUserByEmailAddress(userName);
+                    User currentUser = userDao.get(userName);
                     int userID = currentUser.getUserID();
                     HttpSession newSession = request.getSession(true);
                     newSession.setMaxInactiveInterval(300);
                     newSession.setAttribute("user", currentUser);
-                    newSession.setAttribute("admin", userDao.getUserByEmailAddress(userName).isIsAdmin());
+                    newSession.setAttribute("admin", userDao.get(userName).isIsAdmin());
                     newSession.setAttribute("username", userName);
                     newSession.setAttribute("user-id", currentUser.getUserID());
-                    newSession.setAttribute("useralerts", userDao.getUserAlerts(userID));
+                    newSession.setAttribute("useralerts", alertDao.getAll(userID));
                     if (currentUser.isIsAdmin()) {
                         newSession.setAttribute("admin-view", "true");
                     } else {
