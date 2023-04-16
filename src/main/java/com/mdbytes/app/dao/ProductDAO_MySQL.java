@@ -139,7 +139,6 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
      */
     @Override
     public void delete(int id) throws SQLException {
-        DAO storeDao = new StoreDAO_MySQL();
         Connection connection = makeConnection();
         CallableStatement callableStatement = connection.prepareCall("CALL delete_product_by_id(?)");
         callableStatement.setInt(1, id);

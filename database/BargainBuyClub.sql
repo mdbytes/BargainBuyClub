@@ -341,6 +341,17 @@ BEGIN
 END $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS get_store_by_name;
+DELIMITER $$
+CREATE PROCEDURE get_store_by_name
+(
+	store_name_param VARCHAR(45)
+)
+BEGIN
+    SELECT * FROM stores WHERE store_name = store_name_param;
+END $$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS update_store;
 DELIMITER $$
 CREATE PROCEDURE update_store
