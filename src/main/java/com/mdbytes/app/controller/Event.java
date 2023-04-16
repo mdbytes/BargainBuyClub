@@ -55,16 +55,21 @@ public class Event {
         }
     }
 
+    /**
+     * Handles all exceptions in the application by receiving an error message and redirecting the
+     * user back to the home page.  Once there an alert message will show the user the error message.
+     *
+     * @param request the HTTPServlet request object.
+     * @param response the HTTPServlet response object.
+     * @param errorMessage a String containing the particular error message.
+     */
     protected void handleException(HttpServletRequest request, HttpServletResponse response, String errorMessage) {
         try {
-
             request.getSession().setAttribute("errormessage", errorMessage);
             request.setAttribute("page", "home");
             response.sendRedirect(request.getContextPath());
-
         } catch (Exception e) {
-            System.err.println("App won't deliver home page.  Crap!");
+            System.err.println("App won't deliver home page!  Ran out of luck!!  Crap!!!");
         }
-
     }
 }

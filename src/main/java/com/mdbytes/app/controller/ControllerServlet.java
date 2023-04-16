@@ -55,7 +55,7 @@ public class ControllerServlet extends HttpServlet {
                 break;
 
             case "register-user":
-                userEvent.registerUserBeta(request, response);
+                userEvent.registerUser(request, response);
                 break;
 
             case "add-alert-page":

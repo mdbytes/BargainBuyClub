@@ -46,6 +46,7 @@ public class StoreDAO_MySQL extends DAO_MySQL implements DAO<Store> {
     public Store get(int id) throws SQLException {
         Connection connection = makeConnection();
         CallableStatement callableStatement = connection.prepareCall("CALL get_store_by_id(?)");
+        callableStatement.setInt(1, id);
         ResultSet rs = callableStatement.executeQuery();
         Store store = new Store();
         while (rs.next()) {

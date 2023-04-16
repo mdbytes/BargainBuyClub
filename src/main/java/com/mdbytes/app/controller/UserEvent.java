@@ -65,6 +65,18 @@ public class UserEvent extends Event {
                 User user = userDao.add(newUser);
                 HttpSession newSession = request.getSession(true);
                 newSession.setMaxInactiveInterval(300);
+                newSession.setAttribute("user", user);
+                newSession.setAttribute("admin", user.isIsAdmin());
+                newSession.setAttribute("username", user.getEmailAddress());
+                newSession.setAttribute("user-id", user.getUserID());
+                newSession.setAttribute("useralerts", alertDao.getAll(user.getUserID()));
+                if (user.isIsAdmin()) {
+                    newSession.setAttribute("admin-view", "true");
+                } else {
+                    newSession.setAttribute("admin-view", "false");
+                }
+                request.setAttribute("session", newSession);
+                request.setAttribute("page", "alerts");
                 newSession.setAttribute("admin", userDao.get(userName).isIsAdmin());
                 newSession.setAttribute("username", userName);
                 request.setAttribute("session", newSession);
@@ -96,7 +108,7 @@ public class UserEvent extends Event {
      */
     public boolean editUser(HttpServletRequest request, HttpServletResponse response) {
         try {
-            User user = (User) request.getAttribute("user");
+            User user = (User) request.getSession().getAttribute("user");
             String newEmailAddress = request.getParameter("new-email-address");
             String newPassword = request.getParameter("new-password");
             if (!newEmailAddress.equals("")) {
