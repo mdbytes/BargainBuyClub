@@ -427,6 +427,18 @@ END $$
 DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS get_product_by_url;
+DELIMITER $$
+CREATE PROCEDURE get_product_by_url
+(
+	product_url_param VARCHAR(1024)
+)
+BEGIN
+    SELECT * FROM products WHERE product_url = product_url_param;
+END $$
+DELIMITER ;
+
+
 DROP PROCEDURE IF EXISTS update_product;
 DELIMITER $$
 CREATE PROCEDURE update_product
