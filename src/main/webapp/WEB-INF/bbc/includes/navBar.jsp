@@ -41,14 +41,14 @@
             break;
     }
 %>
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <div class="container-fluid">
+<nav class="container-fluid navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+    <div class="container">
         <a class="navbar-brand" href="main?action=home">BargainBuyClub.com</a>--%>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="<%= homeClass %>" href="<%=request.getContextPath()%>/">Home</a>
@@ -78,6 +78,8 @@
                         <li><a class="nav-link active" href="main?action=admin-display-alerts">Alerts</a></li>
                         <li><a class="nav-link active" href="main?action=admin-display-users">Users</a></li>
                         <li><a class="nav-link active" href="main?action=update-system-prices">Update Prices</a></li>
+                        <li><a class="nav-link active" href="main?action=update-system-prices">Send Notifications</a>
+                        </li>
                     </ul>
                 </li>
                 <%}%>

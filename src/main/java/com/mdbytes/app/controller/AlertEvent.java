@@ -59,7 +59,11 @@ public class AlertEvent extends Event {
             Date date = Date.valueOf(LocalDate.now());
             Product product = new Product(productUrl, store, productName, productPrice, date);
             Product savedProduct = productDao.add(product);
-            Alert alert = alertDao.addAlert(savedProduct.getProductID(), userDao.getUserByEmailAddress(user.getEmailAddress()).getUserID(), alertPrice);
+            Alert alert = new Alert();
+            alert.setUser(userDao.getUserByEmailAddress(user.getEmailAddress()));
+            alert.setAlertPrice(alertPrice);
+            alert.setProduct(savedProduct);
+            Alert savedAlert = alertDao.add(alert);
             request.getSession().setAttribute("useralerts", userDao.getUserAlerts(user.getUserID()));
             request.getSession().setAttribute("system-alerts", alertDao.getAll());
             request.setAttribute("page", "alerts");
@@ -86,7 +90,7 @@ public class AlertEvent extends Event {
             int alertID = Integer.parseInt(request.getParameter("alert-id"));
             double alertPrice = Double.parseDouble(request.getParameter("alert-price"));
             System.out.println(request.getSession().getAttribute("user-id"));
-            alertDao.updateAlertPrice(alertID, alertPrice);
+            alertDao.update(alertID, alertPrice);
             request.getSession().setAttribute("useralerts", userDao.getUserAlerts(user.getUserID()));
             request.getSession().setAttribute("system-alerts", alertDao.getAll());
             request.setAttribute("page", "alerts");
@@ -98,7 +102,6 @@ public class AlertEvent extends Event {
             handleException(request, response, "Oops!  That was bad!  Check it out!");
             return false;
         }
-
     }
 
     /**

@@ -11,38 +11,37 @@ import java.util.List;
 
 public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
 
-    public AlertDAO_MySQL() {
-        super();
-    }
 
-    @Override
-    public Alert add(Alert alert) throws SQLException, IOException {
-        return addAlert(alert.getProduct().getProductID(), alert.getUser().getUserID(), alert.getAlertPrice());
+    public AlertDAO_MySQL() throws SQLException {
+        super();
     }
 
     /**
      * Method to add alerts into application database.
      *
-     * @param productID  the product ID for the alert Product object.
-     * @param userID     the user ID for the alert User object.
-     * @param alertPrice the alert price, a double.
-     * @return Alert.  An alert object.
+     * @param alert an Alert object
+     * @return a saved Alert object
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
      */
-    public Alert addAlert(int productID, int userID, double alertPrice) throws SQLException, IOException {
-        if (getAlertByAttributes(productID, userID, alertPrice).getAlertID() == 0) {
-            Alert alert = new Alert();
-
-            Connection connection = DriverManager.getConnection(dbUrl, username, password);
-            CallableStatement statement = connection.prepareCall("CALL add_alert(?,?,?)");
-            statement.setInt(1, productID);
-            statement.setInt(2, userID);
-            statement.setDouble(3, alertPrice);
-            int count = statement.executeUpdate();
-
-            alert = getAlertByAttributes(productID, userID, alertPrice);
-            return alert;
+    @Override
+    public Alert add(Alert alert) throws SQLException, IOException {
+        int productID = alert.getProduct().getProductID();
+        int userID = alert.getUser().getUserID();
+        double alertPrice = alert.getAlertPrice();
+        if (get(productID, userID, alertPrice).getAlertID() == 0) {
+            Alert savedAlert = new Alert();
+            Connection connection = makeConnection();
+            CallableStatement callableStatement = connection.prepareCall("CALL add_alert(?,?,?)");
+            callableStatement.setInt(1, productID);
+            callableStatement.setInt(2, userID);
+            callableStatement.setDouble(3, alertPrice);
+            int count = callableStatement.executeUpdate();
+            savedAlert = get(productID, userID, alertPrice);
+            closeConnections(connection, callableStatement, null);
+            return savedAlert;
         } else {
-            return getAlertByAttributes(productID, userID, alertPrice);
+            return get(productID, userID, alertPrice);
         }
     }
 
@@ -57,16 +56,11 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
         Alert alert = new Alert();
         DAO productDao = new ProductDAO_MySQL();
         DAO userDao = new UserDAO_MySQL();
-
-        String query = "SELECT * FROM alerts "
-                + "WHERE alert_id = " + id + ";";
-
-        ResultSet rs = null;
-
-        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Connection connection = makeConnection();
         Statement statement = connection.createStatement();
-        rs = statement.executeQuery(query);
+        CallableStatement callableStatement = connection.prepareCall("CALL get_alert_by_id(?)");
+        callableStatement.setInt(1, id);
+        ResultSet rs = callableStatement.executeQuery();
         while (rs.next()) {
             alert.setAlertID((int) rs.getObject("alert_id"));
             alert.setProduct((Product) productDao.get((int) rs.getObject("product_id")));
@@ -74,12 +68,50 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
             alert.setAlertPrice((double) rs.getObject("alert_price"));
             break;
         }
+        closeConnections(connection, callableStatement, rs);
+        return alert;
+    }
 
+    /**
+     * Method to retrieve alert object from database based on attributes.
+     *
+     * @param productID  the product ID for the alert Product object
+     * @param userID     the user ID for the alert User object
+     * @param alertPrice the alert price, a double
+     * @return Alert object.
+     */
+    public Alert get(int productID, int userID, double alertPrice) throws SQLException, IOException {
+        Alert alert = new Alert();
+        DAO productDao = new ProductDAO_MySQL();
+        DAO userDao = new UserDAO_MySQL();
+        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        CallableStatement callableStatement = connection.prepareCall("CALL get_alert_by_attributes(?,?,?)");
+        callableStatement.setInt(1, productID);
+        callableStatement.setInt(2, userID);
+        callableStatement.setDouble(3, alertPrice);
+        ResultSet rs = callableStatement.executeQuery();
+        while (rs.next()) {
+            alert.setAlertID((int) rs.getObject("alert_id"));
+            alert.setProduct((Product) productDao.get((int) rs.getObject("product_id")));
+            alert.setUser((User) userDao.get((int) rs.getObject("user_id")));
+            alert.setAlertPrice(alertPrice);
+            break;
+        }
+        closeConnections(connection, callableStatement, rs);
         return alert;
     }
 
     @Override
-    public Alert update(Alert alert) {
+    public Alert update(Alert alert) throws SQLException {
+        Connection connection = makeConnection();
+        CallableStatement callableStatement = connection.prepareCall("CALL update_alert(?,?,?,?)");
+        callableStatement.setInt(1, alert.getAlertID());
+        callableStatement.setInt(2, alert.getProduct().getProductID());
+        callableStatement.setInt(3, alert.getUser().getUserID());
+        callableStatement.setDouble(4, alert.getAlertPrice());
+        int count = callableStatement.executeUpdate();
+        closeConnections(connection, callableStatement, null);
+        if (count == 1) return alert;
         return null;
     }
 
@@ -90,14 +122,11 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
      */
     @Override
     public void delete(int id) throws SQLException {
-        String query = "DELETE FROM alerts "
-                + "WHERE alert_id = " + id + ";";
-
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
-        Statement statement = connection.createStatement();
-        int count = statement.executeUpdate(query);
-
-
+        Connection connection = makeConnection();
+        CallableStatement callableStatement = connection.prepareCall("CALL delete_alert_by_id(?)");
+        callableStatement.setInt(1, id);
+        int count = callableStatement.executeUpdate();
+        closeConnections(connection, callableStatement, null);
     }
 
     /**
@@ -111,54 +140,17 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
         ArrayList<Alert> alerts = new ArrayList<Alert>();
         DAO userDao = new UserDAO_MySQL();
         DAO productDao = new ProductDAO_MySQL();
-        String query = "SELECT * FROM alerts;";
-        ResultSet rs = null;
-        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
-        CallableStatement statement = connection.prepareCall("{CALL get_alerts()}");
-        rs = statement.executeQuery(query);
+        Connection connection = makeConnection();
+        CallableStatement callableStatement = connection.prepareCall("{CALL get_alerts()}");
+        ResultSet rs = callableStatement.executeQuery();
         while (rs.next()) {
             alerts.add(new Alert((int) rs.getObject("alert_id"),
                     (User) userDao.get((int) rs.getObject("user_id")),
                     (Product) productDao.get((int) rs.getObject("product_id")),
                     (double) rs.getObject("alert_price")));
         }
-
+        closeConnections(connection, callableStatement, rs);
         return alerts;
-
-    }
-
-    /**
-     * Method to retrieve alert object from database based on attributes.
-     *
-     * @param productID  the product ID for the alert Product object
-     * @param userID     the user ID for the alert User object
-     * @param alertPrice the alert price, a double
-     * @return Alert object.
-     */
-    public Alert getAlertByAttributes(int productID, int userID, double alertPrice) throws SQLException, IOException {
-        Alert alert = new Alert();
-        DAO productDao = new ProductDAO_MySQL();
-        DAO userDao = new UserDAO_MySQL();
-
-        String query = "SELECT * FROM alerts "
-                + "WHERE product_id = '" + productID + "'"
-                + "AND user_id = " + userID + " "
-                + "AND alert_price = " + alertPrice + ";";
-        ResultSet rs = null;
-        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
-        Statement statement = connection.createStatement();
-        rs = statement.executeQuery(query);
-        while (rs.next()) {
-            alert.setAlertID((int) rs.getObject("alert_id"));
-            alert.setProduct((Product) productDao.get((int) rs.getObject("alert_id")));
-            alert.setUser((User) userDao.get((int) rs.getObject("user_id")));
-            alert.setAlertPrice(alertPrice);
-            break;
-        }
-
-        return alert;
     }
 
     /**
@@ -166,17 +158,15 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
      *
      * @param alertID    the unique identifier for an alert, an integer
      * @param alertPrice the alert price for the alert, a double
+     * @throws SQLException if one occurs
      */
-    public void updateAlertPrice(int alertID, double alertPrice) throws SQLException {
-        String query = "UPDATE alerts "
-                + "SET alert_price = " + alertPrice +
-                " WHERE alert_id = " + alertID + ";";
-
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
-        Statement statement = connection.createStatement();
-        int count = statement.executeUpdate(query);
-
-
+    public void update(int alertID, double alertPrice) throws SQLException {
+        Connection connection = makeConnection();
+        CallableStatement callableStatement = connection.prepareCall("CALL update_alert_price(?,?)");
+        callableStatement.setInt(1, alertID);
+        callableStatement.setDouble(2, alertPrice);
+        int count = callableStatement.executeUpdate();
+        closeConnections(connection, callableStatement, null);
     }
 
 }

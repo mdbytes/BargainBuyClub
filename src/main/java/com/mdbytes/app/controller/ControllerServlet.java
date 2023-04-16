@@ -94,6 +94,10 @@ public class ControllerServlet extends HttpServlet {
                 adminEvent.updateSystemPrices(request, response);
                 break;
 
+            case "send-notifications":
+                adminEvent.sendNotifications(request, response);
+                break;
+
             default:
                 request.getSession().invalidate();
                 success = homeEvent.goHome(request, response);

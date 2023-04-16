@@ -26,8 +26,9 @@ public class UserEvent extends Event {
         try {
             request.setAttribute("errormessage", "Registration disabled during beta development phase.");
             request.setAttribute("sign-up-error-message", "Registration disabled during this development phase.");
-            request.setAttribute("page", "login");
-            request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
+            request.setAttribute("page", "home");
+            handleException(request, response, "User registration not allowed at this time.  Try again later.");
+            //request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

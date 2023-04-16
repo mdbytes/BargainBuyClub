@@ -57,9 +57,11 @@ public class Event {
 
     protected void handleException(HttpServletRequest request, HttpServletResponse response, String errorMessage) {
         try {
+
             request.getSession().setAttribute("errormessage", errorMessage);
             request.setAttribute("page", "home");
-            request.getRequestDispatcher("WEB-INF/bbc/index.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath());
+
         } catch (Exception e) {
             System.err.println("App won't deliver home page.  Crap!");
         }

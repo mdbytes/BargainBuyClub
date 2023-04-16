@@ -90,16 +90,16 @@ public class AdminEvent extends Event {
 
     public void updateSystemPrices(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         List<Alert> alerts = alertDao.getAll();
-        System.out.println("hello from update...");
         for (Alert alert : alerts) {
-            System.out.println(alert.toString());
             Product product = alert.getProduct();
             ProductScraper scraper = new ProductScraper(product.getProductUrl(), product.getStore().getPriceQuery(), product.getStore().getProductNameQuery());
             Double newPrice = scraper.getProductPrice(product.getProductUrl());
-            System.out.println(newPrice);
             product.setProductPrice(newPrice);
             productDao.update(product);
         }
         adminDisplayAlerts(request, response);
+    }
+
+    public void sendNotifications(HttpServletRequest request, HttpServletResponse response) {
     }
 }

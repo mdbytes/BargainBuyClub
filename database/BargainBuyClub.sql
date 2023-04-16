@@ -510,6 +510,22 @@ BEGIN
 END $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS get_alert_by_attributes;
+DELIMITER $$
+CREATE PROCEDURE get_alert_by_attributes
+(
+	product_id_param INT,
+    user_id_param INT,
+    alert_price_param DOUBLE
+)
+BEGIN
+
+    SELECT * FROM alerts 
+    WHERE product_id = product_id_param AND user_id = user_id_param AND alert_price = alert_price_param;
+
+END $$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS update_alert;
 DELIMITER $$
 CREATE PROCEDURE update_alert
@@ -531,6 +547,25 @@ BEGIN
 
 END $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS update_alert_price;
+DELIMITER $$
+CREATE PROCEDURE update_alert_price
+(
+	`alert_id_param` INT,
+	`alert_price_param` DOUBLE
+)
+BEGIN
+
+    UPDATE alerts
+
+    SET alert_price = alert_price_param
+
+	WHERE alert_id = alert_id_param;
+
+END $$
+DELIMITER ;
+
 
 DROP PROCEDURE IF EXISTS delete_alert_by_id;
 DELIMITER $$
