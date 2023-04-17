@@ -1,14 +1,12 @@
 package com.mdbytes.app.controller;
 
-import com.mdbytes.app.model.Alert;
-import com.mdbytes.app.model.Product;
-import com.mdbytes.app.model.ProductScraper;
-import com.mdbytes.app.model.User;
+import com.mdbytes.app.model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminEvent extends Event {
@@ -101,6 +99,23 @@ public class AdminEvent extends Event {
         adminDisplayAlerts(request, response);
     }
 
-    public void sendNotifications(HttpServletRequest request, HttpServletResponse response) {
+    public void sendNotifications(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        List<User> users = userDao.getAll();
+        for(User user: users) {
+            List<Alert> alerts = alertDao.getAll(user.getUserID());
+            List<Alert> triggeredAlerts = new ArrayList<>();
+
+            for(Alert alert: alerts) {
+                if(alert.getAlertPrice() > alert.getProduct().getProductPrice()) {
+                    triggeredAlerts.add(alert);
+                }
+            }
+
+            if(triggeredAlerts.size() > 0) {
+                Notification notification = new Notification(user,triggeredAlerts);
+                notification.sendMail();
+            }
+        }
+
     }
 }
