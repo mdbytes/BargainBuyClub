@@ -10,6 +10,9 @@ public class DAO_MySQL {
     protected String username;
     protected String password;
     protected Env env = new Env();
+    protected Connection connection;
+    protected ResultSet resultSet;
+    protected CallableStatement callableStatement;
 
     public DAO_MySQL() {
         dbUrl = env.DBURL;
@@ -19,14 +22,14 @@ public class DAO_MySQL {
 
     public Connection makeConnection() throws SQLException {
         DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        connection = DriverManager.getConnection(dbUrl, username, password);
         return connection;
     }
 
-    public void closeConnections(Connection connection, CallableStatement callableStatement, ResultSet rs) throws SQLException {
-        connection.close();
-        callableStatement.close();
-        if (rs != null) rs.close();
+    public void closeConnections() throws SQLException {
+        this.connection.close();
+        this.callableStatement.close();
+        if (resultSet != null) this.resultSet.close();
     }
 
 }

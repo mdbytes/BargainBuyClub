@@ -5,7 +5,10 @@ import com.mdbytes.app.model.Product;
 import com.mdbytes.app.model.User;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.CallableStatement;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,14 +34,14 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
         double alertPrice = alert.getAlertPrice();
         if (get(productID, userID, alertPrice).getAlertID() == 0) {
             Alert savedAlert = new Alert();
-            Connection connection = makeConnection();
-            CallableStatement callableStatement = connection.prepareCall("CALL add_alert(?,?,?)");
+            connection = makeConnection();
+            callableStatement = connection.prepareCall("CALL add_alert(?,?,?)");
             callableStatement.setInt(1, productID);
             callableStatement.setInt(2, userID);
             callableStatement.setDouble(3, alertPrice);
             int count = callableStatement.executeUpdate();
             savedAlert = get(productID, userID, alertPrice);
-            closeConnections(connection, callableStatement, null);
+            closeConnections();
             return savedAlert;
         } else {
             return get(productID, userID, alertPrice);
@@ -58,19 +61,19 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
         Alert alert = new Alert();
         DAO productDao = new ProductDAO_MySQL();
         DAO userDao = new UserDAO_MySQL();
-        Connection connection = makeConnection();
+        connection = makeConnection();
         Statement statement = connection.createStatement();
-        CallableStatement callableStatement = connection.prepareCall("CALL get_alert_by_id(?)");
+        callableStatement = connection.prepareCall("CALL get_alert_by_id(?)");
         callableStatement.setInt(1, id);
-        ResultSet rs = callableStatement.executeQuery();
-        while (rs.next()) {
-            alert.setAlertID((int) rs.getObject("alert_id"));
-            alert.setProduct((Product) productDao.get((int) rs.getObject("product_id")));
-            alert.setUser((User) userDao.get((int) rs.getObject("user_id")));
-            alert.setAlertPrice((double) rs.getObject("alert_price"));
+        resultSet = callableStatement.executeQuery();
+        while (resultSet.next()) {
+            alert.setAlertID((int) resultSet.getObject("alert_id"));
+            alert.setProduct((Product) productDao.get((int) resultSet.getObject("product_id")));
+            alert.setUser((User) userDao.get((int) resultSet.getObject("user_id")));
+            alert.setAlertPrice((double) resultSet.getObject("alert_price"));
             break;
         }
-        closeConnections(connection, callableStatement, rs);
+        closeConnections();
         return alert;
     }
 
@@ -88,20 +91,20 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
         Alert alert = new Alert();
         DAO productDao = new ProductDAO_MySQL();
         DAO userDao = new UserDAO_MySQL();
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
-        CallableStatement callableStatement = connection.prepareCall("CALL get_alert_by_attributes(?,?,?)");
+        connection = DriverManager.getConnection(dbUrl, username, password);
+        callableStatement = connection.prepareCall("CALL get_alert_by_attributes(?,?,?)");
         callableStatement.setInt(1, productID);
         callableStatement.setInt(2, userID);
         callableStatement.setDouble(3, alertPrice);
-        ResultSet rs = callableStatement.executeQuery();
-        while (rs.next()) {
-            alert.setAlertID((int) rs.getObject("alert_id"));
-            alert.setProduct((Product) productDao.get((int) rs.getObject("product_id")));
-            alert.setUser((User) userDao.get((int) rs.getObject("user_id")));
+        resultSet = callableStatement.executeQuery();
+        while (resultSet.next()) {
+            alert.setAlertID((int) resultSet.getObject("alert_id"));
+            alert.setProduct((Product) productDao.get((int) resultSet.getObject("product_id")));
+            alert.setUser((User) userDao.get((int) resultSet.getObject("user_id")));
             alert.setAlertPrice(alertPrice);
             break;
         }
-        closeConnections(connection, callableStatement, rs);
+        closeConnections();
         return alert;
     }
 
@@ -114,14 +117,14 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
      */
     @Override
     public Alert update(Alert alert) throws SQLException {
-        Connection connection = makeConnection();
-        CallableStatement callableStatement = connection.prepareCall("CALL update_alert(?,?,?,?)");
+        connection = makeConnection();
+        callableStatement = connection.prepareCall("CALL update_alert(?,?,?,?)");
         callableStatement.setInt(1, alert.getAlertID());
         callableStatement.setInt(2, alert.getProduct().getProductID());
         callableStatement.setInt(3, alert.getUser().getUserID());
         callableStatement.setDouble(4, alert.getAlertPrice());
         int count = callableStatement.executeUpdate();
-        closeConnections(connection, callableStatement, null);
+        closeConnections();
         if (count == 1) return alert;
         return null;
     }
@@ -134,11 +137,11 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
      */
     @Override
     public void delete(int id) throws SQLException {
-        Connection connection = makeConnection();
-        CallableStatement callableStatement = connection.prepareCall("CALL delete_alert_by_id(?)");
+        connection = makeConnection();
+        callableStatement = connection.prepareCall("CALL delete_alert_by_id(?)");
         callableStatement.setInt(1, id);
         int count = callableStatement.executeUpdate();
-        closeConnections(connection, callableStatement, null);
+        closeConnections();
     }
 
     /**
@@ -154,16 +157,16 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
         ArrayList<Alert> alerts = new ArrayList<Alert>();
         DAO userDao = new UserDAO_MySQL();
         DAO productDao = new ProductDAO_MySQL();
-        Connection connection = makeConnection();
-        CallableStatement callableStatement = connection.prepareCall("{CALL get_alerts()}");
-        ResultSet rs = callableStatement.executeQuery();
-        while (rs.next()) {
-            alerts.add(new Alert((int) rs.getObject("alert_id"),
-                    (User) userDao.get((int) rs.getObject("user_id")),
-                    (Product) productDao.get((int) rs.getObject("product_id")),
-                    (double) rs.getObject("alert_price")));
+        connection = makeConnection();
+        callableStatement = connection.prepareCall("{CALL get_alerts()}");
+        resultSet = callableStatement.executeQuery();
+        while (resultSet.next()) {
+            alerts.add(new Alert((int) resultSet.getObject("alert_id"),
+                    (User) userDao.get((int) resultSet.getObject("user_id")),
+                    (Product) productDao.get((int) resultSet.getObject("product_id")),
+                    (double) resultSet.getObject("alert_price")));
         }
-        closeConnections(connection, callableStatement, rs);
+        closeConnections();
         return alerts;
     }
 
@@ -179,24 +182,21 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
         DAO userDao = new UserDAO_MySQL();
 
         DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        connection = DriverManager.getConnection(dbUrl, username, password);
         CallableStatement statement = connection.prepareCall("{call get_user_alerts(?)}");
         statement.setInt(1, userId);
-        ResultSet rs = statement.executeQuery();
+        resultSet = statement.executeQuery();
         Alert alert = null;
-        while (rs.next()) {
+        while (resultSet.next()) {
             alert = new Alert(
-                    (int) rs.getObject("alert_id"),
-                    (User) userDao.get((int) rs.getObject("user_id")),
-                    (Product) productDao.get((int) rs.getObject("product_id")),
-                    (double) rs.getObject("alert_price")
+                    (int) resultSet.getObject("alert_id"),
+                    (User) userDao.get((int) resultSet.getObject("user_id")),
+                    (Product) productDao.get((int) resultSet.getObject("product_id")),
+                    (double) resultSet.getObject("alert_price")
             );
             userAlerts.add(alert);
         }
-        connection.close();
-        statement.close();
-        rs.close();
-
+        closeConnections();
         return userAlerts;
     }
 
@@ -208,11 +208,11 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
      * @throws SQLException if one occurs
      */
     public void update(int alertID, double alertPrice) throws SQLException {
-        Connection connection = makeConnection();
-        CallableStatement callableStatement = connection.prepareCall("CALL update_alert_price(?,?)");
+        connection = makeConnection();
+        callableStatement = connection.prepareCall("CALL update_alert_price(?,?)");
         callableStatement.setInt(1, alertID);
         callableStatement.setDouble(2, alertPrice);
         int count = callableStatement.executeUpdate();
-        closeConnections(connection, callableStatement, null);
+        closeConnections();
     }
 }

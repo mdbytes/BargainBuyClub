@@ -4,7 +4,8 @@ import com.mdbytes.app.model.Product;
 import com.mdbytes.app.model.Store;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +31,8 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
         if (get(product.getProductUrl()).getProductID() == 0) {
             Product savedProduct = new Product();
             Date today = Date.valueOf(LocalDate.now());
-            Connection connection = makeConnection();
-            CallableStatement callableStatement = connection.prepareCall("CALL add_product(?,?,?,?,?)");
+            connection = makeConnection();
+            callableStatement = connection.prepareCall("CALL add_product(?,?,?,?,?)");
             callableStatement.setInt(1, product.getStore().getStoreID());
             callableStatement.setString(2, product.getProductUrl());
             callableStatement.setString(3, product.getProductName());
@@ -39,7 +40,7 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
             callableStatement.setDate(5, today);
             int count = callableStatement.executeUpdate();
             savedProduct = get(product.getProductUrl());
-            closeConnections(connection, callableStatement, null);
+            closeConnections();
             return savedProduct;
         } else {
             return get(product.getProductUrl());
@@ -58,21 +59,21 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
     public Product get(int id) throws SQLException, IOException {
         Product product = new Product();
         DAO storeDao = new StoreDAO_MySQL();
-        Connection connection = makeConnection();
-        CallableStatement callableStatement = connection.prepareCall("CALL get_product_by_id(?)");
+        connection = makeConnection();
+        callableStatement = connection.prepareCall("CALL get_product_by_id(?)");
         callableStatement.setInt(1, id);
-        ResultSet rs = callableStatement.executeQuery();
-        while (rs.next()) {
+        resultSet = callableStatement.executeQuery();
+        while (resultSet.next()) {
             product.setProductID(id);
-            Store store = (Store) storeDao.get((int) rs.getObject("store_id"));
+            Store store = (Store) storeDao.get((int) resultSet.getObject("store_id"));
             product.setStore(store);
-            product.setProductUrl(rs.getString("product_url"));
-            product.setProductName(rs.getString("product_name"));
-            product.setProductPrice(rs.getDouble("recent_price"));
-            product.setLastUpdated(rs.getDate("last_updated"));
+            product.setProductUrl(resultSet.getString("product_url"));
+            product.setProductName(resultSet.getString("product_name"));
+            product.setProductPrice(resultSet.getDouble("recent_price"));
+            product.setLastUpdated(resultSet.getDate("last_updated"));
             break;
         }
-        closeConnections(connection, callableStatement, rs);
+        closeConnections();
         return product;
     }
 
@@ -87,21 +88,21 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
     public Product get(String productURL) throws SQLException, IOException {
         Product product = new Product();
         DAO storeDao = new StoreDAO_MySQL();
-        Connection connection = makeConnection();
-        CallableStatement callableStatement = connection.prepareCall("CALL get_product_by_url(?)");
+        connection = makeConnection();
+        callableStatement = connection.prepareCall("CALL get_product_by_url(?)");
         callableStatement.setString(1, productURL);
-        ResultSet rs = callableStatement.executeQuery();
-        while (rs.next()) {
-            product.setProductID((int) rs.getObject("product_id"));
-            Store store = (Store) storeDao.get((int) rs.getObject("store_id"));
+        resultSet = callableStatement.executeQuery();
+        while (resultSet.next()) {
+            product.setProductID((int) resultSet.getObject("product_id"));
+            Store store = (Store) storeDao.get((int) resultSet.getObject("store_id"));
             product.setStore(store);
             product.setProductUrl(productURL);
-            product.setProductName(rs.getString("product_name"));
-            product.setProductPrice(rs.getDouble("recent_price"));
-            product.setLastUpdated(rs.getDate("last_updated"));
+            product.setProductName(resultSet.getString("product_name"));
+            product.setProductPrice(resultSet.getDouble("recent_price"));
+            product.setLastUpdated(resultSet.getDate("last_updated"));
             break;
         }
-        closeConnections(connection, callableStatement, rs);
+        closeConnections();
         return product;
     }
 
@@ -117,8 +118,8 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
     public Product update(Product product) throws SQLException, IOException {
         Product savedProduct = new Product();
         Date today = Date.valueOf(LocalDate.now());
-        Connection connection = makeConnection();
-        CallableStatement callableStatement = connection.prepareCall("CALL update_product(?,?,?,?,?,?)");
+        connection = makeConnection();
+        callableStatement = connection.prepareCall("CALL update_product(?,?,?,?,?,?)");
         callableStatement.setInt(1, product.getProductID());
         callableStatement.setInt(2, product.getStore().getStoreID());
         callableStatement.setString(3, product.getProductUrl());
@@ -127,7 +128,7 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
         callableStatement.setDate(6, today);
         int count = callableStatement.executeUpdate();
         savedProduct = get(product.getProductUrl());
-        closeConnections(connection, callableStatement, null);
+        closeConnections();
         return savedProduct;
     }
 
@@ -139,11 +140,11 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
      */
     @Override
     public void delete(int id) throws SQLException {
-        Connection connection = makeConnection();
-        CallableStatement callableStatement = connection.prepareCall("CALL delete_product_by_id(?)");
+        connection = makeConnection();
+        callableStatement = connection.prepareCall("CALL delete_product_by_id(?)");
         callableStatement.setInt(1, id);
         int count = callableStatement.executeUpdate();
-        closeConnections(connection, callableStatement, null);
+        closeConnections();
     }
 
     /**
@@ -156,24 +157,24 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
     @Override
     public List<Product> getAll() throws SQLException, IOException {
 
-        Connection connection = makeConnection();
-        CallableStatement callableStatement = connection.prepareCall("{CALL get_products()}");
-        ResultSet rs = callableStatement.executeQuery();
+        connection = makeConnection();
+        callableStatement = connection.prepareCall("{CALL get_products()}");
+        resultSet = callableStatement.executeQuery();
 
         ArrayList<Product> products = new ArrayList<Product>();
         DAO storeDao = new StoreDAO_MySQL();
 
-        while (rs.next()) {
+        while (resultSet.next()) {
             Product product = new Product();
-            product.setProductID((int) rs.getObject("product_id"));
-            product.setStore((Store) storeDao.get((int) rs.getObject("store_id")));
-            product.setProductUrl(rs.getString("product_url"));
-            product.setProductName(rs.getString("product_name"));
-            product.setProductPrice(rs.getDouble("recent_price"));
-            product.setLastUpdated(rs.getDate("last_updated"));
+            product.setProductID((int) resultSet.getObject("product_id"));
+            product.setStore((Store) storeDao.get((int) resultSet.getObject("store_id")));
+            product.setProductUrl(resultSet.getString("product_url"));
+            product.setProductName(resultSet.getString("product_name"));
+            product.setProductPrice(resultSet.getDouble("recent_price"));
+            product.setLastUpdated(resultSet.getDate("last_updated"));
             products.add(product);
         }
-        closeConnections(connection, callableStatement, rs);
+        closeConnections();
         return products;
     }
 }
