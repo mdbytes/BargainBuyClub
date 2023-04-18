@@ -1,4 +1,4 @@
-package com.mdbytes.app.controller;
+package com.mdbytes.app.controller.events;
 
 import com.mdbytes.app.model.Alert;
 
@@ -20,6 +20,8 @@ public class HomeEvent extends Event {
      * Method is used to obtain alert objects for the home page illustration.
      *
      * @return alerts
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
      */
     public ArrayList<Alert> loadHome() throws SQLException, IOException {
         ArrayList<Alert> alerts = (ArrayList<Alert>) alertDao.getAll(1);
@@ -31,6 +33,9 @@ public class HomeEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
      */
     public boolean goHome(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         List<Alert> homeAlerts = loadHome();

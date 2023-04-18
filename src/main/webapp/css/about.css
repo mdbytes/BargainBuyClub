@@ -1,8 +1,9 @@
+.about .admin,
 .about .upcoming,
 .about .carousel,
 .about .process,
 .about .goal {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 3rem auto;
 }
 

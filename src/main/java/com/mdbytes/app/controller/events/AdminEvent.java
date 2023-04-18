@@ -1,4 +1,4 @@
-package com.mdbytes.app.controller;
+package com.mdbytes.app.controller.events;
 
 import com.mdbytes.app.model.*;
 
@@ -20,6 +20,7 @@ public class AdminEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean adminDisplayAlerts(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -47,6 +48,7 @@ public class AdminEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean makeUserAdmin(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -70,6 +72,7 @@ public class AdminEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean displayUsersForAdmin(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -86,7 +89,14 @@ public class AdminEvent extends Event {
 
     }
 
-
+    /**
+     * Updates latest prices for all products
+     *
+     * @param request  a servlet http request
+     * @param response a servlet http request
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
+     */
     public void updateSystemPrices(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         List<Alert> alerts = alertDao.getAll();
         for (Alert alert : alerts) {
@@ -99,23 +109,35 @@ public class AdminEvent extends Event {
         adminDisplayAlerts(request, response);
     }
 
+    /**
+     * Sends notifications for current prices below alert prices
+     *
+     * @param request  a servlet http request
+     * @param response a servlet http request
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
+     */
     public void sendNotifications(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         List<User> users = userDao.getAll();
-        for(User user: users) {
+        int numberOfEmails = 0;
+        for (User user : users) {
             List<Alert> alerts = alertDao.getAll(user.getUserID());
             List<Alert> triggeredAlerts = new ArrayList<>();
 
-            for(Alert alert: alerts) {
-                if(alert.getAlertPrice() > alert.getProduct().getProductPrice()) {
+            for (Alert alert : alerts) {
+                if (alert.getAlertPrice() > alert.getProduct().getProductPrice()) {
                     triggeredAlerts.add(alert);
                 }
             }
 
-            if(triggeredAlerts.size() > 0) {
-                Notification notification = new Notification(user,triggeredAlerts);
+            if (triggeredAlerts.size() > 0) {
+                Notification notification = new Notification(user, triggeredAlerts);
                 notification.sendMail();
+                numberOfEmails++;
             }
         }
 
+        request.getSession().setAttribute("price-alert-number", numberOfEmails);
+        adminDisplayAlerts(request, response);
     }
 }

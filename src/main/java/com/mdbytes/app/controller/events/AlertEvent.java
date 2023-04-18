@@ -1,4 +1,4 @@
-package com.mdbytes.app.controller;
+package com.mdbytes.app.controller.events;
 
 import com.mdbytes.app.model.*;
 
@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 public class AlertEvent extends Event {
 
@@ -19,11 +20,14 @@ public class AlertEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return boolean for method success (or failure)
      */
     public boolean displayNewAlertPage(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession thisSession = request.getSession();
             if (thisSession != null) {
+                List<Store> stores = storeDao.getAll();
+                request.getSession().setAttribute("stores", stores);
                 request.setAttribute("page", "alerts");
                 request.getRequestDispatcher("WEB-INF/bbc/addAlert.jsp").forward(request, response);
             } else {
@@ -46,6 +50,7 @@ public class AlertEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean addAlert(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -83,6 +88,7 @@ public class AlertEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean editAlert(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -109,6 +115,7 @@ public class AlertEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean deleteAlert(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -134,6 +141,7 @@ public class AlertEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean displayAlerts(HttpServletRequest request, HttpServletResponse response) {
         try {

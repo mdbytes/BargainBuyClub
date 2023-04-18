@@ -1,4 +1,4 @@
-package com.mdbytes.app;
+package com.mdbytes.app.controller.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet handles all requests from the privacy path, forwarding them to the application
- * privacy page.
+ * Servlet handles all requests from the contact path, forwarding them to the application
+ * contact page.
  */
-@WebServlet(name = "PrivacyServlet", value = "/privacy")
-public class PrivacyServlet extends HttpServlet {
+@WebServlet(name = "ContactServlet", value = "/contact")
+public class ContactServlet extends HttpServlet {
     /**
-     * Method forwards request and response to the application home page.
+     * Method forwards request and response to the application contact page.
      *
      * @param request  an {@link HttpServletRequest} object that contains the request the client has made of the servlet
      * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
@@ -23,7 +23,7 @@ public class PrivacyServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("page", "privacy");
-        request.getRequestDispatcher("WEB-INF/bbc/privacy.jsp").forward(request, response);
+        request.setAttribute("page", "contact");
+        request.getRequestDispatcher("WEB-INF/bbc/contact.jsp").forward(request, response);
     }
 }

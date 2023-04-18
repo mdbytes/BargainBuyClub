@@ -1,4 +1,4 @@
-package com.mdbytes.app;
+package com.mdbytes.app.controller.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet handles all requests from the contact path, forwarding them to the application
- * contact page.
+ * Servlet handles all requests from the about path, forwarding them to the application
+ * about page.
  */
-@WebServlet(name = "ContactServlet", value = "/contact")
-public class ContactServlet extends HttpServlet {
+@WebServlet(name = "AboutServlet", value = "/about")
+public class AboutServlet extends HttpServlet {
     /**
-     * Method forwards request and response to the application contact page.
+     * Method forwards request and response to the application about page.
      *
      * @param request  an {@link HttpServletRequest} object that contains the request the client has made of the servlet
      * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
@@ -23,7 +23,7 @@ public class ContactServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("page", "contact");
-        request.getRequestDispatcher("WEB-INF/bbc/contact.jsp").forward(request, response);
+        request.setAttribute("page", "about");
+        request.getRequestDispatcher("WEB-INF/bbc/about.jsp").forward(request, response);
     }
 }

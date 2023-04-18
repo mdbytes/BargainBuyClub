@@ -33,16 +33,24 @@ public class ProductScraper {
      */
     public double getProductPrice(String productURL) throws IOException {
         double price = 0.0;
-        Document doc = Jsoup.connect(productURL).get();
+        System.out.println("Trying to retrieve price");
+        Document doc = Jsoup.connect(productURL).ignoreContentType(true)
+                .referrer("http://www.google.com")
+                .maxBodySize(Integer.MAX_VALUE)
+                .header("Accept-Encoding", "gzip")
+                .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")   //tried many different agents
+                .timeout(Integer.MAX_VALUE)
+                .followRedirects(true)
+                .get();   //also tried .post()
         Elements htmlElements = doc.select(this.priceQuery);
         String stringPrice = "";
+        System.out.println(htmlElements);
         Pattern howToFindPrice = Pattern.compile("(\\d+.\\d+)");
-        Matcher findingPrice = howToFindPrice.matcher(htmlElements.get(0).toString());
-        while (findingPrice.find()) {
-            stringPrice = findingPrice.group(1);
-        }
-
         try {
+            Matcher findingPrice = howToFindPrice.matcher(htmlElements.get(0).toString());
+            while (findingPrice.find()) {
+                stringPrice = findingPrice.group(1);
+            }
             price = Double.parseDouble(stringPrice.replace(",", ""));
         } catch (NumberFormatException e) {
             System.err.println("Error in price extraction.");
@@ -62,9 +70,19 @@ public class ProductScraper {
      * @throws IOException when I/O exceptions occur
      */
     public String getProductName(String productURL) throws IOException {
+        System.out.println("Trying to retrieve name");
+        Document doc = Jsoup.connect(productURL).ignoreContentType(true)
+                .referrer("http://www.google.com")
+                .maxBodySize(Integer.MAX_VALUE)
+                .header("Accept-Encoding", "gzip")
+                .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")   //tried many different agents
+                .timeout(Integer.MAX_VALUE)
+                .followRedirects(true)
+                .get();   //also tried .post()
 
-        Document doc = Jsoup.connect(productURL).get();
+        System.out.println(doc);
         Element htmlElement = doc.select(this.productNameQuery).first();
+        System.out.println(htmlElement);
         String productName = htmlElement.text();
 
         return productName;

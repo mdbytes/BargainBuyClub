@@ -9,13 +9,15 @@
 <%-- importing necessary Java resources --%>
 <%@page import="java.util.ArrayList" %>
 <%@ page import="com.mdbytes.app.model.Alert" %>
+<%@ page import="com.mdbytes.app.model.Store" %>
+<%@ page import="java.util.List" %>
 
 <%-- including page header including meta data and styles --%>
 <jsp:include page="/WEB-INF/bbc/includes/pageTop.jsp"/>
 
 <%
     String errorMessage = "";
-    ArrayList<Alert> alerts = new ArrayList<Alert>();
+    List<Store> stores = new ArrayList<Store>();
     String userName = "";
     String sessionID = "";
 
@@ -25,8 +27,9 @@
         userName = request.getSession().getAttribute("username").toString();
         HttpSession thisSession = request.getSession();
         sessionID = thisSession.getId();
-        if (request.getAttribute("useralerts") != null) {
-            alerts = (ArrayList<Alert>) request.getAttribute("useralerts");
+
+        if (request.getSession().getAttribute("stores") != null) {
+            stores = (ArrayList<Store>) request.getSession().getAttribute("stores");
         }
         if (request.getAttribute("errormessage") != null) {
             errorMessage = request.getAttribute("errormessage").toString();
@@ -52,7 +55,10 @@
             <label for="store-input">Store:</label>
             <select name="store" class="form-control" id="store-input">
                 <optgroup label="Select Store">
-                    <option value="1">Webscraper API Store</option>
+                    <%for (Store store : stores) {%>
+                    <option value="<%=store.getStoreID()%>"><%=store.getStoreName()%>
+                    </option>
+                    <%}%>
                 </optgroup>
             </select>
         </div>

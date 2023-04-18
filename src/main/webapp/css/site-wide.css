@@ -112,6 +112,11 @@ nav {
     margin-bottom: 25px;
 }
 
+#user-nav {
+    margin: 0;
+    padding: 0;
+}
+
 .inline-text-image {
     height: 20px;
     width: auto;
@@ -128,11 +133,18 @@ nav {
     text-align: center;
 }
 
+#home_alerts > tbody > tr > td > b {
+    font-family: 'Mountains of Christmas';
+    color: #ff0202;
+    font-weight: bold;
+}
 
 .buy-now {
     text-decoration: none;
     font-family: 'Mountains of Christmas';
     color: #ff0202;
+    font-weight: bold;
+    font-size: 1.1rem;
 }
 
 .buy-now:hover {
@@ -140,6 +152,13 @@ nav {
     font-family: 'Mountains of Christmas';
     color: #009933;
 
+}
+
+.buy-now .buy-on {
+    color: black;
+    font-family: 'Sen';
+    font-size: .8rem;
+    font-weight: 400;
 }
 
 /* Styles related to auto logoff jQuery dialog box */

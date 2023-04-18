@@ -6,7 +6,7 @@
 --%>
 <%@page import="java.util.ArrayList,java.text.NumberFormat" %>
 <%@ page import="com.mdbytes.app.model.Alert" %>
-<%@ page import="com.mdbytes.app.controller.HomeEvent" %>
+<%@ page import="com.mdbytes.app.controller.events.HomeEvent" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <%-- include navbar and meta data, page sources and styles --%>
@@ -62,8 +62,7 @@
                 <h5>We let you know when the price is right!</h5>
             </div>
             <p>Tell us the product and the price you want to pay. You can come back to the site to check your alerts. As
-                an example, here are some items we are tracking from
-                shop Disney online.
+                an example, here are some items we are tracking from Amazon.com.
             </p>
             <h3>Featured Price Alerts</h3>
 
@@ -76,8 +75,8 @@
                         if (productName.length() > 75) {
                             productName = productName.substring(0, 75) + "...";
                         }
-                        out.print("<tr><td colspan='3' style='border-top:1px solid black;'>" + productName + "</td></tr>");
-                        out.print("<tr style='border-bottom:1px solid black'><td>Price today " + cf.format(alert.getProduct().getProductPrice()) + "<br></td><td align='center'>Alert price " + cf.format(alert.getAlertPrice()) + "</td><td align='right'><a class='buy-now' href=" + alert.getProduct().getProductUrl() + " target='_blank'>Buy Now</a></td></tr>");
+                        out.print("<tr><td colspan='3' style='border-top:1px solid black;'><b>Product:</b> " + productName + "</td></tr>");
+                        out.print("<tr style='border-bottom:1px solid black'><td>Price today " + cf.format(alert.getProduct().getProductPrice()) + "<br></td><td align='center'>Alert price " + cf.format(alert.getAlertPrice()) + "</td><td align='right'><a class='buy-now' href=" + alert.getProduct().getProductUrl() + " target='_blank'><span class='buy-on'>buy on</span> " + alert.getProduct().getStore().getStoreName() + "</a></td></tr>");
                     }
                 } else {
                     out.print("<tr><td colspan='3'><p>No featured alerts at this time</p></td></tr>");

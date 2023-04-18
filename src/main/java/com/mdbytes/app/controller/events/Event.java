@@ -1,4 +1,4 @@
-package com.mdbytes.app.controller;
+package com.mdbytes.app.controller.events;
 
 import com.mdbytes.app.dao.AlertDAO_MySQL;
 import com.mdbytes.app.dao.ProductDAO_MySQL;
@@ -41,6 +41,9 @@ public class Event {
     /**
      * Default constructor creates null objects along with new data access objects which
      * can be used on event handlers as needed
+     *
+     * @param request  an active Http request
+     * @param response an active Http response
      */
     public Event(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -59,11 +62,11 @@ public class Event {
      * Handles all exceptions in the application by receiving an error message and redirecting the
      * user back to the home page.  Once there an alert message will show the user the error message.
      *
-     * @param request the HTTPServlet request object.
-     * @param response the HTTPServlet response object.
+     * @param request      the HTTPServlet request object.
+     * @param response     the HTTPServlet response object.
      * @param errorMessage a String containing the particular error message.
      */
-    protected void handleException(HttpServletRequest request, HttpServletResponse response, String errorMessage) {
+    public void handleException(HttpServletRequest request, HttpServletResponse response, String errorMessage) {
         try {
             request.getSession().setAttribute("errormessage", errorMessage);
             request.setAttribute("page", "home");

@@ -5,7 +5,6 @@ import com.mdbytes.app.model.Product;
 import com.mdbytes.app.model.User;
 
 import java.io.IOException;
-import java.sql.CallableStatement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -175,6 +174,8 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
      *
      * @param userId an integer
      * @return a list of alert objects.
+     * @throws SQLException if one occurs
+     * @throws IOException  if one occurs
      */
     public List<Alert> getAll(int userId) throws SQLException, IOException {
         List<Alert> userAlerts = new ArrayList<Alert>();
@@ -183,9 +184,9 @@ public class AlertDAO_MySQL extends DAO_MySQL implements DAO<Alert> {
 
         DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
         connection = DriverManager.getConnection(dbUrl, username, password);
-        CallableStatement statement = connection.prepareCall("{call get_user_alerts(?)}");
-        statement.setInt(1, userId);
-        resultSet = statement.executeQuery();
+        callableStatement = connection.prepareCall("{call get_user_alerts(?)}");
+        callableStatement.setInt(1, userId);
+        resultSet = callableStatement.executeQuery();
         Alert alert = null;
         while (resultSet.next()) {
             alert = new Alert(

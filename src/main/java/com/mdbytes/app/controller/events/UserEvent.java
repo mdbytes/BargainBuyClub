@@ -1,4 +1,4 @@
-package com.mdbytes.app.controller;
+package com.mdbytes.app.controller.events;
 
 import com.mdbytes.app.model.User;
 
@@ -21,6 +21,7 @@ public class UserEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean registerUserBeta(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -44,6 +45,7 @@ public class UserEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean registerUser(HttpServletRequest request, HttpServletResponse response) {
 
@@ -105,6 +107,7 @@ public class UserEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean editUser(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -136,6 +139,7 @@ public class UserEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean deleteUser(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -159,6 +163,7 @@ public class UserEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean loginUser(HttpServletRequest request, HttpServletResponse response) {
 
@@ -209,12 +214,13 @@ public class UserEvent extends Event {
      *
      * @param request  servlet request
      * @param response servlet response
+     * @return true or false depending on method success or failure
      */
     public boolean logoutUser(HttpServletRequest request, HttpServletResponse response) {
         try {
             request.getSession().invalidate();
             request.setAttribute("page", "home");
-            response.sendRedirect(request.getContextPath() + "/main?action=home");
+            response.sendRedirect(request.getContextPath());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

@@ -21,6 +21,7 @@
     String sessionID = "";
     String isAdmin = "";
     String adminView = "false";
+    String priceAlertNumber = "";
     NumberFormat cf = NumberFormat.getCurrencyInstance();
 
     // Checking to see if an active session is in process
@@ -32,6 +33,10 @@
         isAdmin = request.getSession().getAttribute("admin").toString();
         adminView = request.getSession().getAttribute("admin-view").toString();
         sessionID = request.getSession().getId();
+        if (request.getSession().getAttribute("price-alert-number") != null) {
+            priceAlertNumber = request.getSession().getAttribute("price-alert-number").toString();
+        }
+
         if (request.getSession().getAttribute("admin-page") == "true") {
             alerts = (ArrayList<Alert>) request.getSession().getAttribute("system-alerts");
         } else {
@@ -54,7 +59,8 @@
             <table class="table" id="display-alerts-table">
                 <tr>
                     <th>Alert ID</th>
-                    <th>Product Name</th>
+                    <th>Store</th>
+                    <th>Product</th>
                     <th>Current Price</th>
                     <th>Alert Price</th>
                     <th></th>
@@ -66,6 +72,9 @@
                             out.print("<td>");
                             out.print(alert.getAlertID());
                             out.print("</td>");
+                            out.print("<td><b>");
+                            out.print(alert.getProduct().getStore().getStoreName());
+                            out.print("</b></td>");
                             out.print("<td>");
                             out.print(alert.getProduct().getProductName());
                             out.print("</td>");
@@ -199,6 +208,9 @@
             </div>
             <span class="error-message" style="clear:both;"></span>
 
+                <% if(!priceAlertNumber.equals("")) {%>
+            <p>There were <%= priceAlertNumber %> alerts successfully emailed. </p>
+                <%}%>
 </main>
 
 <%-- include pageBottom for footer and scripts --%>

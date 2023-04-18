@@ -37,9 +37,11 @@ public class StoreDAO_MySQL extends DAO_MySQL implements DAO<Store> {
     }
 
     /**
+     * Method gets a store object from the database
+     *
      * @param id a unique identifier, an integer.
-     * @return
-     * @throws SQLException
+     * @return a Store object
+     * @throws SQLException if one occurs
      */
     @Override
     public Store get(int id) throws SQLException {
@@ -126,7 +128,7 @@ public class StoreDAO_MySQL extends DAO_MySQL implements DAO<Store> {
      * Retrievs all store objects from the database
      *
      * @return a list of Store objects
-     * @throws SQLException
+     * @throws SQLException if one occurs
      */
     @Override
     public List<Store> getAll() throws SQLException {

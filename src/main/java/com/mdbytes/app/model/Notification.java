@@ -31,14 +31,14 @@ public class Notification {
         Email to = new Email(user.getEmailAddress());
         String message = "We've got exciting news!  You have a bargain to purchase.  Check it out: \n\n";
         for (Alert alert : alerts) {
-            message += "----------------------------------------";
+            message += "----------------------------------------\n";
             message += "Product: " + alert.getProduct().getProductName() + "\n";
             message += "Your target price:  $" + alert.getAlertPrice() + "\n";
             message += "Recent price:       $" + alert.getProduct().getProductPrice() + "\n";
-            message += "----------------------------------------";
+            message += "----------------------------------------\n";
         }
-        message += "Login to the app if you would like to review or adjust your alerts:";
-        message += "https://bargain-buy-club.herokuapp.com";
+        message += "\n\nLogin to the app if you would like to review or adjust your alerts:\n\n";
+        message += "https://bargain-buy-club.herokuapp.com\n\n";
 
         Content content = new Content("text/plain", message);
         Mail mail = new Mail(from, subject, to, content);

@@ -43,9 +43,13 @@ public class Product {
      * Constructor to create product from the product page URL address and the
      * store which the product came from.
      *
-     * @param productUrl the URL address where the product page is located
-     * @param store      a Store object representing where the product seller
+     * @param productUrl   the URL address where the product page is located
+     * @param store        a Store object representing where the product seller
+     * @param productName  the product name
+     * @param productPrice the most recent price of the product
+     * @param lastUpdated  the date the product was last updated.
      */
+
     public Product(String productUrl, Store store, String productName, double productPrice, Date lastUpdated) {
         this.productID = 0;
         this.productUrl = productUrl;

@@ -1,6 +1,6 @@
-package com.mdbytes.app;
+package com.mdbytes.app.controller.servlets;
 
-import com.mdbytes.app.controller.HomeEvent;
+import com.mdbytes.app.controller.events.HomeEvent;
 import com.mdbytes.app.model.Alert;
 
 import javax.servlet.ServletException;

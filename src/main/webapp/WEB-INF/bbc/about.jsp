@@ -87,6 +87,25 @@
         </button>
     </div>
 
+    <div class="admin">
+        <h3 class="mb-3">System Administration</h3>
+        <div class="row py-3">
+            <div class="col col-md-4"><h4>Daily Tasks</h4>
+                <p>System administration takes care of itself with regularly scheduled price updates and email
+                    notifications for subscribers.</p></div>
+            <div class="col col-md-8"><img src="images/screenshots/17-admin-functions.png" class="img-fluid"
+                                           alt="admin functions"></div>
+        </div>
+        <hr/>
+        <div class="row py-3">
+            <div class="col col-md-4"><h4>Email Notifications</h4>
+                <p>Alert email notifications include the product name and description, as well as the current price that
+                    triggered the alert.</p></div>
+            <div class="col col-md-8"><img src="images/screenshots/16-notifications.png" class="img-fluid"
+                                           alt="admin functions"></div>
+        </div>
+    </div>
+
     <div class="upcoming">
         <h3 class="my-3 pb-2">Upcoming Changes</h3>
 
