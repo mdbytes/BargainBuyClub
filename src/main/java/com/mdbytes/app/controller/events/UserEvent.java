@@ -1,10 +1,13 @@
 package com.mdbytes.app.controller.events;
 
+import com.mdbytes.app.model.Alert;
 import com.mdbytes.app.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class extends Event to handle events related to user and user objects.
@@ -25,11 +28,10 @@ public class UserEvent extends Event {
      */
     public boolean registerUserBeta(HttpServletRequest request, HttpServletResponse response) {
         try {
-            request.setAttribute("errormessage", "Registration disabled during beta development phase.");
+            request.setAttribute("errormessage", "Registration disabled during beta development phase. You will be forwarded back to the home page when this alert is closed.");
             request.setAttribute("sign-up-error-message", "Registration disabled during this development phase.");
             request.setAttribute("page", "home");
-            handleException(request, response, "User registration not allowed at this time.  Try again later.");
-            //request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +58,6 @@ public class UserEvent extends Event {
             String lastName = request.getParameter("last-name");
 
             if (userDao.get(userName).getUserID() == 0) {
-                System.out.println(firstName + "," + lastName + "," + userName + "," + password);
                 String[] args = {firstName, lastName, userName, password, String.valueOf(false)};
                 User newUser = new User();
                 newUser.setFirstName(firstName);
@@ -88,7 +89,6 @@ public class UserEvent extends Event {
                 request.getRequestDispatcher("WEB-INF/bbc/displayAlerts.jsp").forward(request, response);
             } else {
                 request.setAttribute("errormessage", "Email address already exists in database");
-                System.out.println(request.getAttribute("sign-up-error-message").toString());
                 request.setAttribute("page", "login");
                 request.getRequestDispatcher("WEB-INF/bbc/login.jsp").forward(request, response);
             }
@@ -171,7 +171,6 @@ public class UserEvent extends Event {
             if (request.getParameter("username") != null) {
                 String userName = request.getParameter("username");
                 String password = request.getParameter("password");
-                System.out.println(userName + " , " + password);
                 if (userDao.validateUser(userName, password)) {
                     User currentUser = userDao.get(userName);
                     int userID = currentUser.getUserID();
@@ -219,8 +218,16 @@ public class UserEvent extends Event {
     public boolean logoutUser(HttpServletRequest request, HttpServletResponse response) {
         try {
             request.getSession().invalidate();
+            HomeEvent homeEvent = new HomeEvent(request, response);
+            List<Alert> homeAlerts = null;
+            if (request.getAttribute("homeAlerts") != null) {
+                homeAlerts = (ArrayList<Alert>) request.getAttribute("homeAlerts");
+            } else {
+                homeAlerts = homeEvent.loadHome();
+                request.setAttribute("homeAlerts", homeAlerts);
+            }
             request.setAttribute("page", "home");
-            response.sendRedirect(request.getContextPath());
+            request.getRequestDispatcher("WEB-INF/bbc/index.jsp").forward(request, response);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -229,6 +236,4 @@ public class UserEvent extends Event {
             return false;
         }
     }
-
-
 }

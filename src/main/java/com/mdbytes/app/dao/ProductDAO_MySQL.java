@@ -175,6 +175,7 @@ public class ProductDAO_MySQL extends DAO_MySQL implements DAO<Product> {
             products.add(product);
         }
         closeConnections();
+
         return products;
     }
 }

@@ -95,7 +95,7 @@ public class AlertEvent extends Event {
             User user = (User) request.getSession().getAttribute("user");
             int alertID = Integer.parseInt(request.getParameter("alert-id"));
             double alertPrice = Double.parseDouble(request.getParameter("alert-price"));
-            System.out.println(request.getSession().getAttribute("user-id"));
+
             alertDao.update(alertID, alertPrice);
             request.getSession().setAttribute("useralerts", alertDao.getAll(user.getUserID()));
             request.getSession().setAttribute("system-alerts", alertDao.getAll());

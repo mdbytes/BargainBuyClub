@@ -41,7 +41,7 @@
     }
 
 %>
-
+<jsp:include page="includes/error-handling.jsp"/>
 <!-- main page HTML content begins here -->
 <main id="add-alert-page" class="container">
 

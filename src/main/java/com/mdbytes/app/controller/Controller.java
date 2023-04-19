@@ -102,10 +102,8 @@ public class Controller extends HttpServlet {
 
                 default:
                     request.getSession().invalidate();
-                    success = homeEvent.goHome(request, response);
-                    if (!success) {
-                        response.sendRedirect(request.getContextPath());
-                    }
+                    homeEvent.goHome(request, response);
+                    
             }
         } catch (Exception e) {
             e.printStackTrace();

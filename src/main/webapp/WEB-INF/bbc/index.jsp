@@ -7,6 +7,7 @@
 <%@page import="java.util.ArrayList,java.text.NumberFormat" %>
 <%@ page import="com.mdbytes.app.model.Alert" %>
 <%@ page import="com.mdbytes.app.controller.events.HomeEvent" %>
+<%@ page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <%-- include navbar and meta data, page sources and styles --%>
@@ -14,19 +15,14 @@
 
 <%-- loading home page alerts --%>
 <%
-    ArrayList<Alert> alerts = (ArrayList<Alert>) request.getAttribute("homeAlerts");
+    List<Alert> alerts = (ArrayList<Alert>) request.getAttribute("homeAlerts");
     NumberFormat cf = NumberFormat.getCurrencyInstance();
-    String errorMessage = "";
-    if (request.getSession().getAttribute("errormessage") != null) {
-        errorMessage = (String) request.getSession().getAttribute("errormessage");
-        request.getSession().setAttribute("errormessage", null);
-    }
 %>
+
+<jsp:include page="includes/error-handling.jsp"/>
 
 <!-- HTML for main page begins here -->
 <main class="container-fluid">
-    <div id="error-message" style="visibility: hidden"><%= errorMessage %>
-    </div>
 
     <!-- Page consists of one row containing two columns  -->
     <div class="row">
@@ -89,31 +85,7 @@
         </div>
     </div>
 
-    <!-- Button trigger modal -->
-    <button id="launch-error-button" type="button" class="btn btn-primary" data-bs-toggle="modal"
-            data-bs-target="#errorModal"
-            style="visibility: hidden">
-        Launch error modal
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="errorModalLabel">Oops! Sorry!</h1>
-                    <button id="close-modal-btn" type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <%= errorMessage %>
-                </div>
-                <div class="modal-footer">
-
-                </div>
-            </div>
-        </div>
-    </div>
 </main>
 
 <%-- include footer document which contains page scripts  --%>

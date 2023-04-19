@@ -33,7 +33,6 @@ public class ProductScraper {
      */
     public double getProductPrice(String productURL) throws IOException {
         double price = 0.0;
-        System.out.println("Trying to retrieve price");
         Document doc = Jsoup.connect(productURL).ignoreContentType(true)
                 .referrer("http://www.google.com")
                 .maxBodySize(Integer.MAX_VALUE)
@@ -44,7 +43,6 @@ public class ProductScraper {
                 .get();   //also tried .post()
         Elements htmlElements = doc.select(this.priceQuery);
         String stringPrice = "";
-        System.out.println(htmlElements);
         Pattern howToFindPrice = Pattern.compile("(\\d+.\\d+)");
         try {
             Matcher findingPrice = howToFindPrice.matcher(htmlElements.get(0).toString());
@@ -70,7 +68,6 @@ public class ProductScraper {
      * @throws IOException when I/O exceptions occur
      */
     public String getProductName(String productURL) throws IOException {
-        System.out.println("Trying to retrieve name");
         Document doc = Jsoup.connect(productURL).ignoreContentType(true)
                 .referrer("http://www.google.com")
                 .maxBodySize(Integer.MAX_VALUE)
@@ -80,9 +77,7 @@ public class ProductScraper {
                 .followRedirects(true)
                 .get();   //also tried .post()
 
-        System.out.println(doc);
         Element htmlElement = doc.select(this.productNameQuery).first();
-        System.out.println(htmlElement);
         String productName = htmlElement.text();
 
         return productName;

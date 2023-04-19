@@ -37,9 +37,10 @@
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 %>
-
+<jsp:include page="includes/error-handling.jsp"/>
 <!-- main page HTML content begins here -->
 <main id="display-users-page" class="container">
+
     <h1>Displaying All System Users
         <h1>
             <h6>Admin: <%= userName%>

@@ -4,9 +4,12 @@ import com.mdbytes.app.dao.AlertDAO_MySQL;
 import com.mdbytes.app.dao.ProductDAO_MySQL;
 import com.mdbytes.app.dao.StoreDAO_MySQL;
 import com.mdbytes.app.dao.UserDAO_MySQL;
+import com.mdbytes.app.model.Alert;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provides the framework for the application environment when a user session is underway. Initiates upon
@@ -68,9 +71,17 @@ public class Event {
      */
     public void handleException(HttpServletRequest request, HttpServletResponse response, String errorMessage) {
         try {
+            HomeEvent homeEvent = new HomeEvent(request, response);
             request.getSession().setAttribute("errormessage", errorMessage);
             request.setAttribute("page", "home");
-            response.sendRedirect(request.getContextPath());
+            List<Alert> homeAlerts = null;
+            if (request.getAttribute("homeAlerts") != null) {
+                homeAlerts = (ArrayList<Alert>) request.getAttribute("homeAlerts");
+            } else {
+                homeAlerts = homeEvent.loadHome();
+                request.setAttribute("homeAlerts", homeAlerts);
+            }
+            request.getRequestDispatcher("WEB-INF/bbc/index.jsp").forward(request, response);
         } catch (Exception e) {
             System.err.println("App won't deliver home page!  Ran out of luck!!  Crap!!!");
         }

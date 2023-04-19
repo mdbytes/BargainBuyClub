@@ -35,6 +35,7 @@
         sessionID = request.getSession().getId();
         if (request.getSession().getAttribute("price-alert-number") != null) {
             priceAlertNumber = request.getSession().getAttribute("price-alert-number").toString();
+            request.getSession().setAttribute("price-alert-number", null);
         }
 
         if (request.getSession().getAttribute("admin-page") == "true") {
@@ -47,7 +48,7 @@
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 %>
-
+<jsp:include page="includes/error-handling.jsp"/>
 <!-- main page HTML content begins here -->
 <main id="display-alerts-page" class="container">
     <h1>Displaying Price Alerts

@@ -20,11 +20,14 @@
     if (request.getAttribute("sign-up-error-message") != null) {
         signUpErrorMessage = request.getAttribute("sign-up-error-message").toString();
     }
-    out.println(signUpErrorMessage);
+    
 %>
+
+<jsp:include page="includes/error-handling.jsp"/>
 
 <!-- main page HTML content begins here -->
 <main id="login-page" class="container">
+
 
     <!-- Format of page is in two rows -->
     <!-- First row is for existing users to sign in -->

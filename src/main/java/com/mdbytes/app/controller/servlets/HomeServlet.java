@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,14 +29,22 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HomeEvent homeEvent = new HomeEvent(request, response);
-        List<Alert> homeAlerts = null;
+        List<Alert> homeAlerts = new ArrayList<>();
         try {
-            homeAlerts = homeEvent.loadHome();
-        } catch (SQLException e) {
+            if (request.getAttribute("homeAlerts") != null) {
+                homeAlerts = (ArrayList<Alert>) request.getAttribute("homeAlerts");
+            } else {
+                homeAlerts = homeEvent.loadHome();
+                request.setAttribute("homeAlerts", homeAlerts);
+            }
+            request.setAttribute("page", "home");
+            request.getRequestDispatcher("WEB-INF/bbc/index.jsp").forward(request, response);
+        } catch (Exception e) {
             e.printStackTrace();
+            System.err.println("Trouble in HomeServlet");
+            request.setAttribute("errormessage", "Cannot retrieve alerts at this time.");
+            request.setAttribute("page", "home");
+            request.getRequestDispatcher("WEB-INF/bbc/index.jsp").forward(request, response);
         }
-        request.setAttribute("homeAlerts", homeAlerts);
-        request.setAttribute("page", "home");
-        request.getRequestDispatcher("WEB-INF/bbc/index.jsp").forward(request, response);
     }
 }
