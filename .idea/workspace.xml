@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="BargainBuyClub:war" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b85342c1-5e90-41ac-8b09-2e610b27d907" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="CSS File" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="Class" />
+        <option value="Jsp File" />
+      </list>
+    </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProjectId" id="2HYAGl6099C0eFW2Z4nHWYE2pzQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/marty/Documents/SoftwareRepository/BargainBuyClubSpringMvc&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.24164346&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/database" />
+      <recent name="$PROJECT_DIR$/src/main/webapp" />
+      <recent name="$PROJECT_DIR$/diagrams" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/images" />
+      <recent name="$PROJECT_DIR$/src/main/java/bargain/model/data" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/bbc" />
+      <recent name="$PROJECT_DIR$/src/main/webapp" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/templates" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/inc" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/students" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.mdbytes.app.controller.servlets" />
+      <recent name="com.mdbytes.app.controller" />
+      <recent name="app.controller" />
+      <recent name="bargain.controller.events" />
+      <recent name="edu.foobar.model" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.mdbytes.app" />
+      <recent name="app.controller.events" />
+      <recent name="bargain.model.data" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.69">
+    <configuration name="Tomcat 10.0.27" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.0.27" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+      <deployment>
+        <artifact name="BargainBuyClub:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/BargainBuyClub_war_exploded" />
+          </settings>
+        </artifact>
+        <artifact name="section-06-jdbc:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/section_06_jdbc_war_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="00c77f23-7c5b-4376-875f-0835d0296847" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="43885" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="BargainBuyClub:war exploded" />
+          <artifact name="section-06-jdbc:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <configuration name="Tomcat 9.0.69" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.69" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="BargainBuyClub:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/BargainBuyClub_war_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="0f303b46-5f44-4b7f-8a58-c9708cc9de55" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="45431" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="BargainBuyClub:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Tomcat Server.Tomcat 10.0.27" />
+      <item itemvalue="Tomcat Server.Tomcat 9.0.69" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b85342c1-5e90-41ac-8b09-2e610b27d907" name="Changes" comment="" />
+      <created>1668451550840</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1668451550840</updated>
+      <workItem from="1668451551914" duration="4020000" />
+      <workItem from="1668456354276" duration="123000" />
+      <workItem from="1668467067980" duration="17638000" />
+      <workItem from="1668600393857" duration="13139000" />
+      <workItem from="1668618194594" duration="80000" />
+      <workItem from="1680712193463" duration="6697000" />
+      <workItem from="1680733367490" duration="562000" />
+      <workItem from="1680805008523" duration="6819000" />
+      <workItem from="1680815734743" duration="835000" />
+      <workItem from="1680864186487" duration="18257000" />
+      <workItem from="1680889808973" duration="5359000" />
+      <workItem from="1681040556005" duration="6433000" />
+      <workItem from="1681135393822" duration="8108000" />
+      <workItem from="1681147935116" duration="8324000" />
+      <workItem from="1681221664229" duration="4347000" />
+      <workItem from="1681235263804" duration="11744000" />
+      <workItem from="1681293555898" duration="12972000" />
+      <workItem from="1681310784297" duration="2369000" />
+      <workItem from="1681330791013" duration="7022000" />
+      <workItem from="1681390345103" duration="3263000" />
+      <workItem from="1681393619246" duration="14299000" />
+      <workItem from="1681410297639" duration="4800000" />
+      <workItem from="1681422532581" duration="2518000" />
+      <workItem from="1681478357873" duration="15582000" />
+      <workItem from="1681495765539" duration="10253000" />
+      <workItem from="1681507727036" duration="397000" />
+      <workItem from="1681510465573" duration="680000" />
+      <workItem from="1681645523726" duration="14676000" />
+      <workItem from="1681726264608" duration="19363000" />
+      <workItem from="1681807241081" duration="837000" />
+      <workItem from="1681812870596" duration="166000" />
+      <workItem from="1681814236674" duration="1062000" />
+      <workItem from="1681818168273" duration="349000" />
+      <workItem from="1681822153158" duration="621000" />
+      <workItem from="1681825704636" duration="25000" />
+      <workItem from="1681849547263" duration="2477000" />
+      <workItem from="1681899238398" duration="82000" />
+      <workItem from="1681899331794" duration="7008000" />
+      <workItem from="1681917960089" duration="171000" />
+      <workItem from="1682003734750" duration="247000" />
+      <workItem from="1682019303071" duration="78000" />
+      <workItem from="1682019391068" duration="59000" />
+      <workItem from="1686857849058" duration="221000" />
+      <workItem from="1686858749369" duration="138000" />
+      <workItem from="1686858898178" duration="987000" />
+    </task>
+    <task id="LOCAL-00001" summary="Updates and refactoring">
+      <created>1681396487383</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681396487383</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Adding LICENSE.md">
+      <created>1681396547090</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681396547090</updated>
+    </task>
+    <task id="LOCAL-00003" summary="About page content">
+      <created>1681399265386</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1681399265386</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Adjust navbar active link class">
+      <created>1681402186679</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1681402186679</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Privacy and Contact page content">
+      <created>1681405033922</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681405033922</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Disabling user registration for beta phase">
+      <created>1681410370577</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1681410370577</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Update README.md">
+      <created>1681410717761</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681410717761</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Update diagrams">
+      <created>1681412235327</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1681412235327</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Update diagrams">
+      <created>1681412483384</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1681412483384</updated>
+    </task>
+    <task id="LOCAL-00010" summary="About page styling">
+      <created>1681414713939</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1681414713939</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Moved all exception handling to event classes">
+      <created>1681493799971</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1681493799971</updated>
+    </task>
+    <task id="LOCAL-00012" summary="DB update and refactor to minimize scraping">
+      <created>1681506302919</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1681506302919</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Refactor to make price updates autonomous">
+      <created>1681507426482</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1681507426482</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Refactor AlertDAO to stored procedures">
+      <created>1681650557026</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1681650557026</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Javadocs for AlertDAO_MySQL">
+      <created>1681651101947</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1681651101947</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Refactored ProductDAO_MySQL to stored procedures">
+      <created>1681653512223</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1681653512223</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Refactored StoreDAO_MySQL to stored procedures">
+      <created>1681657905550</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1681657905551</updated>
+    </task>
+    <task id="LOCAL-00018" summary="UserDAO_MySQL update and refactor">
+      <created>1681660236032</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1681660236032</updated>
+    </task>
+    <task id="LOCAL-00019" summary="All exception handling Events">
+      <created>1681661621981</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1681661621981</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Refactor DAO_MySQL">
+      <created>1681727730811</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1681727730811</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added notifications with SendGrid">
+      <created>1681729820722</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1681729820722</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Refactoring">
+      <created>1681814335097</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1681814335097</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Refactoring">
+      <created>1681817848109</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1681817848109</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Database chart">
+      <created>1681817888475</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1681817888475</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Exception handling and refactoring">
+      <created>1681905999814</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1681905999814</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Exception handling and refactoring">
+      <created>1686859092594</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1686859092594</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Updates and refactoring" />
+    <MESSAGE value="Adding LICENSE.md" />
+    <MESSAGE value="About page content" />
+    <MESSAGE value="Adjust navbar active link class" />
+    <MESSAGE value="Privacy and Contact page content" />
+    <MESSAGE value="Disabling user registration for beta phase" />
+    <MESSAGE value="Update README.md" />
+    <MESSAGE value="Update diagrams" />
+    <MESSAGE value="About page styling" />
+    <MESSAGE value="Moved all exception handling to event classes" />
+    <MESSAGE value="DB update and refactor to minimize scraping" />
+    <MESSAGE value="Refactor to make price updates autonomous" />
+    <MESSAGE value="Refactor AlertDAO to stored procedures" />
+    <MESSAGE value="Javadocs for AlertDAO_MySQL" />
+    <MESSAGE value="Refactored ProductDAO_MySQL to stored procedures" />
+    <MESSAGE value="Refactored StoreDAO_MySQL to stored procedures" />
+    <MESSAGE value="UserDAO_MySQL update and refactor" />
+    <MESSAGE value="All exception handling Events" />
+    <MESSAGE value="Refactor DAO_MySQL" />
+    <MESSAGE value="Added notifications with SendGrid" />
+    <MESSAGE value="Refactoring" />
+    <MESSAGE value="Database chart" />
+    <MESSAGE value="Exception handling and refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Exception handling and refactoring" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
