@@ -1,0 +1,17 @@
+.site-links,
+.login-logout-links {
+  display: flex;
+  flex-direction: row;
+
+  @include media-breakpoint-down(lg) {
+    flex-direction: column;
+  }
+}
+
+nav {
+  margin-bottom: 0 !important;
+}
+
+.navbar {
+  padding: 0.5rem 5%;
+}

@@ -1,0 +1,18 @@
+// scss-docs-start theme-color-variables
+
+// scss-docs-end theme-color-variables
+
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+// Resetting dark backgrounds to match the color theme
+.bg-dark {
+  background-color: $primary;
+  border-color: $primary;
+}
+
+.modal-backdrop {
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
+$borderRadius: 0.5rem;

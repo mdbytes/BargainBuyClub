@@ -1,0 +1,59 @@
+/*
+
+Styling for Privacy
+
+*/
+
+.privacy-main {
+  width: 100%;
+  min-height: 80vh;
+  padding: 2em 5% 4em 5%;
+  background-color: #f2f2f2;
+}
+
+.privacy-main p {
+  font-size: 1.15rem;
+
+  @include media-breakpoint-down(md) {
+    font-size: 1rem;
+  }
+}
+
+#privacy-content {
+  max-width: 1200px;
+
+  .overview {
+    h2 {
+      font-size: 2rem;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding-left: 0;
+    padding-right: 5%;
+    font-size: 1rem;
+  }
+
+  ol {
+    margin-left: 0;
+  }
+
+  li {
+    margin-bottom: 2rem;
+    margin-left: 0.5rem;
+
+    h4 {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+  }
+
+  li::marker {
+    font-size: 1.2em;
+
+    font-weight: 700;
+  }
+}

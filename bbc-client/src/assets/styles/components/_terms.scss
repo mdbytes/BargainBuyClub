@@ -1,0 +1,101 @@
+#terms-content {
+  .overview {
+    h2 {
+      font-size: 3rem;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    h5 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    p {
+      font-weight: bold;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+
+  #terms-list {
+    li {
+      padding-left: 1rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+
+      &::marker {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-right: 1.25rem;
+      }
+    }
+
+    .indemnify-list,
+    .eligibility-list,
+    #misc-list,
+    .warranty-list,
+    .payments-list,
+    .termination-list,
+    .restrictions-list,
+    .domain-services-list,
+    .dev-services-list {
+      list-style-type: lower-alpha;
+
+      li {
+        padding-left: 1rem;
+
+        &::marker {
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .phase-list,
+    .warranty-no-no-list,
+    .revision-list {
+      list-style-type: lower-roman;
+
+      li {
+        padding-left: 1.5rem;
+
+        &::marker {
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .deployment-list,
+    .revision-stuff,
+    .dev-interview {
+      list-style-type: lower-greek;
+
+      li {
+        padding-left: 1rem;
+
+        &::marker {
+          font-size: 1rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+@media print {
+  nav,
+  .navbar {
+    display: none;
+  }
+
+  .page-top {
+    display: none;
+  }
+
+  .footer {
+    display: none;
+  }
+}

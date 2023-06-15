@@ -1,0 +1,77 @@
+/* 
+ * File:        login.css
+ * Author:      Martin Dwyer
+ * Date:        March 1, 2020
+ * Description: This file is part of the BargainBuyClub application.
+ * License:     The application is provide herein under the GNU General Public 
+ *              License, a free copyleft license for software.  A copy of this 
+ *              license has been provided in the root folder of this application.
+ */
+
+/* Styles for elements on login.jsp */
+
+#login-page {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+#signin {
+    width: 100%;
+}
+
+.sign-in-input {
+    width: 260px;
+    float: left;
+    margin-right: 5%;
+
+}
+
+form .btn {
+    clear: both;
+}
+
+#signup {
+    width: 100%;
+    margin-bottom: 25px;
+
+}
+
+.sign-up-input {
+    width: 260px;
+    float: left;
+    margin-right: 5%;
+}
+
+
+#shopper-home {
+    margin: 0 auto;
+    width: 100%;
+}
+
+#shopper-home img {
+    display: block;
+    width: 200px;
+    height: auto;
+    margin: 2rem auto;
+
+}
+
+#shopper-home h2,
+#shopper-home h5 {
+    text-align: center;
+}
+
+#home-right-column > div > h5 {
+    text-align: center;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+
+#sign-out {
+    display: inline;
+    float: right;
+}
+
+
