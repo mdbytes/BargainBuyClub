@@ -8,7 +8,7 @@ export const addAlert = async (e) => {
   let productId = await getProductId(productUrl, storeId);
   try {
     let res = await axios.post(
-      'http://localhost:8080/api/v1/admin/alerts/add',
+      'https://bbc-server.mdbytes.us/api/v1/admin/alerts/add',
       {
         productId: productId,
         userId: userId,
@@ -25,7 +25,7 @@ export const addAlert = async (e) => {
 export const deleteAlert = async (e, alertId) => {
   console.log('alert', alertId);
   try {
-    let requestUrl = 'http://localhost:8080/api/v1/alerts/' + alertId;
+    let requestUrl = 'https://bbc-server.mdbytes.us/api/v1/alerts/' + alertId;
     let res = await axios.delete(requestUrl);
     return res;
   } catch (err) {
@@ -38,7 +38,7 @@ export const deleteAlert = async (e, alertId) => {
 const getProductId = async (productUrl, storeId) => {
   try {
     let res = await axios.post(
-      'http://localhost:8080/api/v1/admin/products/url',
+      'https://bbc-server.mdbytes.us/api/v1/admin/products/url',
       {
         productUrl: productUrl,
       }
@@ -47,7 +47,7 @@ const getProductId = async (productUrl, storeId) => {
       return res.data.productId;
     } else {
       let res2 = await axios.post(
-        'http://localhost:8080/api/v1/admin/products/add',
+        'https://bbc-server.mdbytes.us/api/v1/admin/products/add',
         {
           productUrl: productUrl,
           storeId: storeId,
@@ -63,7 +63,9 @@ const getProductId = async (productUrl, storeId) => {
 export const getHomeAlerts = async () => {
   let alerts = [];
   try {
-    let res = await axios.get('http://localhost:8080/api/v1/users/1/alerts');
+    let res = await axios.get(
+      'https://bbc-server.mdbytes.us/api/v1/users/1/alerts'
+    );
     let rawAlerts = res.data._embedded.alerts;
     for (let rawAlert of rawAlerts) {
       let alert = {
@@ -99,7 +101,8 @@ export const getHomeAlerts = async () => {
 export const getAlertsByUserId = async (id) => {
   let alerts = [];
   try {
-    let requestUrl = 'http://localhost:8080/api/v1/users/' + id + '/alerts';
+    let requestUrl =
+      'https://bbc-server.mdbytes.us/api/v1/users/' + id + '/alerts';
     let res = await axios.get(requestUrl);
     let rawAlerts = res.data._embedded.alerts;
     for (let rawAlert of rawAlerts) {
@@ -135,7 +138,7 @@ export const getAlertsByUserId = async (id) => {
 export const getAllAlerts = async () => {
   let alerts = [];
   try {
-    let requestUrl = 'http://localhost:8080/api/v1/alerts';
+    let requestUrl = 'https://bbc-server.mdbytes.us/api/v1/alerts';
     let res = await axios.get(requestUrl);
     let rawAlerts = res.data._embedded.alerts;
     for (let rawAlert of rawAlerts) {
@@ -171,7 +174,7 @@ export const getAllAlerts = async () => {
 
 export const getAlertById = async (id) => {
   try {
-    let requestUrl = 'http://localhost:8080/api/v1/alerts/' + id;
+    let requestUrl = 'https://bbc-server.mdbytes.us/api/v1/alerts/' + id;
     let res = await axios.get(requestUrl);
     let rawAlert = res.data;
     let alert = {

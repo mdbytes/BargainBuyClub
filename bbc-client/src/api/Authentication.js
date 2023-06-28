@@ -3,7 +3,7 @@ import axios from 'axios';
 export const authenticateUser = async (email, password) => {
   try {
     const res = await axios.post(
-      'http://localhost:8080/api/v1/auth/authenticate',
+      'https://bbc-server.mdbytes.us/api/v1/auth/authenticate',
       {
         email: email,
         password: password,
@@ -17,13 +17,16 @@ export const authenticateUser = async (email, password) => {
 
 export const registerUser = async (firstName, lastName, email, password) => {
   try {
-    const res = await axios.post('http://localhost:8080/api/v1/auth/register', {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-    });
-
+    const res = await axios.post(
+      'https://bbc-server.mdbytes.us/api/v1/auth/register',
+      {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      }
+    );
+    console.log('res', res);
     return res.data;
   } catch (err) {
     console.log(err);
@@ -34,7 +37,9 @@ export const registerUser = async (firstName, lastName, email, password) => {
 
 export const logoutUser = async (e) => {
   try {
-    let res = await axios.get('http://localhost:8080/api/v1/auth/logout');
+    let res = await axios.get(
+      'https://bbc-server.mdbytes.us/api/v1/auth/logout'
+    );
     return res;
   } catch (err) {
     console.log(err);

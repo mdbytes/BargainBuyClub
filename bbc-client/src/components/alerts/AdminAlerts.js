@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AppContext } from '../../app/context/AppContext';
 import { useNavigate } from 'react-router-dom';
 import { getAllAlerts } from '../../api';
 import { AddAlert } from './AddAlert';
@@ -7,10 +8,11 @@ import { DeleteAlert } from './DeleteAlert';
 import { toCurrencyString } from '../../app/utils';
 
 const AdminAlerts = () => {
-  const [alerts, setAlerts] = useState([]);
   const [userId, setUserId] = useState(null);
   const [editAlert, setEditAlert] = useState(0);
   const [deleteAlert, setDeleteAlert] = useState(0);
+
+  const { user, alerts, setAlerts } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -43,9 +45,7 @@ const AdminAlerts = () => {
   return (
     <main id="display-alerts-page" className="container">
       <h1>Price Alerts</h1>
-      <h6 className="text-black">
-        User email: {localStorage.getItem('userEmail')}{' '}
-      </h6>
+      <h6 className="text-black">User email: {user.email} </h6>
 
       <table className="table table-striped" id="display-alerts-table">
         <thead>
@@ -64,7 +64,11 @@ const AdminAlerts = () => {
             ? alerts.map((alert) => (
                 <tr key={alert.alertId}>
                   <td>{alert.alertId}</td>
-                  <td>{alert.product.productName}</td>
+                  <td>
+                    <a href="{alert.product.productUrl}">
+                      {alert.product.productName}
+                    </a>
+                  </td>
                   <td>{toCurrencyString(alert.product.recentPrice)}</td>
                   <td>{toCurrencyString(alert.alertPrice)}</td>
                   <td>{alert.user.id}</td>

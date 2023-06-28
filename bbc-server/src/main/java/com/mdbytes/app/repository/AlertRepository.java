@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource
+@RepositoryRestResource(path = "alerts")
 public interface AlertRepository extends JpaRepository<Alert, Integer> {
     List<Alert> findByUser(User user);
 }

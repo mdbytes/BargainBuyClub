@@ -4,8 +4,15 @@ import { AppContext } from '../../app/context/AppContext';
 import megaPhone from '../../assets/images/megaphone.png';
 
 export const Login = () => {
-  const { loginSubmit, signupSubmit, loginError, signupError } =
+  const { loginSubmit, signupSubmit, loginError, signupError, setSignupError } =
     useContext(AppContext);
+
+  const handleDevSignUp = (e) => {
+    e.preventDefault();
+    setSignupError(
+      'Registration disabled. Contact us for an online demonstration. '
+    );
+  };
 
   return (
     <main id="login-page" className="container ">
@@ -75,7 +82,8 @@ export const Login = () => {
       <hr />
 
       <div className="row">
-        <form method="get" id="signup" onSubmit={(e) => signupSubmit(e)}>
+        {/* <form method="get" id="signup" onSubmit={(e) => signupSubmit(e)}> */}
+        <form method="get" id="signup">
           <div className="form-group">
             <h3>Or Sign Up</h3>
           </div>
@@ -155,7 +163,11 @@ export const Login = () => {
             </div>
           </div>
           <input type="text" name="action" className="hidden-element" />
-          <button type="submit" className="btn btn-primary btn-success">
+          <button
+            type="submit"
+            className="btn btn-primary btn-success"
+            onClick={(e) => handleDevSignUp(e)}
+          >
             Sign Up
           </button>
 

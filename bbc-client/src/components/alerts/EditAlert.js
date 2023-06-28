@@ -13,10 +13,11 @@ export const EditAlert = ({ userId, alertId, setAlerts, setEditAlert }) => {
 
   const handleEditAlertSubmit = async (e) => {
     e.preventDefault();
-    let requestUrl = 'http://localhost:8080/api/v1/alerts/' + alertId;
+    let requestUrl = 'https://bbc-server.mdbytes.us/api/v1/alerts/' + alertId;
     let res = await axios.put(requestUrl, {
       alertPrice: alertPrice,
     });
+    console.log('res', res);
     if (res.status === 200) {
       let newAlerts = await getAlertsByUserId(userId);
       setAlerts(newAlerts);

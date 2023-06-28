@@ -3,6 +3,7 @@ import shoppingCart from '../../assets/images/shopping-cart.png';
 import megaPhone from '../../assets/images/megaphone.png';
 import { getHomeAlerts } from '../../api/Alerts';
 import { toCurrencyString } from '../../app/utils';
+import { Loading } from '../../app/layout/Loading';
 
 export const Home = () => {
   const [homeAlerts, setHomeAlerts] = useState([]);
@@ -50,7 +51,7 @@ export const Home = () => {
           <p>
             Tell us the product and the price you want to pay. You can come back
             to the site to check your alerts. As an example, here are some items
-            we are tracking from the Amazon store online.
+            we are tracking from an online book store (web scraping test site).
           </p>
           <h3>Featured Price Alerts</h3>
 
@@ -82,6 +83,7 @@ export const Home = () => {
                 : ''}
             </tbody>
           </table>
+
           <p>
             When the online store price reaches your target, an email alert will
             automatically be sent to you.

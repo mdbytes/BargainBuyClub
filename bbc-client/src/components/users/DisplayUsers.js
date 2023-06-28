@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AppContext } from '../../app/context/AppContext';
 import { getAllUsers, editUser } from '../../api/Users';
 
 export const DisplayUsers = () => {
   const [users, setUsers] = useState([]);
+
+  const { user } = useContext(AppContext);
 
   const handlePromotion = async (user) => {
     let editedUser = {};
@@ -55,7 +58,7 @@ export const DisplayUsers = () => {
   return (
     <main id="display-users-page" className="container">
       <h1>Users</h1>
-      <h6 className="text-black">Admin: {localStorage.getItem('userEmail')}</h6>
+      <h6 className="text-black">Admin: {user.email}</h6>
 
       <table className="table" id="display-users-table">
         <thead>

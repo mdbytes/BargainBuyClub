@@ -1,6 +1,6 @@
 export const toCurrencyString = (n) => {
-  return n.toLocaleString('en-US', {
+  return n.toLocaleString('en-GB', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'GBP',
   });
 };

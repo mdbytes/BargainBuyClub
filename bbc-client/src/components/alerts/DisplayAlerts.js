@@ -44,7 +44,13 @@ const DisplayAlerts = () => {
               ? alerts.map((alert) => (
                   <tr key={alert.alertId}>
                     <td>{alert.alertId}</td>
-                    <td>{alert.product.productName}</td>
+
+                    <td>
+                      <a href="{alert.product.productUrl}">
+                        {alert.product.productName}
+                      </a>
+                    </td>
+
                     <td>{toCurrencyString(alert.product.recentPrice)}</td>
                     <td>{toCurrencyString(alert.alertPrice)}</td>
                     <td>

@@ -82,9 +82,10 @@ export const AppProvider = ({ children }) => {
     let password = e.target[3].value;
 
     try {
-      let data = registerUser(firstName, lastName, email, password);
+      let data = await registerUser(firstName, lastName, email, password);
+      console.log('data', data);
       let setup = await setLocalContext(data.userId, email, data.token);
-      console.log('context setup status: ' + setup.status);
+      console.log('context setup status', setup);
       navigate('/alerts', { replace: true });
     } catch (err) {
       console.log(err);
@@ -111,6 +112,7 @@ export const AppProvider = ({ children }) => {
         setSystemAlerts,
         loginError,
         signupError,
+        setSignupError,
         authenticatedUser,
         user,
         setUser,

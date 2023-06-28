@@ -72,7 +72,7 @@ export const AddAlert = ({ setAlerts }) => {
                       id="store-input"
                     >
                       <optgroup label="Select Store">
-                        <option value="1">Amazon.com</option>
+                        <option value="1">FictionalBooks.com</option>
                       </optgroup>
                     </select>
                   </div>
@@ -82,7 +82,7 @@ export const AddAlert = ({ setAlerts }) => {
                     <input
                       type="text"
                       name="product_url"
-                      placeholder="http://..."
+                      placeholder="http://books.toscrape.com/catalogue/..."
                       pattern="https?://.+"
                       title="Must be a valid url beginning with http:// or https://"
                       id="product-url"

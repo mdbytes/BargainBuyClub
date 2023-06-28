@@ -2,8 +2,9 @@ import React from 'react';
 import homeImage from '../../assets/images/screenshots/01-home-page.png';
 import loginRegister from '../../assets/images/screenshots/02-login-register.png';
 import addAlert from '../../assets/images/screenshots/04-add-alert.png';
-import editAlert from '../../assets/images/screenshots/05-revised-alerts.png';
-import adminFunctions from '../../assets/images/screenshots/17-admin-functions.png';
+import editAlert from '../../assets/images/screenshots/03-display-alerts.png';
+import adminUpdatePrices from '../../assets/images/screenshots/15-admin-update-prices.png';
+import adminSendNotifications from '../../assets/images/screenshots/16-admin-send-notifications.png';
 import notifications from '../../assets/images/screenshots/16-notifications.png';
 
 const About = () => {
@@ -134,15 +135,21 @@ const About = () => {
       <div class="admin">
         <h3 class="mb-3">System Administration</h3>
         <div class="row py-3">
-          <div class="col col-md-4">
-            <h4>Daily Tasks</h4>
-            <p>
-              System administration takes care of itself with regularly
-              scheduled price updates and email notifications for subscribers.
-            </p>
+          <div class="col col-md-6">
+            <h4>Update Prices</h4>
+            <img
+              src={adminUpdatePrices}
+              class="img-fluid"
+              alt="admin functions"
+            />
           </div>
-          <div class="col col-md-8">
-            <img src={adminFunctions} class="img-fluid" alt="admin functions" />
+          <div class="col col-md-6">
+            <h4>Send Notifications</h4>
+            <img
+              src={adminSendNotifications}
+              class="img-fluid"
+              alt="admin functions"
+            />
           </div>
         </div>
         <hr />
