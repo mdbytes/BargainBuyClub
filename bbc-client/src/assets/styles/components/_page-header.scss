@@ -1,0 +1,74 @@
+.page-header {
+  background-color: $primary;
+  min-height: 30vh;
+  color: $white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .page-header-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+
+    .logo-font {
+      font-size: 2rem;
+      font-weight: 800;
+      color: $secondary;
+    }
+  }
+
+  .page-header-text {
+    .heading {
+      text-shadow: 0.15rem 0.25rem 0.25rem $success;
+
+      margin-right: 1rem;
+
+      @include media-breakpoint-down(xl) {
+        font-size: 2.5rem;
+      }
+    }
+
+    i {
+      margin-top: 1rem;
+      font-size: 3rem;
+      text-shadow: 0.15rem 0.25rem 0.25rem $success;
+
+      @include media-breakpoint-down(xl) {
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  .site-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .jumbotron-header {
+      width: auto;
+
+      img {
+        margin: 0;
+        padding: 0;
+        height: 4vh;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-header-logo {
+    animation: page-header-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes page-header-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

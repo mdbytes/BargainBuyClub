@@ -1,0 +1,32 @@
+footer {
+  padding: 1rem 5%;
+
+  h5 {
+    color: $success;
+  }
+
+  .copyright {
+    a {
+      text-decoration: none;
+      color: $white;
+      font-weight: 800;
+      font-size: 110%;
+    }
+  }
+
+  .site-logo-holder {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-top: 1rem;
+
+    img {
+      animation: rotateElement;
+      animation-duration: 3s;
+      animation-direction: normal;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-play-state: running;
+    }
+  }
+}

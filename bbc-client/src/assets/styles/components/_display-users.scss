@@ -1,0 +1,31 @@
+/*
+ * File:        display-users.css
+ * Author:      Martin Dwyer
+ * Date:        March 1, 2020
+ * Description: This file is part of the BargainBuyClub application.
+ * License:     The application is provide herein under the GNU General Public
+ *              License, a free copyleft license for software.  A copy of this
+ *              license has been provided in the root folder of this application.
+ */
+
+/* Styles for elements on displayUsers.jsp */
+
+#display-users-page {
+  margin-bottom: 300px;
+  height: auto;
+
+  table {
+    tbody {
+      tr {
+        td:nth-child(6),
+        td:nth-child(7) {
+          width: 15%;
+
+          button {
+            font-size: 0.7rem;
+          }
+        }
+      }
+    }
+  }
+}

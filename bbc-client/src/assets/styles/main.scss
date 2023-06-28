@@ -1,0 +1,31 @@
+/*
+ * File:        main.css
+ * Author:      Martin Dwyer
+ * Date:        March 1, 2020
+ * Description: This file is part of the BargainBuyClub application.
+ * License:     The application is provide herein under the GNU General Public
+ *              License, a free copyleft license for software.  A copy of this
+ *              license has been provided in the root folder of this application.
+ */
+
+/* Styles used on multiple pages */
+@import './custom';
+@import './typography/site-wide';
+@import './components/navbar';
+@import './components/footer';
+@import './components/page-header';
+@import './components/back-to-top';
+@import './components/cookies-approval';
+@import './typography/media-queries';
+
+/* Page specific styles */
+@import './components/home';
+@import './components/about';
+@import './components/login';
+@import './components/add-alert';
+@import './components/display-alerts';
+@import './components/display-users';
+@import './components/privacy';
+@import './components/terms';
+@import './components/not-found';
+@import './components/contact';

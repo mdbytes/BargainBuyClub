@@ -1,0 +1,32 @@
+.home {
+  margin-top: 10px;
+  min-height: 75vh;
+
+  #home-left-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    #home-jumbo {
+      h1 {
+        margin-bottom: 3rem;
+      }
+      #home-page-megaphone {
+        width: 80%;
+        max-width: 500px;
+      }
+
+      h5 {
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  #shopper-home img {
+    display: block;
+    width: 100px;
+    height: auto;
+    margin: 2rem auto;
+  }
+}
